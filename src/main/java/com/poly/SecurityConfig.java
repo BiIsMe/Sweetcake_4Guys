@@ -1,8 +1,5 @@
 package com.poly;
 
-import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,12 +9,16 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
+import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
+import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
+import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
+import org.springframework.security.oauth2.client.web.HttpSessionOAuth2AuthorizationRequestRepository;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 
-import com.poly.entity.Account;
 import com.poly.service.AccountService;
+import com.poly.service.UserService;
 
 @Configuration
 @EnableWebSecurity
@@ -26,22 +27,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	AccountService accountService;
 	@Autowired
 	BCryptPasswordEncoder pe;
+	@Autowired
+	UserService user;
 	
 	//Cung cấp nguồn dữ liệu đăng nhập
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(username -> {
-			try {
-				Account user = accountService.findById(username);
-				String password = pe.encode(user.getPassword());
-				String[] roles = user.getAuthorities().stream()
-						.map(er -> er.getRole().getId())
-						.collect(Collectors.toList()).toArray(new String[0]);
-				return User.withUsername(username).password(password).roles(roles).build();				
-			} catch (NoSuchElementException e) {
-				throw new UsernameNotFoundException(username + "not found!");
-			}
-		});
+	protected void configure(AuthenticationManagerBuilder auth)   {
+		try {
+			auth.userDetailsService(user);
+		} catch (Exception e) {
+			throw new RuntimeException();
+		}
 	}
 	
 	// Phân quyền sử dụng
@@ -68,6 +64,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.logout()
 			.logoutUrl("/security/logoff")
 			.logoutSuccessUrl("/security/logoff/success");
+		
+		//OAuth2 - Login from social network
+				http.oauth2Login()
+					.loginPage("/security/login/form")
+					.defaultSuccessUrl("/oauth2/login/success",true)
+					.failureUrl("/security/login/error")
+					.authorizationEndpoint()
+						.baseUri("/oauth2/authorization")
+						.authorizationRequestRepository(getRepository())
+					.and().tokenEndpoint()
+						.accessTokenResponseClient(getToken());
 	}
 	
 	//Cơ chế mã hóa mật khẩu
@@ -80,5 +87,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	public void configure(WebSecurity web) throws Exception{
 		web.ignoring().antMatchers(HttpMethod.OPTIONS,"/**");
+	}
+	
+	@Bean
+	public AuthorizationRequestRepository<OAuth2AuthorizationRequest>getRepository(){
+		return new HttpSessionOAuth2AuthorizationRequestRepository();
+	}
+	
+	@Bean
+	public OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest>getToken(){
+		return new DefaultAuthorizationCodeTokenResponseClient();
 	}
 }
