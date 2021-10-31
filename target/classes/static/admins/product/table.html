@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Product list</title>
+</head>
+<body>
+	<div class="card mb-0">
+		<div class="card-header bg-light" >
+			<div class="row ">
+				<div class="col-sm-4 ml-4">
+					<h4 >Product List</h4>
+				</div>
+				<div class="col-sm-5">		
+				      <div class="input-group">
+					        <input type="search" ng-model="nameitem" class="form-control" id="myText" />
+					        <div class="input-group-prepend">
+							      <button ng-click="findByName()" class="btn btn-dark" type="submit">
+						            	<i class="fas fa-search"></i>
+						          </button>
+						    </div>
+				      </div>
+				</div>
+			</div>
+		</div>
+		
+	
+		<table id="example2" class="table table-hover table-bordered  mb-0">
+                        <thead>
+                            <tr class="text-center" style="font-family:'Fjalla One', sans-serif; font-size: 16px;color:rgb(121, 73, 19)">
+                                <th>ID</th>
+                                <th style="width: 70px;">IMAGE</th>
+                                <th>NAME</th>                            
+                                <th>CATEGORY</th>
+                                <th>PRICE</th>
+                                <th>AVAILABLE</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <body>
+                        		<tr ng-repeat="item in pager.items" class="text-center">
+	                                <td style="vertical-align: middle;">{{item.id}}</td>                                
+	                                <td >
+	                                    <div style="width: 60px; overflow: hidden; height: 50px;">
+	                                        <img src="/sitetemp/img/product/{{item.photo}}" width="100%" alt="">
+	                                    </div>
+	                                </td>
+	                                <td style="vertical-align: middle;">{{item.name}}</td>
+									<td style="vertical-align: middle; ">{{item.category.name}}</td>
+	                                <td style="vertical-align: middle;">{{item.price|currency:'':0}}</td>
+	                                <td style="vertical-align: middle;">{{item.available?'Yes':'No'}}</td>
+	                                <td  style="vertical-align: middle;"> <button ng-click="edit(item)" class="btn fa fa-edit" style="color: brown;font-size: 21px;"></button></td>
+                            	</tr>                
+                        </body>
+                    </table>
+		
+		
+		<div class="card-footer">
+			<div class="row justify-content-center">
+                 <div class="text-center">
+                     <ul class="pagination mb-1"
+                             style="font-size: 29px; font-weight: bolder;">
+                             <li class="page-item mr-2 ${page.number == 0?'disabled':'' }"><button ng-click="pager.first()" 
+                                 class="page-link btn btn-light"><span
+                                     class="fa fa-angle-double-left	"
+                                     style="color: rgb(52,58,64); font-size: 20px;"></span></button></li>
+                             <li class="page-item mr-2   ${page.number == 0?'disabled':'' }"><button ng-click="pager.prev()"
+                                 class="page-link btn btn-light"><span
+                                     class="fa fa-angle-left"
+                                     style="color: rgb(52,58,64); font-size: 20px;"></span></button></li>
+                             <li class="page-item">
+                                 <div  style="color: rgb(121, 73, 19); font-size: 15px; margin-left:3px;margin-right:9px;margin-top:10px">
+                                     {{pager.page+1}}/{{pager.count}}
+                                 </div></li>
+                             <li class="page-item mr-2 ${page.number == (page.totalPages-1)?'disabled':'' }"><button ng-click="pager.next()" 
+                                 class="btn page-link btn-light"><span
+                                     class="fa fa-angle-right"
+                                     style="color: rgb(52,58,64); font-size: 20px;"></span></button></li>
+                             <li class="page-item mr-2 ${page.number == (page.totalPages-1)?'disabled':'' }"><button ng-click="pager.last()" 
+                                 class="btn page-link btn-light"><span
+                                     class="fa fa-angle-double-right"
+                                     style="color: rgb(52,58,64); font-size: 20px;"></span></button></li>
+                     </ul>
+                 </div>
+                        </div>
+		</div>
+		
+	</div>
+</body>
+</html>

@@ -32,8 +32,6 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Temporal(TemporalType.DATE)
 	private Date createdate = new Date();
 	
 	private String phone;
@@ -41,8 +39,8 @@ public class Order {
 	private String email;
 	private Double price;
 	private Double shipfee;
-	private String Paymentmethod;
-	private String Orderstatus;
+	private String paymentmethod;
+	private String orderstatus;
 	private String staffid;
 	
 	@ManyToOne

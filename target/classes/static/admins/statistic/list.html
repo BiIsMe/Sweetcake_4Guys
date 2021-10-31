@@ -1,0 +1,74 @@
+
+      <div class="card" style="border: rgb(205, 218, 27) 1px solid ;box-shadow: 3px 3px 3px rgb(229, 241, 157);">
+          <div class="card-header text-center" style="background-color: rgb(52,58,64);">
+              <div class="row justify-content-center">
+                  <h3 class="card-title" style="color: rgb(241, 234, 226); font-size: 25px; font-weight: bold;">ORDER LIST : {{orders.length}}</h3>
+              </div>
+          </div>
+          <table class="table table-hover table-bordered  mb-0">
+              <thead>
+                  <tr class="text-center" style="font-family:'Fjalla One', sans-serif; font-size: 16px;color:rgb(121, 73, 19)">
+                      <th>ID</th>
+                      <th>USERNAME</th>
+                      <th>PRICE</th>
+                      <th>DATE</th>
+                      <th>STATUS</th>
+                      <th>&nbsp;</th>
+                  </tr>
+              </thead>
+              <body>
+              		<tr ng-repeat="item in pager.orders" class="text-center">
+                      <td style="vertical-align: middle;">{{item.id}}</td>
+                      <td style="vertical-align: middle;">{{item.account.username}}</td>
+                      <td style="vertical-align: middle;">{{item.price|currency:'':0}}</td>
+                      <td style="vertical-align: middle;">{{item.createdate|date:'dd-MM-yyyy'}}</td>
+                      <td style="vertical-align: middle;" ng-switch="item.orderstatus">
+                      	 <h5 class="mt-2">
+                      	 	<div ng-switch-when="accepted">
+	                      		<span class="badge badge-primary">{{item.orderstatus}}  </span> 
+	                      	</div>
+	                    	<div ng-switch-when="delivery">
+	                      		<span class="badge badge-warning">{{item.orderstatus}}  </span> 
+	                      	</div>
+	                      	<div ng-switch-when="completed">
+	                      		<span class="badge badge-success">{{item.orderstatus}}  </span> 
+	                      	</div>   
+	                      	<div ng-switch-when="canceled">
+	                      		<span class="badge badge-dark">{{item.orderstatus}}  </span> 
+	                      	</div> 
+                      	 </h5>     
+                      </td>						          
+                      <td  style="vertical-align: middle;"> <button ng-click="edit(item)" class="btn fa fa-edit" style="color: brown;font-size: 21px;"></button></td>
+                  	</tr>                 
+              </body>
+          </table>
+          <div class="card-footer">
+              <div class="row justify-content-center">
+                  <div class="text-center">
+                      <ul class="pagination mb-1"
+                             style="font-size: 29px; font-weight: bolder;">
+                             <li class="page-item mr-2" ><button ng-click="pager.first()" ng-disabled="pager.page == 0" 
+                                 class="page-link btn btn-light"><span
+                                     class="fa fa-angle-double-left	"
+                                     style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
+                             <li class="page-item mr-2 " ><button ng-click="pager.prev()" ng-disabled="pager.page == 0"
+                                 class="page-link btn btn-light"><span
+                                     class="fa fa-angle-left"
+                                     style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
+                             <li class="page-item">
+                                 <div  style="color: rgb(121, 73, 19); font-size: 15px; margin-left:3px;margin-right:9px;margin-top:10px">
+                                     {{pager.page+1}}/{{pager.count}}
+                                 </div></li>
+                             <li class="page-item mr-2" ><button ng-click="pager.next()" ng-disabled="pager.page == pager.count-1"
+                                 class="btn page-link btn-light"><span
+                                     class="fa fa-angle-right"
+                                     style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
+                             <li class="page-item mr-2"  ><button ng-click="pager.last()" ng-disabled="pager.page == pager.count-1"
+                                 class="btn page-link btn-light"><span
+                                     class="fa fa-angle-double-right"
+                                     style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
+                     </ul>
+                  </div>
+              </div>
+          </div>
+      </div>

@@ -1,0 +1,88 @@
+
+<div class="card mb-0">
+	<div class="card-header bg-light" >
+		<h4 >Product Edition</h4>
+	</div>
+	
+
+	<div class="card-body">
+		<div class="row">
+			<div class="col-sm-4 text-center">
+				<div class="ml-5"  style="width: 65%; overflow: hidden; height: 250px;">
+                     <img ng-src="{{'/sitetemp/img/product/'+form.photo}}" width="100%" alt="">
+                </div>
+			</div>
+			
+			<div class="col-sm-8">
+				<div class="row">
+					<div class="form-group col-sm-5 mr-2 ml-1">
+						<label for="">Name</label>
+						<input ng-model="form.name" type="text" class="form-control" />
+					</div>
+					
+					<div class="form-group col-sm-5 ml-5 ">
+						<label for="">Price</label>
+						<input ng-model="form.price" type="text" class="form-control" />
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="form-group col-sm-5 mr-2 ml-1">
+						<label for="">Image</label>
+						<input onchange="angular.element(this).scope().imageChange(this.files)" type="file" class="form-control" id="image" />
+					</div>
+					
+					<div class="form-group col-sm-5 ml-5">
+						<label for="">Category</label>
+						<select ng-model="form.category.id" class="form-control">
+							<option ng-repeat="c in category" ng-value="c.id">{{c.name}}</option>
+						</select>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="form-group col-sm-5 mr-2 ml-1">
+						<label for="">Quantity</label>
+						<input ng-model="form.quantity" type="number" min=0 class="form-control" />
+					</div>
+					
+					<div class="form-group col-sm-5 ml-5">
+						<div class="row-form-label">
+							<label class="form-label">Available</label>
+						</div>
+						<div class="form-control">
+							<div class="form-check form-check-inline">
+							  <input ng-model="form.available" class="form-check-input"  type="radio" ng-value="true">
+							  <label class="form-check-label" for="inlineRadio1">Yes</label>
+						</div>
+						<div class="form-check form-check-inline">
+							  <input ng-model="form.available" class="form-check-input"  type="radio" ng-value="false">
+							  <label class="form-check-label" for="inlineRadio2">No</label>
+						</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="form-group col-sm-11">
+						<label for="">Description</label>
+						<textarea ng-model="form.detail" class="form-control" rows="3"></textarea>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="card-footer">
+         <div class="row justify-content-end mr-1">
+             <button ng-click="create()" class="btn btn-success mr-4"  style="font-family: 'Fjalla One', sans-serif;"> <i class="fa fa-bookmark-o" aria-hidden="true"></i> Create</button>
+             <button ng-click="update()" class="btn btn-warning mr-4"  style="font-family: 'Fjalla One', sans-serif;"><i class="fa fa-info" aria-hidden="true"></i> Update</button>
+             <button ng-click="delete(form)" class="btn btn-danger mr-4"  style="font-family: 'Fjalla One', sans-serif;"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+             <button ng-click="reset()" class="btn btn-info mr-5"  style="font-family: 'Fjalla One', sans-serif;"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Reset</button>
+         </div>
+           
+	</div>
+		
+</div>
