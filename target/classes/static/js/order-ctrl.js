@@ -51,10 +51,9 @@ app.controller("order-ctrl",function($scope,$http){
 	
 	$scope.findDate = function(){
 		
-		var from = $scope.date.from.toISOString("vn-VN", {timeZone: "Asia/Ho_Chi_Minh"}).slice(0, 10).replace('T', ' ');
-		var to = $scope.date.to.toISOString("vn-VN", {timeZone: "Asia/Ho_Chi_Minh"}).slice(0, 10).replace('T', ' ');
+		var from = $scope.date.from.toISOString().slice(0,10);
+		var to = $scope.date.to.toISOString().slice(0,10);
 		var status = $scope.date.status;
-		alert(from);
 		$http.get(`/rest/order/${from}/${to}/${status}`).then(resp =>{
 			$scope.orders = resp.data;
 			$scope.orders.forEach( item => {

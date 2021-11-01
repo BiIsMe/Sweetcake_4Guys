@@ -9,6 +9,6 @@ public class AdminIndexController {
 
 	@RequestMapping("/admin")
 	public String adminIndex() {
-		return "admins/index";
+		return "redirect:/admins/index.html#!/home";
 	}
 }

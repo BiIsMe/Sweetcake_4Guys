@@ -6,22 +6,35 @@
 </head>
 <body>
 	<div class="card mb-0">
-		<div class="card-header bg-light" >
-			<div class="row ">
-				<div class="col-sm-4 ml-4">
-					<h4 >Product List</h4>
-				</div>
-				<div class="col-sm-5">		
-				      <div class="input-group">
-					        <input type="search" ng-model="nameitem" class="form-control" id="myText" />
+		<div class="card-header bg-light text-center" >
+					<h4 ><b>PRODUCT LIST</b> </h4>
+		</div>
+		
+		<div class="row mt-4 mb-4 justify-content-center form-inline">
+			<div class="col-sm-6 ml-4">	
+				 <div class="form-group">
+				 	<label for="">Name</label>
+				      <div class="input-group ml-3">
+					        <input type="search" ng-model="nameItem" class="form-control" id="myText" />
 					        <div class="input-group-prepend">
-							      <button ng-click="findByName()" class="btn btn-dark" type="submit">
+							      <div class="btn btn-dark">
 						            	<i class="fas fa-search"></i>
-						          </button>
+						          </div>
 						    </div>
 				      </div>
-				</div>
-			</div>
+				 </div>
+	       	 </div>
+	       	 
+		      <div class= "col-sm-4">
+		      	  <div class="form-group">
+		      	  	<label for="">Category</label>
+					  <select ng-model="nameCate" class="form-control ml-3">
+						  <option ng-repeat="c in category" ng-value="c.id">{{c.name}}</option>
+					  </select>
+		      	  </div>
+			  </div>
+				      
+			
 		</div>
 		
 	
@@ -38,7 +51,7 @@
                             </tr>
                         </thead>
                         <body>
-                        		<tr ng-repeat="item in pager.items" class="text-center">
+                        		<tr ng-repeat="item in pager.items | filter : {name : nameItem, cate : nameCate}" class="text-center">
 	                                <td style="vertical-align: middle;">{{item.id}}</td>                                
 	                                <td >
 	                                    <div style="width: 60px; overflow: hidden; height: 50px;">

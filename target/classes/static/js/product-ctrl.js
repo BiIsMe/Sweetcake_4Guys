@@ -3,6 +3,8 @@ app.controller("product-ctrl",function($scope,$http){
 	$scope.form={};
 	$scope.category=[];
 	$scope.nameitem = '';
+	//all category	
+	var all = {id :"", name : "All"};
 	
 	$scope.initial = function(){
 		//load products
@@ -10,14 +12,17 @@ app.controller("product-ctrl",function($scope,$http){
 			$scope.items = resp.data;
 			$scope.items.forEach(item => {
 				item.createdate = new Date(item.createdate)
+				item.cate = item.category.id;
 			})
 		});
 		
 		//load category
 		$http.get("/rest/category").then(resp => {
 			$scope.category = resp.data;
+			$scope.category.unshift(all);
 		});
 	}
+	
 	$scope.initial();
 	
 	//reset form
@@ -35,7 +40,7 @@ app.controller("product-ctrl",function($scope,$http){
 		$(".productTab li a:eq(1)").tab('show');
 	}
 	
-	//creat
+	//create
 	$scope.create = function(){
 		var item = angular.copy(this.form);
 		item.quantity = 10;
@@ -92,23 +97,6 @@ app.controller("product-ctrl",function($scope,$http){
 		});
 	}
 
-
-	//findby name
-	$scope.findByName = function(){
-		var name = document.getElementById("myText").value;
-		if(name=='')
-			name='all';
-		$http.get(`/rest/product/name/${name}`).then(resp => {
-			$scope.items = resp.data;
-			$scope.items.forEach(item => {
-				item.createdate = new Date(item.createdate)
-			})
-		}).catch(error => {
-			alert('fail');
-			console.log('Error',error);
-		});
-		
-	}
 	
 
 	//pager
