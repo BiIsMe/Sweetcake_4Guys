@@ -8,6 +8,6 @@ public class IndexController {
 
 	@RequestMapping("sweetcake.com")
 	public String siteIndex() {
-		return "sites/index.html";
+		return "redirect:/product/list";
 	}
 }

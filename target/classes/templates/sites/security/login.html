@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{sites/layout/index.html::dynamic(~{::body})}">
+<head>
+<meta charset="UTF-8">
+</head>
+<body> 
+	
+        <!--================Slider Area =================-->
+            <div class="container">	
+				<div class="row" style="margin-top: 60px;">
+					<a href="/oauth2/authorization/facebook" class="btn" style="font-size: large; margin-left: 350px;
+					 background-color: rgb(80, 80, 240); color: white;">
+                        <span class="fab fa-facebook"></span>
+                        Sign in with Facebook           </a>	   
+					<a href="/oauth2/authorization/google" class="btn" style="font-size: large; margin-left: 20px; 
+					background-color: rgb(238, 98, 98); color: white;">
+						<span class="fab fa-google"></span>
+						Đăng nhập bằng Gmail			</a>	 
+				</div>
+				<form th:action="@{/security/login/form}" method="post" 
+				class="col-sm-6" style="margin-top: 60px; margin-left: 290px;">
+					<div class="panel" >
+						<div class="panel-heading" style="background-color: pink;">
+							<div style="font-size: x-large; font-family:Georgia, 'Times New Roman', Times, serif;">Sign in</div>
+						</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<div>Username:</div>
+								<input name="username" class="form-control">
+							</div>
+							<div class="form-group">
+								<div>Password:</div>
+								<input name="password" type="password" class="form-control">
+							</div>
+							<div class="form-group" style="width: 200px;">
+								<div class="form-control">
+									<label class="checkbox-inline">
+										<input type="checkbox" name="remember-me" > Remember me?
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="panel-footer text-right">
+							<i class="pull-left text-danger" th:text="${message}"></i>
+							<button class="btn btn-success"><i class="fas fa-sign-in-alt"></i> Login</button>
+						</div>
+					</div>
+				</form>
+			</div>
+    
+
+            
+            <!--================End Search Box Area =================-->  
+            
+</body>
+</html>
