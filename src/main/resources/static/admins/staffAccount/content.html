@@ -1,0 +1,232 @@
+	 
+	<!-- filter -->
+	 <div class="row mb-2">
+    	<div class="col-sm-12">
+    		<div class="card">
+    			<div class="card-header">
+    				<div class="row mt-2 mb-2 form-inline">
+    					<div class="col-sm-4 ml-4">
+	    					<div class="row form-group">
+	    							<label for="">User</label>
+	    							<input ng-model="username" class="form-control ml-2" type="search"/>
+	    					</div>
+	    				</div>
+	    				
+	    				<div class="col-sm-3">
+	    					<div class="row form-group">
+	    							<input class="form-check-input " ng-model="gender" type="radio" value="" />
+	    							<label for="">All</label>
+	    							<input class="form-check-input ml-3" ng-model="gender" type="radio" value="true" />
+	    							<label for="">Male</label>
+	    							<input class="form-check-input ml-3" ng-model="gender" type="radio" value="false" />
+	    							<label for="">Female</label>
+	    					</div>
+	    				</div>
+	    				
+	    				<div class="col-sm-3">
+	    					<div class="form-group">
+	    						<label for="">Active</label>
+							  	<select ng-model="active" class="form-control ml-2">
+									  <option value="">All</option>
+									  <option value="true">Active</option>
+									  <option value="false">Inactive</option>
+							  	</select>
+	    					</div>
+	    				</div>
+	    				
+	    				<div class="col-sm-1 mr-2">
+	    					<button  data-toggle="modal" data-target="#addStaff" class="btn btn-success ml-5">
+	    						 <i class="fas fa-user-plus"></i> 
+    						 </button>
+	    				</div>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+	<!-- /filter -->
+	
+	
+	<!-- list -->
+	<div class="row justify-content-center" 
+			ng-repeat="account in staffs | filter:{username : username, gender : gender, active : active}| limitTo :limit :begin">		
+        	 <div class="col-sm-10" >
+         	 	<div  class="card card-responsive collapsed-card">
+	              	<div class="card-header {{account.active?'':'bg-secondary'}}" 
+	              			style="background-color:rgb(186, 245, 242); height:47px;font:14px">
+	                	<h3 class="card-title col-sm-11">
+		                	<div class="row">
+		                		<div class="col-sm-4">
+			                		<i class="{{account.gender?'fas fa-male':'fas fa-female'}} mr-1" style="color:green;font-style:17px"></i>
+			                		<b>{{account.username}}</b>
+			                	</div>
+			                	<div class="col-sm-4">
+			                		<i class="	far fa-address-card mr-1" style="color:brown"></i>
+		                  			{{account.fullname.length > 0? account.fullname : '..........'}}
+			                	</div>
+			                	<div class="col-sm-3">
+			                		<i class="fas fa-mobile-alt mr-1" style="color:brown;"></i>
+			                  			{{account.phone.length > 0? account.phone : '..........'}}
+			                	</div>
+			                	<div class="col-sm-1">
+			                		<i class="{{account.active? 'fas fa-bell':'fas fa-bell-slash'}}" style="color:orange;"></i>
+			                	</div>
+		                	</div>
+	               		 </h3>
+	
+		                <div class="card-tools col-sm-1">
+			                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+			                      class="fas fa-plus"></i>
+			                  </button>
+		                </div>
+	              </div>
+	              
+	              <!-- /.card-header -->
+	              <div class="card-body">
+	 					<div class="row">
+	 						<div class="col-sm-3 mr-5 ml-4">
+	 							<div class="form-group">
+	 								<label for="">Password</label>	<br /> 							
+							      	<div class="form-check-inline">
+							      		<input type="checkbox" ng-model="checked" class="mr-2">
+ 										<span ng-show="checked" > {{account.password}} </span>
+							      	</div>
+	 								
+	 							</div>
+	 						</div>
+	 						
+	 						<div class="col-sm-3 mr-5 ml-4">
+	 							<div class="form-group">
+	 								<label for="">Day Of Birth</label>
+	 								<div > {{account.dob | date:'dd-MM-yyyy'}} </div>
+	 							</div>
+	 						</div>
+	 						
+	 						<div class="col-sm-3">
+	 							<div class="form-group ml-4">
+	 								<div class="row-form-label">
+										<label class="form-label">Active</label>
+									</div>
+									<div class="form-control">
+										<div class="form-check form-check-inline">
+										  <input ng-model="account.active" class="form-check-input"  type="radio" ng-value="true">
+										  <label class="form-check-label" for="inlineRadio1">Yes</label>
+										</div>
+										<div class="form-check form-check-inline">
+											  <input ng-model="account.active" class="form-check-input"  type="radio" ng-value="false">
+											  <label class="form-check-label" for="inlineRadio2">No</label>
+										</div>
+									</div>
+	 							</div>
+	 						</div>
+	 					</div>
+	              </div>
+	              <!-- /.card-body -->
+	              
+	              <div class="card-footer">
+	              	<div class="row justify-content-end">
+	              		<button ng-click="updateStaff(account)" class="btn btn-warning mr-4">Update</button>
+	              	</div>
+	              </div>
+              
+            </div>
+            <!-- /.card -->
+      	 </div>
+	</div>
+	
+	<!-- paging -->
+		<div class="row justify-content-center mt-2">
+                <div class="text-center">
+                    <ul class="pagination mb-1"
+                           style="font-size: 29px; font-weight: bolder;">
+                           <li class="page-item mr-2" ><button ng-click="first()" ng-disabled="pageIndex == 1"  
+                               class="btn page-link btn-light"><span
+                                   class="fa fa-angle-double-left	"
+                                   style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
+                           <li class="page-item mr-2 " ><button ng-click="prev()" ng-disabled="pageIndex == 1" 
+                               class="btn page-link btn-light"><span
+                                   class="fa fa-angle-left"
+                                   style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
+                           <li class="page-item">
+                               <div  style="color: rgb(121, 73, 19); font-size: 15px; margin-left:3px;margin-right:9px;margin-top:10px">
+                                   {{pageIndex}}/{{totalPage}}
+                               </div></li>
+                           <li class="page-item mr-2" ><button ng-click="next()" ng-disabled="pageIndex == totalPage"
+                               class="btn page-link btn-light"><span
+                                   class="fa fa-angle-right"
+                                   style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
+                           <li class="page-item mr-2"  ><button ng-click="last()" ng-disabled="pageIndex == totalPage"
+                               class="btn page-link btn-light"><span
+                                   class="fa fa-angle-double-right"
+                                   style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
+                   	</ul>
+                </div>
+            </div>
+	<!-- /paging -->
+	
+	
+	<!-- Modal -->
+		<div class="modal fade" id="addStaff" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog"  >
+		    <div class="modal-content" style="width:670px">
+			      <div class=" alert alert-dark modal-header">
+				        <div class="col-sm-12  text-center">
+			        		<h4 ><b>CREATE NEW STAFF ACCOUNT</b></h4>
+				        </div>
+			      </div>
+		      
+			      <div class="modal-body">
+			       	 <div class="row mb-4 mt-1">
+			       	 	 <div class="col-sm-5 ml-4 mr-4">		       	 		
+			       	 		<div class="form-group">
+			       	 			<label >Username</label>
+			       	 			<input ng-model="form.username" type="text" class="form-control" />
+			       	 		</div>
+			       	 	 </div>
+			       	 	 <div class="col-sm-5 ml-4">		       	 		
+			       	 		<div class="form-group">
+			       	 			<label >Full Name</label>
+			       	 			<input ng-model="form.fullname" type="text" class="form-control" />
+			       	 		</div>
+			       	 	 </div>    	 		    
+			       	 </div>
+			       	 
+			       	 <div class="row mb-4 mt-1">
+			       	 	 <div class="col-sm-5 ml-4 mr-4">		       	 		
+			       	 		<div class="form-group">
+			       	 			<label>Password</label>
+			       	 			<input ng-model="form.password" type="password" class="form-control" />
+			       	 		</div>
+			       	 	 </div>
+			       	 	 <div class="col-sm-5 ml-4">		       	 		
+			       	 		<div class="form-group">
+			       	 			<div class="row-form-label">
+									<label class="form-label">Gender</label>
+								</div>
+								<div class="form-control">
+									<div class="form-check form-check-inline">
+									    <input ng-model="form.gender" class="form-check-input"  type="radio" ng-value="true" ng-check="true">
+									    <label class="form-check-label" for="inlineRadio1">Yes</label>
+									</div>
+									<div class="form-check form-check-inline">
+										 <input ng-model="form.gender" class="form-check-input"  type="radio" ng-value="false">
+										 <label class="form-check-label" for="inlineRadio2">No</label>
+									</div>
+								</div>
+			       	 		</div>
+			       	 	 </div>    	 		    
+			       	 </div>
+			       	 
+			       	 <hr />
+			       	 
+			       	 </div>
+		      
+			      <div class="modal-footer">
+				      <button ng-click="createStaff()" ng-disabled="form.username == null" class="btn btn-success mr-2">Add</button>
+				       <button ng-click="reset()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			      </div>
+		    </div>
+		  </div>
+		</div>
+	<!-- /Modal -->
+	

@@ -1,0 +1,274 @@
+	 
+	<!-- filter -->
+	 <div class="row mb-2">
+    	<div class="col-sm-12">
+    		<div class="card">
+    			<div class="card-header">
+    				<div class="row mt-2 mb-2 form-inline">
+    					<div class="col-sm-3 ml-4 mr-3">
+	    					<div class="row form-group">
+	    							<label for="">Code</label>
+	    							<input ng-model="code" class="form-control ml-2" type="search"/>
+	    					</div>
+	    				</div>
+	    				
+	    				<div class="col-sm-2 mr-4">
+	    					<div class="form-group">
+	    						<label for="">Category</label>
+							  	<select ng-model="category" class="form-control ml-2">
+									  <option value="">All</option>
+									  <option value="true">Group</option>
+									  <option value="false">Private</option>
+							  	</select>
+	    					</div>
+	    				</div>
+	    				
+	    				<div class="col-sm-2 mr-4">
+	    					<div class="form-group">
+	    						<label for="">Status</label>
+							  	<select ng-model="status" class="form-control ml-2">
+									  <option value="">All</option>
+									  <option value="true">Active</option>
+									  <option value="false">Inactive</option>
+							  	</select>
+	    					</div>
+	    				</div>	    			
+	    				
+	    				<div class="col-sm-2 mr-4">
+	    					<div class="form-group">
+	    						<label for="">Value</label>
+							  	<select ng-model="value" class="form-control ml-2">
+									  <option value="">All</option>
+									  <option value=5>5%</option>
+									  <option value=10>10%</option>
+									  <option value=15>15%</option>
+									  <option value=20>20%</option>
+							  	</select>
+	    					</div>
+	    				</div>
+	    				
+	    				<div class="col-sm-1">
+	    					<button  data-toggle="modal" data-target="#addStaff" class="btn btn-success ml-5">
+	    						 <i class="fas fa-user-plus"></i> 
+    						 </button>
+	    				</div>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+	<!-- /filter -->
+	
+	
+	<!-- list -->
+	<div class="row justify-content-center" 
+			ng-repeat="item in coupons| filter :{code : code, category: category, active: status, value:value}| orderBy:'createdate':true | limitTo :limit :begin">		
+        	 <div class="col-sm-10" >
+         	 	<form  class="card card-responsive collapsed-card">
+	              	<div class="card-header {{item.active?'':'bg-secondary'}}" 
+	              			style="background-color:rgb(186, 245, 242); height:47px;font:14px">
+	                	<h3 class="card-title col-sm-11">
+		                	<div class="row">
+		                		<div class="col-sm-3 mr-5">
+			                		<i class="fas fa-credit-card mr-1" style="color:green;font-style:17px"></i>
+			                		<b>{{item.code | uppercase}}</b>
+			                	</div>
+			                	<div class="col-sm-1 mr-5">
+			                		<i class="fas fa-percentage mr-1" style="color:brown"></i>
+		                  			{{item.value}}
+			                	</div>
+			                	<div class="col-sm-2 mr-4 ml-2">
+			                		<i class="{{item.category?'fas fa-user-friends':'fas fa-user-shield'}} mr-1" style="color:brown;"></i>
+			                  			{{item.category? 'Group':'Private'}}
+			                	</div>
+			                	<div class="col-sm-3">
+			                		<i class="far fa-calendar-alt mr-1" style="color:brown;"></i>
+			                  			{{item.createdate | date : 'dd-MM-yyyy'}}
+			                	</div>
+			                	<div class="col-sm-1">
+			                		<i class="{{item.active? 'fas fa-bell':'fas fa-bell-slash'}}" style="color:rgb(219, 143, 29);"></i>
+			                	</div>
+		                	</div>
+	               		 </h3>
+	
+		                <div class="card-tools col-sm-1">
+			                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+			                      class="fas fa-plus"></i>
+			                  </button>
+		                </div>
+	              </div>
+	           
+	              <!-- /.card-header -->
+	              <div class="card-body">
+	 					<div class="row justify-content-center">	 						
+	 						<div class="col-sm-3 mr-4 ml-4">
+	 							<div class="form-group">
+		    						<label for="">Value</label>
+								  	<select ng-model="item.value" class="form-control">
+										  <option value="5">5%</option>
+										  <option value="10">10%</option>
+										  <option value="15">15%</option>
+										  <option value="20">20%</option>
+								  	</select>
+		    					</div>
+	 						</div>
+	 					
+	 						<div ng-show="item.category" class="col-sm-3 mr-4 ml-4">
+	 							<div class="form-group">
+	 								<label for="">Quantity</label>
+	 								<input ng-model="item.quantity" type="number" min="0" class="form-control" required />
+	 							</div>
+	 						</div>
+	 						
+	 						<div class="col-sm-3 ml-4 mr-4">
+	 							<div class="form-group">
+	 								<div class="row-form-label">
+										<label class="form-label">Active</label>
+									</div>
+									<div class="form-control">
+										<div class="form-check form-check-inline">
+										  <input ng-model="item.active" class="form-check-input"  type="radio" ng-value="true">
+										  <label class="form-check-label" for="inlineRadio1">Yes</label>
+										</div>
+										<div class="form-check form-check-inline">
+											  <input ng-model="item.active" class="form-check-input"  type="radio" ng-value="false">
+											  <label class="form-check-label" for="inlineRadio2">No</label>
+										</div>
+									</div>
+	 							</div>
+	 						</div>
+	 						
+	 						<div ng-show="!item.category" class="col-sm-3 mr-4 ml-4">
+	 							<label for="">For Customer</label>
+								<select ng-model="item.customerid" class="form-control">
+									<option ng-repeat="c in customers" ng-value="c.username">{{c.username}}</option>
+								</select>
+	 						</div>
+	 						
+	 					</div>
+	              </div>
+	              <!-- /.card-body -->
+	              
+	              <div class="card-footer">
+	              	<div class="row justify-content-end">
+	              		<button ng-click="updateCoupon(item)" class="btn btn-warning mr-4">Update</button>
+	              	</div>
+	              </div>
+
+            </form>
+            <!-- /.card -->
+      	 </div>
+	</div>
+	
+	<!-- paging -->
+		<div class="row justify-content-center mt-2">
+                <div class="text-center">
+                     <ul class="pagination mb-1"
+                           style="font-size: 29px; font-weight: bolder;">
+                           <li class="page-item mr-2" ><button ng-click="first()" ng-disabled="pageIndex == 1"  
+                               class="btn page-link btn-light"><span
+                                   class="fa fa-angle-double-left	"
+                                   style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
+                           <li class="page-item mr-2 " ><button ng-click="prev()" ng-disabled="pageIndex == 1" 
+                               class="btn page-link btn-light"><span
+                                   class="fa fa-angle-left"
+                                   style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
+                           <li class="page-item">
+                               <div  style="color: rgb(121, 73, 19); font-size: 15px; margin-left:3px;margin-right:9px;margin-top:10px">
+                                   {{pageIndex}}/{{totalPage}}
+                               </div></li>
+                           <li class="page-item mr-2" ><button ng-click="next()" ng-disabled="pageIndex == totalPage"
+                               class="btn page-link btn-light"><span
+                                   class="fa fa-angle-right"
+                                   style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
+                           <li class="page-item mr-2"  ><button ng-click="last()" ng-disabled="pageIndex == totalPage"
+                               class="btn page-link btn-light"><span
+                                   class="fa fa-angle-double-right"
+                                   style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
+                   	</ul>
+                </div>
+            </div>
+	<!-- /paging -->
+	
+	
+	<!-- Modal -->
+		<div class="modal fade" id="addStaff" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog"  >
+		    <div class="modal-content" style="width:670px">
+			      <div class=" alert alert-dark modal-header">
+				        <div class="col-sm-12  text-center">
+			        		<h4 ><b>CREATE NEW COUPON</b></h4>
+				        </div>
+			      </div>
+		      
+			      <div class="modal-body">
+			       	 <div class="row mb-4 mt-1">
+			       	 	 <div class="col-sm-5 ml-4 mr-4">		       	 		
+			       	 		<div class="form-group">
+			       	 			<label >Code</label>
+			       	 			<input ng-model="form.code" type="text" class="form-control" />
+			       	 		</div>
+			       	 	 </div>
+			       	 	 <div class="col-sm-5 ml-4">		       	 		
+			       	 		<div class="form-group">
+	    						<label for="">Value</label>
+							  	<select ng-model="form.value" class="form-control">							  	
+									  <option value="5">5%</option>
+									  <option value="10">10%</option>
+									  <option value="15">15%</option>
+									  <option value="20">20%</option>
+							  	</select>
+	    					</div>
+			       	 	 </div>    	 		    
+			       	 </div>
+			       	 
+			       	 <div class="row mb-4 mt-1">
+			       	 	 <div class="col-sm-5 ml-4 mr-4">		       	 		
+			       	 		<div class="form-group">
+			       	 			<div class="row-form-label">
+									<label class="form-label">Category</label>
+								</div>
+								<div class="form-control">
+									<div class="form-check form-check-inline">
+									    <input ng-model="form.category" class="form-check-input"  type="radio" ng-value="true" ng-check="true">
+									    <label class="form-check-label" for="inlineRadio1">Group</label>
+									</div>
+									<div class="form-check form-check-inline">
+										 <input ng-model="form.category" class="form-check-input"  type="radio" ng-value="false">
+										 <label class="form-check-label" for="inlineRadio2">Private</label>
+									</div>
+								</div>
+			       	 		</div>
+			       	 	 </div>
+			       	 	 <div class="col-sm-5 ml-4">		       	 		
+			       	 		<div class="form-group">
+			       	 			<div class="row-form-label">
+									<label class="form-label">Active</label>
+								</div>
+								<div class="form-control">
+									<div class="form-check form-check-inline">
+									    <input ng-model="form.active" class="form-check-input"  type="radio" ng-value="true" ng-check="true">
+									    <label class="form-check-label" for="inlineRadio1">Active</label>
+									</div>
+									<div class="form-check form-check-inline">
+										 <input ng-model="form.active" class="form-check-input"  type="radio" ng-value="false">
+										 <label class="form-check-label" for="inlineRadio2">Inactive</label>
+									</div>
+								</div>
+			       	 		</div>
+			       	 	 </div>    	 		    
+			       	 </div>
+			       	 
+			       	 <hr />
+			       	 
+			       	 </div>
+		      
+			      <div class="modal-footer">
+				      <button ng-click="createCoupon()" ng-disabled="form.code == null" class="btn btn-success mr-2">Add</button>
+				       <button ng-click="reset()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			      </div>
+		    </div>
+		  </div>
+		</div>
+	<!-- /Modal -->
+	

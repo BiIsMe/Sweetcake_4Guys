@@ -14,6 +14,22 @@
       .when("/authorize", {
           templateUrl: "bst/lucyen.html"
       })
+      .when("/areaShip", {
+          templateUrl: "/admins/areaShip/index.html",
+          	controller : "areaShip-ctrl"
+      })
+      .when("/staff", {
+          templateUrl: "/admins/staffAccount/index.html",
+          	controller : "staff-ctrl"
+      })
+      .when("/voucher", {
+          templateUrl: "/admins/coupon/index.html",
+          	controller : "coupon-ctrl"
+      })
+      .when("/customer", {
+          templateUrl: "/admins/customer/index.html",
+          	controller : "customer-ctrl"
+      })
 		.when("/unauthorize", {
           templateUrl: "bst/lucyen.html"
       })

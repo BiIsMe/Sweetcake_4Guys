@@ -18,4 +18,7 @@ public interface ProductDao extends JpaRepository<Product, Integer> {
 
 	@Query("select p from Product p where p.name like ?1")
 	List<Product> findByName(String name);
+	
+	@Query(value="select count(*) from products where categoryid like ?1 ", nativeQuery = true)
+	Long countProductsByCategory(String category);
 }

@@ -36,9 +36,9 @@ public class Account implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date dob;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "account")
-	private List<Authority> authorities;
+	private String role;
+	private Boolean active;
+	
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "account")

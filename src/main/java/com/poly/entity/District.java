@@ -23,7 +23,8 @@ public class District implements Serializable {
 	@Id
 	private Integer id;
 	private String name;
-	private Double shipfee;
+	private Double shipfee = 0.0;
+	private Boolean available;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "district")

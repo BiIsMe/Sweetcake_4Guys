@@ -2,7 +2,20 @@ app.controller("product-ctrl",function($scope,$http){
 	$scope.items=[];
 	$scope.form={};
 	$scope.category=[];
-	$scope.nameitem = '';
+	$scope.categoryFilter=[];		//category for dropdown filter in table
+	$scope.nameItem = '';
+	$scope.nameCate = '';
+	$scope.formCate={};
+	$scope.property = 'id';
+	$scope.reverse = true;
+	
+	//orderBy
+	$scope.sortBy = function(property) {
+	    $scope.reverse = ($scope.property === property) ? !$scope.reverse : $scope.reverse;
+	    $scope.property = property;
+	  };
+	
+	
 	//all category	
 	var all = {id :"", name : "All"};
 	
@@ -16,11 +29,25 @@ app.controller("product-ctrl",function($scope,$http){
 			})
 		});
 		
+		
 		//load category
 		$http.get("/rest/category").then(resp => {
 			$scope.category = resp.data;
-			$scope.category.unshift(all);
+			//count Product by Category
+			$scope.category.forEach(item => {
+				$http.get(`/rest/product/count/${item.id}`).then(resp =>{
+					item.countProduct = resp.data;
+				})
+			})
 		});
+		
+		$http.get("/rest/category").then(resp => {
+			$scope.categoryFilter = resp.data;
+			$scope.categoryFilter.unshift(all);
+		});
+		
+		$scope.nameitem = '';
+		
 	}
 	
 	$scope.initial();
@@ -40,35 +67,37 @@ app.controller("product-ctrl",function($scope,$http){
 		$(".productTab li a:eq(1)").tab('show');
 	}
 	
-	//create
+	//create product
 	$scope.create = function(){
-		var item = angular.copy(this.form);
+		var item = angular.copy(this.form)
 		item.quantity = 10;
 		$http.post("/rest/product",item).then(resp => {
 			resp.data.createdate = new Date(resp.data.createdate);
 			$scope.items.push(resp.data);
 			$scope.reset();
 			alert("Create successfully");
+			$scope.initial();
 		}).catch(error => {
 			alert("fail");
 			console.log("Error",error);
 		});
 	}
 	
-	//update
+	//update product
 	$scope.update = function(){
 		var item = angular.copy($scope.form);
 		$http.put(`/rest/product/${item.id}`,item).then(resp =>{
 			var index = $scope.items.findIndex(p => p.id == item.id);
 			$scope.items[index] = item;
 			alert("success");
+			$scope.initial();
 		}).catch(error => {
 			alert("fail");
 			console.log("Error",error);
 		});
 	}
 	
-	//delete
+	/*delete product
 	$scope.delete = function(item){
 		$http.delete(`/rest/product/${item.id}`).then(resp =>{
 			var index = $scope.items.findIndex(p => p.id == item.id);
@@ -80,24 +109,51 @@ app.controller("product-ctrl",function($scope,$http){
 			console.log("Error",error);
 		});
 	}
+	*/
 	
 	//upload img
 	$scope.imageChange = function(files){
 		var data = new FormData();
 		data.append('file',files[0]);
-		$http.post('/rest/upload/phukien',data,{
+		$http.post('/rest/upload/products',data,{
 			transformRequest:angular.identity,
 			headers:{'Content-Type':undefined}
 		}).then(resp => {
-			$scope.form.image = resp.data.name;
-			alert("upload successfully");
+			$scope.form.photo = resp.data.name;
+			alert("success");
 		}).catch(error => {
 			alert("fail to load img");
 			console.log("Error",error);
 		});
 	}
-
 	
+	
+	//create category
+	$scope.createCate = function(){
+		var item = angular.copy(this.formCate)
+		$http.post("/rest/category", item).then(resp => {
+			$scope.initial();
+			alert("success");
+			$scope.formCate = {};
+		}).catch(error => {
+			alert("fail");
+			console.log("Error",error);
+		});
+	}
+	
+	//update category
+	$scope.updateCate = function(item){
+		$http.put(`/rest/category/${item.id}`,item).then(resp => {
+			$scope.initial();
+			alert("success");
+		}).catch(error => {
+			alert("fail");
+			console.log("Error",error);
+		})
+	}
+	
+	
+
 
 	//pager
 	$scope.pager= {

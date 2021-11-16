@@ -3,6 +3,15 @@ app.controller("order-ctrl",function($scope,$http){
 	$scope.orders = [];
 	$scope.order={};
 	$scope.orderdetails=[];
+	$scope.id='';
+	$scope.customer='';
+	$scope.begin = 0;
+	$scope.limit = 6;
+	$scope.totalPage = 0;
+	$scope.pageIndex = 1;
+	$scope.property = 'date';
+	$scope.reverse = true;
+	
 	$scope.date={
 		from : new Date(),
 		to : new Date(),
@@ -14,8 +23,10 @@ app.controller("order-ctrl",function($scope,$http){
 			$scope.orders = resp.data;
 			$scope.orders.forEach( item => {
 				item.createdate = new Date(item.createdate);
+				item.accountName = item.account.username;
 			})
-		});
+			$scope.totalPage = Math.ceil($scope.orders.length / $scope.limit);
+		})
 	}
 	
 	$scope.initial();
@@ -58,7 +69,9 @@ app.controller("order-ctrl",function($scope,$http){
 			$scope.orders = resp.data;
 			$scope.orders.forEach( item => {
 				item.createdate = new Date(item.createdate);
+				item.accountName = item.account.username;
 			})
+			$scope.totalPage = Math.ceil($scope.orders.length / $scope.limit);
 		}).catch(error => {
 			alert("fail");
 			console.log("Error",error);
@@ -66,40 +79,42 @@ app.controller("order-ctrl",function($scope,$http){
 		
 	}
 	
+	//orderBy
+	$scope.sortBy = function(property) {
+	    $scope.reverse = ($scope.property === property) ? !$scope.reverse : $scope.reverse;
+	    $scope.property = property;
+	  };
 	
-	$scope.pager= {
-		page : 0,
-		size : 8,
-		get orders(){
-			var start =  this.page * this.size;
-			return $scope.orders.slice(start,start+this.size);
-		},
-		
-		get count(){
-			return Math.ceil(1.0 * $scope.orders.length/this.size);
-		},
-		
-		first(){
-			this.page =0;
-		},
-		
-		prev(){
-			if(this.page>0)
-				this.page--;
-			else
-				this.page=0;
-		},
-		
-		next(){
-			if(this.page < this.count-1)
-				this.page++;
-			else
-				this.page= this.count-1;
-		},
-		
-		last(){
-			this.page = this.count -1;
+	
+	/* paging */
+	
+		//first
+	$scope.first = function(){
+		$scope.pageIndex  = 1;
+		$scope.begin = 0;
+	}
+	
+	//next
+	$scope.next = function(){
+		if($scope.pageIndex < $scope.totalPage){
+			$scope.begin = $scope.pageIndex * $scope.limit;
+			$scope.pageIndex += 1;		
 		}
 	}
+	
+	//prev
+	$scope.prev = function(){
+		if($scope.pageIndex > 1){
+			$scope.pageIndex -= 1;		
+			$scope.begin = ($scope.pageIndex-1) * $scope.limit;	
+		}
+	}
+	
+	//last
+	$scope.last = function(){
+		$scope.pageIndex = $scope.totalPage;
+		$scope.begin = ($scope.totalPage-1) * $scope.limit;
+	} 
+	
 	
 });

@@ -5,7 +5,7 @@
                  <h3 class="card-title" style="color: rgb(241, 234, 226); font-size: 25px; font-weight: bold;">ORDER DETAIL ID : {{order.id}}</h3>
              </div>
          </div>
-         <table class="table table-hover table-bordered  mb-0">
+         <table ng-hide="order.id == null" class="table table-hover table-bordered  mb-0">
              <thead>
                  <tr class="text-center" style="font-family:'Fjalla One', sans-serif; font-size: 16px;color:rgb(121, 73, 19)">
                    <th style="width: 90px;">IMG</th>
@@ -55,9 +55,9 @@
                   </tr>              
              </body>
          </table>
-         <div class="card-footer">
+         <div class="card-footer" ng-hide="order.id == null">
              <div class="row justify-content-end">
-             	<button ng-click="updateStatus()" class="btn btn-secondary mr-2" ng-disabled="orderComplete == 'completed'">Update</button>
+             	<button ng-click="updateStatus()" class="btn btn-secondary mr-2" ng-disabled="orderComplete == 'completed' || order.id == null">Update</button>
              </div> 
          </div>
      </div>

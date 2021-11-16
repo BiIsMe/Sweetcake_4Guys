@@ -59,4 +59,10 @@ public class ProductRestController {
 		else
 			return dao.findByName("%"+name+"%");
 	}
+	
+	//count products by Category
+	@GetMapping("/count/{id}")
+	public Long countProdByCate(@PathVariable("id") String id) {
+		return dao.countProductsByCategory(id);
+	}
 }

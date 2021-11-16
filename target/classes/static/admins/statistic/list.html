@@ -1,23 +1,60 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Product list</title>
+<style>
+	a{
+		color:rgb(121, 73, 19);
+	}
+</style>
+</head>
+<body>
       <div class="card" style="border: rgb(205, 218, 27) 1px solid ;box-shadow: 3px 3px 3px rgb(229, 241, 157);">
           <div class="card-header text-center" style="background-color: rgb(52,58,64);">
               <div class="row justify-content-center">
                   <h3 class="card-title" style="color: rgb(241, 234, 226); font-size: 25px; font-weight: bold;">ORDER LIST : {{orders.length}}</h3>
               </div>
           </div>
+          
+          <!-- filter -->
+          <div class="row mt-4 mb-2">
+				<div class="col-sm-5 ml-3">	
+					 <div class="form-group row">
+					 	<label class="col-sm-2 col-form-label">ID</label>
+				        <div class="col-sm-8">
+				        	<input type="search" ng-model="id"  class="form-control"  />
+				        </div>
+					 </div>
+		       	 </div>
+		       	 
+			      <div class= "col-sm-6">
+			      	  <div class="form-group row">
+					 	<label class="col-sm-4 col-form-label">CUSTOMER</label>
+				        <div class="col-sm-8">
+				        	<input type="search" ng-model="customer"  class="form-control"  />
+				        </div>
+					 </div>
+				  </div>				  			
+			</div>
+        <!-- /filter -->  
+          
+          
+          <!-- table -->
           <table class="table table-hover table-bordered  mb-0">
               <thead>
                   <tr class="text-center" style="font-family:'Fjalla One', sans-serif; font-size: 16px;color:rgb(121, 73, 19)">
-                      <th>ID</th>
-                      <th>USERNAME</th>
-                      <th>PRICE</th>
-                      <th>DATE</th>
+                      <th><a href="" ng-click="sortBy('id')">ID <span class="fas fa-arrows-alt-v ml-2"></span></a></th>
+                      <th>CUSTOMER</th>
+                      <th><a href="" ng-click="sortBy('price')">PRICE <span class="fas fa-arrows-alt-v ml-2"></span></a></th>
+                      <th><a href="" ng-click="sortBy('createdate')">DATE <span class="fas fa-arrows-alt-v ml-2"></span></a></th>
                       <th>STATUS</th>
                       <th>&nbsp;</th>
                   </tr>
               </thead>
               <body>
-              		<tr ng-repeat="item in pager.orders" class="text-center">
+              		<tr ng-repeat="item in orders | filter:{id:id, accountName:customer} | orderBy:property:reverse | limitTo :limit :begin " 
+              			class="text-center">
                       <td style="vertical-align: middle;">{{item.id}}</td>
                       <td style="vertical-align: middle;">{{item.account.username}}</td>
                       <td style="vertical-align: middle;">{{item.price|currency:'':0}}</td>
@@ -42,33 +79,39 @@
                   	</tr>                 
               </body>
           </table>
+          <!-- /table -->
+          
+          
+          <!-- paging -->
           <div class="card-footer">
               <div class="row justify-content-center">
                   <div class="text-center">
                       <ul class="pagination mb-1"
-                             style="font-size: 29px; font-weight: bolder;">
-                             <li class="page-item mr-2" ><button ng-click="pager.first()" ng-disabled="pager.page == 0" 
-                                 class="page-link btn btn-light"><span
-                                     class="fa fa-angle-double-left	"
-                                     style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
-                             <li class="page-item mr-2 " ><button ng-click="pager.prev()" ng-disabled="pager.page == 0"
-                                 class="page-link btn btn-light"><span
-                                     class="fa fa-angle-left"
-                                     style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
-                             <li class="page-item">
-                                 <div  style="color: rgb(121, 73, 19); font-size: 15px; margin-left:3px;margin-right:9px;margin-top:10px">
-                                     {{pager.page+1}}/{{pager.count}}
-                                 </div></li>
-                             <li class="page-item mr-2" ><button ng-click="pager.next()" ng-disabled="pager.page == pager.count-1"
-                                 class="btn page-link btn-light"><span
-                                     class="fa fa-angle-right"
-                                     style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
-                             <li class="page-item mr-2"  ><button ng-click="pager.last()" ng-disabled="pager.page == pager.count-1"
-                                 class="btn page-link btn-light"><span
-                                     class="fa fa-angle-double-right"
-                                     style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
-                     </ul>
+                           style="font-size: 29px; font-weight: bolder;">
+                           <li class="page-item mr-2" ><button ng-click="first()" ng-disabled="pageIndex == 1"  
+                               class="btn page-link btn-light"><span
+                                   class="fa fa-angle-double-left	"
+                                   style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
+                           <li class="page-item mr-2 " ><button ng-click="prev()" ng-disabled="pageIndex == 1" 
+                               class="btn page-link btn-light"><span
+                                   class="fa fa-angle-left"
+                                   style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
+                           <li class="page-item">
+                               <div  style="color: rgb(121, 73, 19); font-size: 15px; margin-left:3px;margin-right:9px;margin-top:10px">
+                                   {{pageIndex}}/{{totalPage}}
+                               </div></li>
+                           <li class="page-item mr-2" ><button ng-click="next()" ng-disabled="pageIndex == totalPage"
+                               class="btn page-link btn-light"><span
+                                   class="fa fa-angle-right"
+                                   style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
+                           <li class="page-item mr-2"  ><button ng-click="last()" ng-disabled="pageIndex == totalPage"
+                               class="btn page-link btn-light"><span
+                                   class="fa fa-angle-double-right"
+                                   style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
+                   		</ul>
                   </div>
               </div>
           </div>
       </div>
+</body>      
+</html>

@@ -3,7 +3,7 @@
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,9 +11,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <title>AdminLTE 3 | Starter</title>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-
-   <!-- Font Awesome -->
-  <link rel="stylesheet" href="/admtemp/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+	
+   <!-- Font Awesome  -->
+  <link rel="stylesheet" href="/admtemp/plugins/fontawesome-free/css/all.min.css"> 
   <!-- Ionicons -->
   <link rel="stylesheet" href="/admtemp/https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bbootstrap 4 -->
@@ -33,6 +34,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Fjalla+One&family=Lobster&family=Original+Surfer&family=Playfair+Display&display=swap" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+  
   <!-- moment.js -->
   <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
 </head>
@@ -46,14 +48,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    
-    <!-- /.content-header -->
-
-
-	<div ng-show="loading" class="label"></div>
-    <ng-view></ng-view>
-
+  
+		<div ng-show="loading" class="label"></div>
+	    <ng-view></ng-view>
     
   </div>
   <!-- /.content-wrapper -->
@@ -116,10 +113,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="/admtemp/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+
 <!-- my script -->
 <script src="/js/admin-app.js"></script>
 <script src="/js/product-ctrl.js"></script>
 <script src="/js/order-ctrl.js"></script>
+<script src="/js/areaShip-ctrl.js"></script>
+<script src="/js/staff-ctrl.js"></script>
+<script src="/js/coupon-ctrl.js"></script>
+<script src="/js/customer-ctrl.js"></script>
 
 </body>
 </html>

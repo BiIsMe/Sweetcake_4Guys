@@ -1,0 +1,165 @@
+	 
+	<!-- filter -->
+	 <div class="row mb-2">
+    	<div class="col-sm-12">
+    		<div class="card">
+    			<div class="card-header">
+    				<div class="row mt-2 mb-2 form-inline justify-content-center">
+    					<div class="col-sm-4 ml-4">
+	    					<div class="row form-group">
+	    							<label for="">Customer</label>
+	    							<input ng-model="username" class="form-control ml-2" type="search"/>
+	    					</div>
+	    				</div>
+	    				
+	    				<div class="col-sm-4">
+	    					<div class="row form-group">
+	    							<input class="form-check-input " ng-model="shopping" type="radio" value="" />
+	    							<label for="">All</label>
+	    							<input class="form-check-input ml-3" ng-model="shopping" type="radio" value="false" />
+	    							<label for="">Not Yet</label>
+	    							<input class="form-check-input ml-3" ng-model="shopping" type="radio" value="true" />
+	    							<label for="">Ordered</label>
+	    					</div>
+	    				</div>
+	    				
+	    				<div class="col-sm-3">
+	    					<div class="form-group">
+	    						<label for="">Active</label>
+							  	<select ng-model="active" class="form-control ml-2">
+									  <option value="">All</option>
+									  <option value="true">Active</option>
+									  <option value="false">Inactive</option>
+							  	</select>
+	    					</div>
+	    				</div>
+	    				
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+	<!-- /filter -->
+	
+	
+	<!-- list -->
+	<div class="row justify-content-center" 
+			ng-repeat="account in customers | filter : {username:username, active:active, shopping:shopping} | limitTo :limit :begin">		
+        	 <div class="col-sm-10" >
+         	 	<div  class="card card-responsive collapsed-card">
+	              	<div class="card-header {{account.active? '':'bg-secondary'}}" 
+	              			style="background-color:rgb(186, 245, 242); height:47px;font:14px">
+	                	<h3 class="card-title col-sm-11">
+		                	<div class="row">
+		                		<div class="col-sm-4">
+		                			<i ng-show="account.gender == null" class="fas fa-transgender-alt mr-2" style="color:green;font-style:17px"></i>
+			                		<i ng-show="account.gender != null" class="{{account.gender?'fas fa-male':'fas fa-female'}} mr-2" style="color:green;font-style:17px"></i>
+			                		<b>{{account.username}}</b>
+			                	</div>
+			                	<div class="col-sm-4">
+			                		<i class="fas fa-shopping-cart mr-2" style="color:brown"></i>
+		                  			{{account.orderList.length>0? account.orderList.length+'  order(s)':'No Shopping'}}
+			                	</div>
+			                	<div class="col-sm-3">
+			                		<i class="fas fa-mobile-alt mr-1" style="color:brown;"></i>
+			                  			{{account.phone.length > 0? account.phone : '..........'}}
+			                	</div>
+			                	<div class="col-sm-1">
+			                		<i class="{{account.active? 'fas fa-bell':'fas fa-bell-slash'}}" style="color:orange;"></i>
+			                	</div>
+		                	</div>
+	               		 </h3>
+	
+		                <div class="card-tools col-sm-1">
+			                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+			                      class="fas fa-plus"></i>
+			                  </button>
+		                </div>
+	              </div>
+	              
+	              <!-- /.card-header -->
+	              <div class="card-body table-responsive p-0 "  style="height: 180px;">
+	 					<table class="table table-hover table-bordered mb-0 table-head-fixed text-nowrap" >
+	 						<thead>
+		       	 				<tr class="text-center">
+		       	 					<th style="width: 20%;">ORDER</th>
+		       	 					<th style="width: 20%;">PRICE</th>
+		       	 					<th>DATE</th>
+		       	 					<th  style="width: 20%;">COUPON</th>
+		       	 					<th  style="width: 20%;">STATUS</th>
+		       	 				</tr>
+	       	 				</thead>
+	       	 				
+	       	 				<body>
+	       	 					<tr ng-repeat="order in account.orderList" class="text-center">
+	       	 						<td style="vertical-align: middle;">{{order.id}}</td>
+								    <td style="vertical-align: middle;">{{order.price | currency:'':0}}</td>
+		                            <td style="vertical-align: middle;">{{order.createdate | date:'dd-MM-yyyy'}}</td>
+		                            <td style="vertical-align: middle;">{{order.coupon == null?'': order.coupon.code}}</td>
+		                            <td style="vertical-align: middle;">{{order.orderstatus}}</td>
+	       	 					</tr>
+	       	 				</body>
+	 					</table>
+	              </div>
+	              <!-- /.card-body -->
+	              
+	              <div class="card-footer">
+	              	<div class="row">
+	              		<div class="col-sm-3">
+ 							<div class="form-group ml-4 mt-2">
+								<div class="form-control">
+									<div class="form-check form-check-inline">
+									  <input ng-model="account.active" class="form-check-input"  type="radio" ng-value="true">
+									  <label class="form-check-label" for="inlineRadio1">Active</label>
+									</div>
+									<div class="form-check form-check-inline">
+										  <input ng-model="account.active" class="form-check-input"  type="radio" ng-value="false">
+										  <label class="form-check-label" for="inlineRadio2">Inactive</label>
+									</div>
+								</div>
+ 							</div>
+ 						</div>
+ 						<div class="col-sm-7"></div>
+	              		<div class="col-sm-2 mt-2">
+	              			<button ng-click="updateCust(account)" class="btn btn-warning mr-4">Update</button>
+	              		</div>
+	              	</div>
+	              </div>
+              
+            </div>
+            <!-- /.card -->
+      	 </div>
+	</div>
+	
+	<!-- paging -->
+		<div class="row justify-content-center mt-2">
+                <div class="text-center">
+                    <ul class="pagination mb-1"
+                           style="font-size: 29px; font-weight: bolder;">
+                           <li class="page-item mr-2" ><button ng-click="first()" ng-disabled="pageIndex == 1"  
+                               class="btn page-link btn-light"><span
+                                   class="fa fa-angle-double-left	"
+                                   style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
+                           <li class="page-item mr-2 " ><button ng-click="prev()" ng-disabled="pageIndex == 1" 
+                               class="btn page-link btn-light"><span
+                                   class="fa fa-angle-left"
+                                   style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
+                           <li class="page-item">
+                               <div  style="color: rgb(121, 73, 19); font-size: 15px; margin-left:3px;margin-right:9px;margin-top:10px">
+                                   {{pageIndex}}/{{totalPage}}
+                               </div></li>
+                           <li class="page-item mr-2" ><button ng-click="next()" ng-disabled="pageIndex == totalPage"
+                               class="btn page-link btn-light"><span
+                                   class="fa fa-angle-right"
+                                   style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
+                           <li class="page-item mr-2"  ><button ng-click="last()" ng-disabled="pageIndex == totalPage"
+                               class="btn page-link btn-light"><span
+                                   class="fa fa-angle-double-right"
+                                   style="color: rgb(52,58,64); font-size: 18px;"></span></button></li>
+                   	</ul>
+                </div>
+            </div>
+	<!-- /paging -->
+	
+
+	

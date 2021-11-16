@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-sm-4 text-center">
 				<div class="ml-5"  style="width: 65%; overflow: hidden; height: 250px;">
-                     <img ng-src="{{'/sitetemp/img/product/'+form.photo}}" width="100%" alt="">
+                     <img ng-src="{{'/image/products/'+form.photo}}" width="100%" alt="">
                 </div>
 			</div>
 			
@@ -29,7 +29,7 @@
 				<div class="row">
 					<div class="form-group col-sm-5 mr-2 ml-1">
 						<label for="">Image</label>
-						<input onchange="angular.element(this).scope().imageChange(this.files)" type="file" class="form-control" id="image" />
+						<input onchange="angular.element(this).scope().imageChange(this.files)"  type="file" class="form-control" id="image" />
 					</div>
 					
 					<div class="form-group col-sm-5 ml-5">
@@ -54,11 +54,11 @@
 							<div class="form-check form-check-inline">
 							  <input ng-model="form.available" class="form-check-input"  type="radio" ng-value="true">
 							  <label class="form-check-label" for="inlineRadio1">Yes</label>
-						</div>
-						<div class="form-check form-check-inline">
-							  <input ng-model="form.available" class="form-check-input"  type="radio" ng-value="false">
-							  <label class="form-check-label" for="inlineRadio2">No</label>
-						</div>
+							</div>
+							<div class="form-check form-check-inline">
+								  <input ng-model="form.available" class="form-check-input"  type="radio" ng-value="false">
+								  <label class="form-check-label" for="inlineRadio2">No</label>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -77,10 +77,9 @@
 	
 	<div class="card-footer">
          <div class="row justify-content-end mr-1">
-             <button ng-click="create()" class="btn btn-success mr-4"  style="font-family: 'Fjalla One', sans-serif;"> <i class="fa fa-bookmark-o" aria-hidden="true"></i> Create</button>
-             <button ng-click="update()" class="btn btn-warning mr-4"  style="font-family: 'Fjalla One', sans-serif;"><i class="fa fa-info" aria-hidden="true"></i> Update</button>
-             <button ng-click="delete(form)" class="btn btn-danger mr-4"  style="font-family: 'Fjalla One', sans-serif;"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
-             <button ng-click="reset()" class="btn btn-info mr-5"  style="font-family: 'Fjalla One', sans-serif;"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Reset</button>
+             <button ng-click="create()" class="btn btn-success mr-4"  style="font-family: 'Fjalla One', sans-serif;"> <i class="fa fa-bookmark"></i> Create</button>
+             <button ng-click="update()" class="btn btn-warning mr-4"  style="font-family: 'Fjalla One', sans-serif;"><i class="fa fa-info" ></i> Update</button>
+             <button ng-click="reset()" class="btn btn-info mr-5"  style="font-family: 'Fjalla One', sans-serif;"><i class="fa fa-paper-plane" ></i> Reset</button>
          </div>
            
 	</div>

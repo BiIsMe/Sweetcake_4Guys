@@ -56,11 +56,18 @@ public class OrderRestController {
 		return dao.save(order);
 	}
 	
+	//find by date form and date to
 	@GetMapping("{from}/{to}/{status}")
 	public List<Order> findByDate(@PathVariable("from") String from,@PathVariable("to") String to,
 			@PathVariable("status") String status){
 		if(status.equals("all"))
 			status = "%%";
 		return dao.findByDate(from,to,status);
+	}
+	
+	//find all by user
+	@GetMapping("account/{username}")
+	public List<Order> findOrderByUser(@PathVariable("username") String username ){
+		return dao.findByUser(username);
 	}
 }

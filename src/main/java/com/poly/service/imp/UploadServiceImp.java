@@ -1,12 +1,10 @@
 package com.poly.service.imp;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.management.RuntimeErrorException;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +25,8 @@ public class UploadServiceImp implements UploadService {
 		if(!dir.exists())
 			dir.mkdirs();
 		
-		String s = System.currentTimeMillis() + file.getOriginalFilename();
-		String name = Integer.toHexString(s.hashCode()) + s.substring(s.lastIndexOf("."));
+		//String s = System.currentTimeMillis() + file.getOriginalFilename();
+		String name = file.getOriginalFilename();
 		try {
 			File saveFile = new File(dir,name);
 			file.transferTo(saveFile);

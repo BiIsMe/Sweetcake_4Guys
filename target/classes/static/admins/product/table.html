@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Product list</title>
+<style>
+	a{
+		color:rgb(121, 73, 19);
+	}
+</style>
 </head>
 <body>
 	<div class="card mb-0">
@@ -11,11 +16,11 @@
 		</div>
 		
 		<div class="row mt-4 mb-4 justify-content-center form-inline">
-			<div class="col-sm-6 ml-4">	
+			<div class="col-sm-6 ml-5">	
 				 <div class="form-group">
 				 	<label for="">Name</label>
 				      <div class="input-group ml-3">
-					        <input type="search" ng-model="nameItem" class="form-control" id="myText" />
+					        <input type="search" ng-model="nameItem"  class="form-control" id="myText" />
 					        <div class="input-group-prepend">
 							      <div class="btn btn-dark">
 						            	<i class="fas fa-search"></i>
@@ -27,50 +32,127 @@
 	       	 
 		      <div class= "col-sm-4">
 		      	  <div class="form-group">
-		      	  	<label for="">Category</label>
+		      	  	  <label for="">Category</label>
 					  <select ng-model="nameCate" class="form-control ml-3">
-						  <option ng-repeat="c in category" ng-value="c.id">{{c.name}}</option>
+						  <option ng-repeat="c in categoryFilter" ng-value="c.id">{{c.name}}</option>
 					  </select>
+					  <button class="btn btn-light" data-toggle="modal" data-target="#cateManager"><i class="fa fa-plus-circle"></i></button>
 		      	  </div>
-			  </div>
-				      
-			
+			  </div>				  			
 		</div>
 		
+		
+		<!-- Modal Category -->
+		<div class="modal fade" id="cateManager" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog"  >
+		    <div class="modal-content" style="width:670px">
+		      <div class=" alert alert-dark modal-header">
+		        <div class="col-sm-12  text-center">
+	        		<h4 ><b>CATEGORY MANAGEMENT</b></h4>
+		        </div>
+		      </div>
+		      
+		      <div class="modal-body">
+		       	 <div class="row  form-inline mb-4 mt-1">
+		       	 	<div class="col-sm-5">		       	 		
+		       	 		<div class="form-group">
+		       	 			<label class="col-sm-2">ID</label>
+		       	 			<input ng-model="formCate.id" type="text" class="form-control col-sm-8" />
+		       	 		</div>
+		       	 	</div>
+		       	 	<div class="col-sm-5">		       	 		
+		       	 		<div class="form-group">
+		       	 			<label class="col-sm-2">Name</label>
+		       	 			<input ng-model="formCate.name" type="text" class="form-control col-sm-8 ml-2" />
+		       	 		</div>
+		       	 	</div>
+		       	 	<div class="col-sm-2">
+		       	 		<button ng-click="createCate()" ng-disabled="formCate.id == null" class="btn btn-success ml-1">Add</button>
+		       	 	</div>	       	 		    
+		       	 </div>
+		       	 
+		       	 <hr />
+		       	 
+		       	 	<table class="table table-hover table-bordered mb-0 mt-4">
+		       	 			<thead>
+		       	 				<tr class="text-center">
+		       	 					<th>&nbsp;</th>
+		       	 					<th>ID</th>
+		       	 					<th style="width: 300px;">NAME</th>
+		       	 					<th style="width: 70px;">PRODUCT</th>
+		       	 					<th>&nbsp;</th>
+		       	 				</tr>
+		       	 			</thead>
+		       	 			
+		       	 			<body>
+		       	 				<tr  ng-repeat="c in category" class="text-center">
+		       	 					<td style="vertical-align: middle;">
+		       	 						<input type="checkbox" ng-model="checkCate" class="form-control" />
+	       	 						</td>
+		       	 					<td style="vertical-align: middle;"><h5>{{c.id}}</h5></td>
+		       	 					<td style="vertical-align: middle;">
+		       	 						<div class="row justify-content-center">
+		       	 							<input ng-disabled="!checkCate" type="text" class="form-control  col-sm-10" ng-model="c.name" />
+		       	 						</div>
+		       	 					</td>
+		       	 					<td style="vertical-align: middle;">{{c.countProduct}}</td>
+		       	 					<td style="vertical-align: middle;">
+		       	 						<button ng-click="updateCate(c)" ng-disabled="!checkCate" class="btn btn-warning">Update</button>
+		       	 					</td>
+		       	 				</tr>
+		       	 			</body>
+		       	 		</table>
+		       	 </div>
+		      
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!-- /Modal -->
 	
-		<table id="example2" class="table table-hover table-bordered  mb-0">
-                        <thead>
-                            <tr class="text-center" style="font-family:'Fjalla One', sans-serif; font-size: 16px;color:rgb(121, 73, 19)">
-                                <th>ID</th>
-                                <th style="width: 70px;">IMAGE</th>
-                                <th>NAME</th>                            
-                                <th>CATEGORY</th>
-                                <th>PRICE</th>
-                                <th>AVAILABLE</th>
-                                <th>&nbsp;</th>
-                            </tr>
-                        </thead>
-                        <body>
-                        		<tr ng-repeat="item in pager.items | filter : {name : nameItem, cate : nameCate}" class="text-center">
-	                                <td style="vertical-align: middle;">{{item.id}}</td>                                
-	                                <td >
-	                                    <div style="width: 60px; overflow: hidden; height: 50px;">
-	                                        <img src="/sitetemp/img/product/{{item.photo}}" width="100%" alt="">
-	                                    </div>
-	                                </td>
-	                                <td style="vertical-align: middle;">{{item.name}}</td>
-									<td style="vertical-align: middle; ">{{item.category.name}}</td>
-	                                <td style="vertical-align: middle;">{{item.price|currency:'':0}}</td>
-	                                <td style="vertical-align: middle;">{{item.available?'Yes':'No'}}</td>
-	                                <td  style="vertical-align: middle;"> <button ng-click="edit(item)" class="btn fa fa-edit" style="color: brown;font-size: 21px;"></button></td>
-                            	</tr>                
-                        </body>
-                    </table>
+		<div class="table-responsive p-0"  style="height: 410px;">
+			<table id="example2" class="table table-hover table-bordered  mb-0 table-head-fixed text-nowrap">
+                  <thead>
+                      <tr class="text-center" style="font-family:'Fjalla One', sans-serif; font-size: 16px;color:rgb(121, 73, 19)">
+                          <th><a href="" ng-click="sortBy('id')">ID <span class="fas fa-arrows-alt-v ml-2"></span></a></th>
+                          <th style="width: 70px;">IMAGE</th>
+                          <th>NAME</th>                            
+                          <th>CATEGORY</th>
+                          <th><a href="" ng-click="sortBy('price')">PRICE <span class="fas fa-arrows-alt-v ml-2"></span></a></th>
+                          <th>AVAILABLE</th>
+                          <th>&nbsp;</th>
+                      </tr>
+                  </thead>
+                  <body>
+                	 <tr ng-repeat="item in items | filter : {name : nameItem, cate : nameCate} |orderBy:property:reverse" 
+               	 		class="text-center {{item.available?'':'bg-secondary'}}">
+                           <td style="vertical-align: middle;">{{item.id}}</td>                                
+                           <td >
+                               <div style="width: 60px; overflow: hidden; height: 50px;">
+                                   <img src="/image/products/{{item.photo}}" width="100%" alt="">
+                               </div>
+                           </td>
+                           <td style="vertical-align: middle;">{{item.name}}</td>
+						   <td style="vertical-align: middle; ">{{item.category.name}}</td>
+                           <td style="vertical-align: middle;">{{item.price|currency:'':0}}</td>
+                           <td style="vertical-align: middle;">{{item.available?'Yes':'No'}}</td>
+                           <td  style="vertical-align: middle;"> <button ng-click="edit(item)" class="btn fa fa-edit" style="color: brown;font-size: 21px;"></button></td>
+                      </tr>                
+                 </body>
+            </table>
+		</div>
 		
 		
 		<div class="card-footer">
 			<div class="row justify-content-center">
                  <div class="text-center">
+                 	<div  style="color: rgb(121, 73, 19); font-size: 17px;">
+                 		{{(items | filter : {name : nameItem, cate : nameCate}).length}} Products
+                 	</div>
+                 
+                 	<!-- 
                      <ul class="pagination mb-1"
                              style="font-size: 29px; font-weight: bolder;">
                              <li class="page-item mr-2 ${page.number == 0?'disabled':'' }"><button ng-click="pager.first()" 
@@ -94,10 +176,14 @@
                                      class="fa fa-angle-double-right"
                                      style="color: rgb(52,58,64); font-size: 20px;"></span></button></li>
                      </ul>
+                      -->
                  </div>
-                        </div>
+            </div>
 		</div>
 		
-	</div>
+		
+	
+		
+	</div>	
 </body>
 </html>
