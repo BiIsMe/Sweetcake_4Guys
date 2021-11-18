@@ -39,4 +39,16 @@ public class OrderServiceImpl implements OrderService{
 		return order;
 	}
 
+	@Override
+	public Order findById(Long id) {
+		// TODO Auto-generated method stub
+		return dao.findById(id).get();
+	}
+
+	@Override
+	public List<Order> findByUsername(String username) {
+		
+		return dao.findByUsername(username);
+	}
+
 }

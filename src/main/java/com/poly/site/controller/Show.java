@@ -4,10 +4,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class IndexController {
+public class Show {
+	
 
-	@RequestMapping("sweetcake.com")
-	public String siteIndex() {
-		return "redirect:/layout/show";
+	@RequestMapping("layout/show")
+	public String Show(){
+		return "sites/layout/show.html";
 	}
+
+	
 }

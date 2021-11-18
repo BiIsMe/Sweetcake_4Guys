@@ -53,10 +53,10 @@
         <section class="banner_area">
         	<div class="container">
         		<div class="banner_text">
-        			<h3>Product Details</h3>
+        			<h3>Chi Tiết Sản Phẩm</h3>
         			<ul>
-        				<li><a href="index.html">Home</a></li>
-        				<li><a href="product-details.html">Product Details</a></li>
+        				<li><a href="index.html">Trang chủ</a></li>
+        				<li><a href="product-details.html">Chi tiết sản phẩm</a></li>
         			</ul>
         		</div>
         	</div>
@@ -79,7 +79,9 @@
         						<label for="quantity">Quantity :</label>
         						<input type="text" placeholder="1" id="quantity">
         					</div> -->
-        					<a class="pink_more" href="/cart/view">Add to Cart</a>
+        					<div class="row pt-4">
+                                <button th:attr="ng-click=@{|cart.add(${item.id})|}" class="btn btn-success">Add to Cart</button>
+                            </div>
         				</div>
         			</div>
         		</div>

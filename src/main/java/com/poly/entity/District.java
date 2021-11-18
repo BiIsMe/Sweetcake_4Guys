@@ -16,7 +16,8 @@ import lombok.NoArgsConstructor;
 
 @SuppressWarnings("serial")
 @Data
-@AllArgsConstructor @NoArgsConstructor
+@AllArgsConstructor 
+@NoArgsConstructor
 @Entity @Table(name="Districts")
 public class District implements Serializable {
 

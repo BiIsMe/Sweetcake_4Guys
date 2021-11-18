@@ -1,10 +1,131 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{sites/layout/index.html::dynamic(~{::body})}">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8">
 </head>
-<body>
+<body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
+	<section class="banner_area">
+		<div class="container">
+			<div class="banner_text">
+				<h3>Chi Tiết Đơn Hàng</h3>
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="checkout.html">Chekout</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+	<!--================End Main Header Area =================-->
 
+	<!--================Billing Details Area =================-->
+	<section class="billing_details_area p_100" th:object="${order}">
+		<div class="container">
+			<div class="return_option">
+				<h4> Trạng Thái đơn hàng: <a th:text="*{orderstatus}"></a> </h4>
+			</div>
+			<div class="row">
+				<div class="col-lg-7">
+
+					<div class="billing_form_area">
+						<form class="billing_form row"
+							action="http://galaxyanalytics.net/demos/cake/theme/cake-html/contact_process.php"
+							method="post" id="contactForm" novalidate="novalidate">
+							<div class="form-group col-md-6">
+								<label for="first">Mã Đơn Hàng:</label> <input th:field="*{id}"
+									class="form-control" readonly>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="last">Tên Người Đặt:</label> <input
+									th:field="*{account.username}" class="form-control" readonly>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="first">Ngày Đặt:</label> <input
+									th:field="*{createdate}" class="form-control" readonly>
+							</div>
+							<div class="form-group col-md-12">
+								<label for="address">Địa Chỉ Nhận Hàng:</label>
+								<textarea th:field="*{address}" class="form-control" readonly></textarea>
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="phone">Số điện thoại *</label> <input
+									th:field="*{phone}" class="form-control" readonly>
+							</div>
+						</form>
+					</div>
+					<hr>
+
+					
+</div>
+
+<div class="col-lg-5">
+	<div class="order_box_price">
+
+		<div class="payment_list">
+			<div class="price_single_cost">
+				<h4>Sản Phẩm</h4>
+
+					<table class="table table-hover table-bordered  mb-0">
+						<thead>
+							<tr class="text-center">
+								
+								<th>Sản Phẩm</th>
+								<th>Đơn Giá</th>
+								<th>Số Lượng</th>
+								<th>Thành Tiền</th>
+							</tr>
+						</thead>
+						<body>
+						<tr th:each="detail:*{orderDetails}" th:object=${detail}>
+							<td class="text-center" style="vertical-align: middle;">[[*{product.name}]]</td>
+							<td class="text-center" style="vertical-align: middle;">[[*{#numbers.formatDecimal(price,0,'COMMA',2,'POINT')}]]đ</td>
+							<td class="text-center" style="vertical-align: middle;">[[*{quantity}]]</td>
+							<td class="text-center" style="vertical-align: middle;">[[*{#numbers.formatDecimal(price*quantity,0,'COMMA',2,'POINT')}]]đ</td>
+						</tr>
+						</body>
+					</table> <hr>
+					<div style="margin-left: 200px">
+						<a th:href="@{/order/checkout}" >
+                        	<button class="btn btn-success ml-3" style="font-size: 14px;">Mua lại</button>
+                        </a>
+                        <button ng-click="cart.clear()" ng-disabled="cart.orderstatus==accepted"  class="btn btn-danger ml-3" style="font-size: 14px;">Hủy đơn</button>
+					</div>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</section>
+<!--================End Billing Details Area =================-->
+
+<!--================Newsletter Area =================-->
+<section class="newsletter_area">
+	<div class="container">
+		<div class="row newsletter_inner">
+			<div class="col-lg-6">
+				<div class="news_left_text">
+					<h4>Join our Newsletter list to get all the latest offers,
+						discounts and other benefits</h4>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="newsletter_form">
+					<div class="input-group">
+						<input type="text" class="form-control"
+							placeholder="Enter your email address">
+						<div class="input-group-append">
+							<button class="btn btn-outline-secondary" type="button">Subscribe
+								Now</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--================End Newsletter Area =================-->
 </body>
 </html>

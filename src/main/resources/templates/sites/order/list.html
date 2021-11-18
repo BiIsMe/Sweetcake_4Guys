@@ -1,10 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{sites/layout/index.html::dynamic(~{::body})}">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
+	<section class="banner_area">
+		<div class="container">
+			<div class="banner_text">
+				<h3>Đơn Hàng Đã Mua</h3>
+				<ul>
+					<li><a href="index.html">Trang Chủ</a></li>
+					<li><a href="checkout.html">Đơn Đã Mua</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+	<!--================End Main Header Area =================-->
 
+	<!--================Billing Details Area =================-->
+	<section class="billing_details_area p_100" th:object="${order}">
+		<div class="container">
+			<div class="return_option">
+				<h4>
+					Đơn Hàng Đã Mua
+				</h4>
+			</div>
+			<div class="row">
+				<div class="col-lg-10">						
+
+					<table class="table table-hover table-bordered  mb-0">
+						<thead>
+							<tr class="text-center">
+								<th>STT</th>
+								<th>ID</th>
+								<th>Ngày Mua</th>
+								<th>Địa chỉ nhận</th>
+								<th>Trạng Thái</th>
+                   				<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<body>
+						<tr th:each="order,state:${orders}">
+							<td class="text-center" style="vertical-align: middle;">[[${state.index}]]</td>
+							<td class="text-center" style="vertical-align: middle;">[[${order.id}]]</td>
+							<td class="text-center" style="vertical-align: middle;">[[${order.createdate}]]</td>
+							<td class="text-center" style="vertical-align: middle;">[[${order.address}]]</td>
+							<td class="text-center" style="vertical-align: middle;">[[${order.orderstatus}]]</td>
+							<td style="vertical-align: middle;"><a th:href="@{|/order/detail/${order.id}|}"> <span class="fa fa-edit" style="color: brown;font-size: 19px;"></span></a></td>
+							</td>
+						</tr></body>
+	          </table>
+				</div>
+				<div class="col-lg-2">
+					<div class="order_box_price">
+						
+						<div class="payment_list">
+							<div class="price_single_cost">
+								<h5>
+									Tổng Đơn: 
+								</h5>
+								<h5>
+									Số Tiền Đã Trả:
+								</h5>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Billing Details Area =================-->
+
+	<!--================Newsletter Area =================-->
+	<section class="newsletter_area">
+		<div class="container">
+			<div class="row newsletter_inner">
+				<div class="col-lg-6">
+					<div class="news_left_text">
+						<h4>Join our Newsletter list to get all the latest offers,
+							discounts and other benefits</h4>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="newsletter_form">
+						<div class="input-group">
+							<input type="text" class="form-control"
+								placeholder="Enter your email address">
+							<div class="input-group-append">
+								<button class="btn btn-outline-secondary" type="button">Subscribe
+									Now</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Newsletter Area =================-->
 </body>
 </html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{sites/layout/index.html::dynamic(~{::body})}">
+<head>
+<meta charset="UTF-8">
+</head>
+    <body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
+
+        <!--================Special Recipe Area =================-->
+			<section class="special_recipe_area">
+				<div class="container">
+					<div class="special_recipe_slider owl-carousel">
+						<div class="item">
+							<div class="media">
+								<div class="d-flex">
+									<img src="/sitetemp/img/recipe/recipe-1.png" alt="">
+								</div>
+								<div class="media-body">
+									<h4>Cupcake</h4>
+									<p>Bánh cupcake ở quán có 2 vị chủ đạo là: vani và socola, lâu lâu thì có thêm vị lá dứa thơm ngon và lạ miệng, được trang trí đơn giản, không quá cầu kỳ nhưng cực kỳ dễ thương.</p>
+									
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="media">
+								<div class="d-flex">
+									<img src="/sitetemp/img/recipe/recipe-1.png" alt="">
+								</div>
+								<div class="media-body">
+									<h4>Special Recipe</h4>
+									<p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi equatur uis autem vel eum.</p>
+									
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="media">
+								<div class="d-flex">
+									<img src="/sitetemp/img/recipe/recipe-1.png" alt="">
+								</div>
+								<div class="media-body">
+									<h4>Special Recipe</h4>
+									<p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi equatur uis autem vel eum.</p>
+									
+								</div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="media">
+								<div class="d-flex">
+									<img src="/sitetemp/img/recipe/recipe-1.png" alt="">
+								</div>
+								<div class="media-body">
+									<h4>Special Recipe</h4>
+									<p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi equatur uis autem vel eum.</p>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!--================End Special Recipe Area =================-->
+            <!--================Welcome Area =================-->
+            <hr  width="100%" size="1000px" align="center" color="red">
+            <section class="bakery_video_area" style="margin-top: 10px;">
+                <div class="container">
+                    <div class="video_inner">
+                        <h3>Real Taste</h3>
+                        <p>A light, sour wheat dough with roasted walnuts and freshly picked rosemary, thyme, poppy seeds, parsley and sage</p>
+                        <div class="media">
+                            <div class="d-flex">
+                                <a class="popup-youtube" href="https://www.youtube.com/watch?v=xVWwDc5aNDM"><i class="flaticon-play-button"></i></a>
+                            </div>
+                            <div class="media-body">
+                                <h5>Watch intro video <br />about us</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <hr  width="100%" size="1000px" align="center" color="red">
+
+        <section class="welcome_bakery_area pink_cake_feature" style="margin-top: 10px;">
+			<div class="container">
+				<div class="cake_feature_inner">
+					  <div class="title_view_all">
+						<div class="float-left">
+							<div class="main_w_title">
+								<h2>Top các sản phẩm bán chạy</h2>
+								<h5> Seldolor sit amet consect etur</h5>
+							</div>
+						</div>
+						<div class="float-right">
+							<a class="pest_btn" th:href="@{/product/list}">Xem toàn bộ sản phẩm</a>
+						</div>
+					</div>
+					   <div class="cake_feature_slider owl-carousel">
+						   <div class="item">
+							   <div class="cake_feature_item">
+								   <div class="cake_img">
+									   <img src="/sitetemp/img/cake-feature/c-feature-1.jpg" alt="">
+								   </div>
+								   <div class="cake_text">
+									   <h4>$29</h4>
+									   <h3>Strawberry Cupcakes</h3>
+									   <a class="pest_btn" href="#">Add to cart</a>
+								   </div>
+							   </div>
+						   </div>
+						   <div class="item">
+							   <div class="cake_feature_item">
+								   <div class="cake_img">
+									   <img src="/sitetemp/img/cake-feature/c-feature-2.jpg" alt="">
+								   </div>
+								   <div class="cake_text">
+									   <h4>$29</h4>
+									   <h3>Strawberry Cupcakes</h3>
+									   <a class="pest_btn" href="#">Add to cart</a>
+								   </div>
+							   </div>
+						   </div>
+						   <div class="item">
+							   <div class="cake_feature_item">
+								   <div class="cake_img">
+									   <img src="/sitetemp/img/cake-feature/c-feature-3.jpg" alt="">
+								   </div>
+								   <div class="cake_text">
+									   <h4>$29</h4>
+									   <h3>Strawberry Cupcakes</h3>
+									   <a class="pest_btn" href="#">Add to cart</a>
+								   </div>
+							   </div>
+						   </div>
+						   <div class="item">
+							   <div class="cake_feature_item">
+								   <div class="cake_img">
+									   <img src="/sitetemp/img/cake-feature/c-feature-4.jpg" alt="">
+								   </div>
+								   <div class="cake_text">
+									   <h4>$29</h4>
+									   <h3>Strawberry Cupcakes</h3>
+									   <a class="pest_btn" href="#">Add to cart</a>
+								   </div>
+							   </div>
+						   </div>
+					   </div>
+				</div>
+			</div>
+        </section>
+        
+        <section class="latest_news_area golden_bg p_100">
+			<div class="container">
+				<div class="main_title">
+					<h2>Latest Blog</h2>
+					<h5>an turn into your instructor your helper, your </h5>
+				</div>
+				   <div class="row latest_news_inner">
+					   <div class="col-lg-4 col-md-6">
+						   <div class="l_news_image">
+							   <div class="l_news_img">
+								   <img class="img-fluid" src="/sitetemp/img/blog/latest-news/l-news-1.jpg" alt="">
+							   </div>
+							   <div class="l_news_hover">
+								   <a href="#"><h5>Oct 15, 2016</h5></a>
+								   <a href="#"><h4>Nanotechnology immersion along the information</h4></a>
+							   </div>
+						   </div>
+					   </div>
+					   <div class="col-lg-4 col-md-6">
+						   <div class="l_news_item">
+							   <div class="l_news_img">
+								   <img class="img-fluid" src="/sitetemp/img/blog/latest-news/l-news-2.jpg" alt="">
+							   </div>
+							   <div class="l_news_text">
+								   <a href="#"><h5>Oct 15, 2016</h5></a>
+								   <a href="#"><h4>Nanotechnology immersion along the information</h4></a>
+								   <p>Lorem ipsum dolor sit amet, cons ectetur elit. Vestibulum nec odios Suspe ndisse cursus mal suada faci lisis. Lorem ipsum dolor sit ametion ....</p>
+							   </div>
+						   </div>
+					   </div>
+					   <div class="col-lg-4 col-md-6">
+						   <div class="l_news_item">
+							   <div class="l_news_img">
+								   <img class="img-fluid" src="/sitetemp/img/blog/latest-news/l-news-3.jpg" alt="">
+							   </div>
+							   <div class="l_news_text">
+								   <a href="#"><h5>Oct 15, 2016</h5></a>
+								   <a href="#"><h4>Nanotechnology immersion along the information</h4></a>
+								   <p>Lorem ipsum dolor sit amet, cons ectetur elit. Vestibulum nec odios Suspe ndisse cursus mal suada faci lisis. Lorem ipsum dolor sit ametion ....</p>
+							   </div>
+						   </div>
+					   </div>
+				   </div>
+			</div>
+		</section>
+
+        <section class="our_chef_area p_100">
+            <div class="container">
+                <div class="row our_chef_inner">
+                    <div class="col-lg-3 col-6">
+                        <div class="chef_text_item">
+                            <div class="main_title">
+                                <h2>Our Chefs</h2>
+                                <p>Lorem ipsum dolor sit amet, cons ectetur elit. Vestibulum nec odios Suspe ndisse cursus mal suada faci lisis. Lorem ipsum dolor sit ametion.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                        <div class="chef_item">
+                            <div class="chef_img">
+                                <img class="img-fluid" src="/sitetemp/img/chef/chef-1.jpg" alt="">
+                                <ul class="list_style">
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin-square"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                                </ul>
+                            </div>
+                            <a href="#"><h4>Michale Joe</h4></a>
+                            <h5>Expert in Cake Making</h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                        <div class="chef_item">
+                            <div class="chef_img">
+                                <img class="img-fluid" src="/sitetemp/img/chef/chef-2.jpg" alt="">
+                                <ul class="list_style">
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin-square"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                                </ul>
+                            </div>
+                            <a href="#"><h4>Michale Joe</h4></a>
+                            <h5>Expert in Cake Making</h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                        <div class="chef_item">
+                            <div class="chef_img">
+                                <img class="img-fluid" src="/sitetemp/img/chef/chef-3.jpg" alt="">
+                                <ul class="list_style">
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin-square"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                                </ul>
+                            </div>
+                            <a href="#"><h4>Michale Joe</h4></a>
+                            <h5>Expert in Cake Making</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--================End Client Says Area =================-->
+        
+        <!--================New Arivals Area =================-->
+        
+        <!--================End New Arivals Area =================-->
+        
+        <!--================Client Says Area =================-->
+        <section class="client_says_area p_100">
+            <div class="container">
+                <div class="client_says_inner">
+                    <div class="c_says_title">
+                        <h2>What Our Client Says</h2>
+                    </div>
+                    <div class="client_says_slider owl-carousel">
+                        <div class="item">
+                            <div class="media">
+                                <div class="d-flex">
+                                    <img src="/sitetemp/img/client/client-1.png" alt="">
+                                    <h3>“</h3>
+                                </div>
+                                <div class="media-body">
+                                    <p>Osed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci sed quia non numquam qui ratione voluptatem sequi nesciunt. Neque porro quisquam est.</p>
+                                    <h5>- Robert joe</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="media">
+                                <div class="d-flex">
+                                    <img src="/sitetemp/img/client/client-1.png" alt="">
+                                </div>
+                                <div class="media-body">
+                                    <p>Osed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci sed quia non numquam qui ratione voluptatem sequi nesciunt. Neque porro quisquam est.</p>
+                                    <h5>- Robert joe</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="media">
+                                <div class="d-flex">
+                                    <img src="/sitetemp/img/client/client-1.png" alt="">
+                                </div>
+                                <div class="media-body">
+                                    <p>Osed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci sed quia non numquam qui ratione voluptatem sequi nesciunt. Neque porro quisquam est.</p>
+                                    <h5>- Robert joe</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--================End Client Says Area =================-->
+        
+        
+        
+       
+    </body>
+
+</html>

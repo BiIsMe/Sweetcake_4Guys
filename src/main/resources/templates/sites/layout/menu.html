@@ -1,102 +1,94 @@
 <div xmlns:th="http://www.thymeleaf.org">
-    <header class="main_header_area five_header">
-        <div class="top_header_area row m0">
-            <div class="container">
-                <div class="float-left">
-                    <a href="tell:+18004567890"><i class="fa fa-phone" aria-hidden="true"></i> + (1800) 456 7890</a>
-                    <a href="mainto:info@cakebakery.com"><i class="fa fa-envelope-o" aria-hidden="true"></i>
-                        info@cakebakery.com</a>
-                </div>
-                <div class="float-right">
-                    <ul class="h_social list_style">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                        <li style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">[[${#request.remoteUser}]]</li>
-                    </ul>
-                    <ul class="h_search list_style">
-                        <li class="shop_cart"><a th:href="@{/cart/view}">{{cart.count}}&nbsp;Items<i class="lnr lnr-cart"></i></a></li>
-                        <li><a class="popup-with-zoom-anim" href="#test-search"><i class="fa fa-search"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="main_menu_two">
-            <div class="container">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand" th:href="@{/product/list}"><img src="/sitetemp/img/logo-2.png" alt=""></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="my_toggle_menu">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav justify-content-end">
-                            <li class="dropdown submenu active">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="index.html">Home 1</a></li>
-                                    <li><a href="index-2.html">Home 2</a></li>
-                                    <li><a href="index-3.html">Home 3</a></li>
-                                    <li><a href="index-4.html">Home 4</a></li>
-                                    <li><a href="index-5.html">Home 5</a></li>
-                                </ul>
-                            </li>
-                            <li><a th:href="@{/product/list}">Our Cakes</a></li>
-                            <li><a th:href="@{/product/list}">Menu</a></li>
-                            <li class="dropdown submenu">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About Us</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="about-us.html">About Us</a></li>
-                                    <li><a href="our-team.html">Our Chefs</a></li>
-                                    <li><a href="testimonials.html">Testimonials</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown submenu">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="service.html">Services</a></li>
-                                    <li class="dropdown submenu">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gallery</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="portfolio.html">-  Gallery Classic</a></li>
-                                            <li><a href="portfolio-full-width.html">-  Gallery Full width</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="faq.html">Faq</a></li>
-                                    <li><a href="what-we-make.html">What we make</a></li>
-                                    <li><a href="special.html">Special Recipe</a></li>
-                                    <li><a href="404.html">404 page</a></li>
-                                    <li><a href="comming-soon.html">Coming Soon page</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown submenu">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="blog.html">Blog with sidebar</a></li>
-                                    <li><a href="blog-2column.html">Blog 2 column</a></li>
-                                    <li><a href="single-blog.html">Blog details</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown submenu">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="shop.html">Main shop</a></li>
-                                    <li><a href="product-details.html">Product Details</a></li>
-                                    <li><a href="cart.html">Cart Page</a></li>
-                                    <li><a href="checkout.html">Checkout Page</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="contact.html">Contact Us</a></li>
-                            <li><a href="/security/logoff/success">Logout</a></li>
-                            
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </header>
+	<header class="main_header_area five_header">
+		<div class="top_header_area row m0">
+			<div class="container">
+				<div class="float-left">
+					<a href="tell:+18004567890"><i class="fa fa-phone"
+						aria-hidden="true"></i> + (1800) 456 7890</a> <a
+						href="mainto:info@cakebakery.com"><i class="fa fa-envelope-o"
+						aria-hidden="true"></i> info@sweetcake.com</a>
+				</div>
+				<div class="float-right">
+					<ul class="h_social list_style">
+						<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+						<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+						<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+						<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+						<li
+							style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;"> [[${#request.remoteUser}]]</li>
+					</ul>
+					<ul class="h_search list_style">
+						<li><a class="nav-link mt-1" th:href="@{/cart/view}"> <span
+								class="lnr lnr-cart" style="font-size: 22px;"> <sup><span
+										class="badge badge-pill badge-secondary"
+										style="margin-left: -12px;">{{cart.count}}</span></sup>
+							</span>
+						</a></li>
+						<li><a class="popup-with-zoom-anim" href="#test-search"><i
+								class="fa fa-search"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="main_menu_two">
+			<div class="container">
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+					<a class="navbar-brand" th:href="@{/layout/show}"><img
+						src="/sitetemp/img/logo-2.png" alt=""></a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse"
+						data-target="#navbarSupportedContent"
+						aria-controls="navbarSupportedContent" aria-expanded="false"
+						aria-label="Toggle navigation">
+						<span class="my_toggle_menu"> <span></span> <span></span> <span></span>
+						</span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav justify-content-end">
+							<li class="submenu active"><a th:href="@{/product/list}"
+								role="button" aria-haspopup="true" aria-expanded="false">Menu</a>
+							</li>
+							<li class="dropdown submenu"><a class="dropdown-toggle"
+								data-toggle="dropdown" href="#" role="button"
+								aria-haspopup="true" aria-expanded="false">About Us</a>
+								<ul class="dropdown-menu">
+									<li><a href="about-us.html">About Us</a></li>
+									<li><a href="our-team.html">Our Chefs</a></li>
+									<li><a href="testimonials.html">Testimonials</a></li>
+								</ul></li>
+							<li class="dropdown submenu"><a class="dropdown-toggle"
+								data-toggle="dropdown" href="#" role="button"
+								aria-haspopup="true" aria-expanded="false">Sản Phẩm</a>
+								<ul class="dropdown-menu">
+									<li><a th:each="c:${cates}"
+										th:href="@{|/product/list?cid=${c.id}|}">[[${c.name}]]</a></li>
+								</ul></li>
+							<li class="dropdown submenu"><a class="dropdown-toggle"
+								data-toggle="dropdown" href="#" role="button"
+								aria-haspopup="true" aria-expanded="false">Blog</a>
+								<ul class="dropdown-menu">
+									<li><a href="blog.html">Blog with sidebar</a></li>
+									<li><a href="blog-2column.html">Blog 2 column</a></li>
+									<li><a href="single-blog.html">Blog details</a></li>
+								</ul></li>
+
+							<li><a href="contact.html">Liên Hệ</a></li>
+							<li class="dropdown submenu"><a class="dropdown-toggle"
+								data-toggle="dropdown" href="#" role="button"
+								aria-haspopup="true" aria-expanded="false"><i
+									class="far fa-user-circle"></i> Shop</a>
+								<ul class="dropdown-menu">
+									<li><a href="shop.html">Sửa Thông Tin</a></li>
+									<li><a th:href="@{/cart/view}">Giỏ Hàng</a></li>
+									<li><a th:href="@{/order/list}">Đơn Hàng Đã Mua</a></li>
+									<li><a href="checkout.html">Đơn Đã Hủy</a></li>
+									<li><a href="/security/logoff/success">Đăng Xuất</a></li>
+								</ul></li>
+
+
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</div>
+	</header>
 </div>
