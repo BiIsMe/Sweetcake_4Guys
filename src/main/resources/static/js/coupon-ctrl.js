@@ -61,14 +61,28 @@ app.controller("coupon-ctrl",function($scope,$http){
 		$scope.form.quantity = 1;
 		$scope.form.createdate = new Date();
 		var item = angular.copy(this.form);
-		$http.post("/rest/coupon", item).then(resp => {
-			$scope.initial();
-			alert(item.code+" - create successfully");
-			$scope.reset();
-		}).catch(error => {
-			alert("Fail");
-			console.log("Error ",error);
+		var flag = true;
+		$scope.coupons.forEach(c => {
+			if(c.code == item.code){				
+				flag = !flag;
+				return;			
+			}
 		})
+		if(!flag){
+			alert("The Code of coupon is already exists");
+			document.getElementById("id").focus();
+			return;
+		}else{
+			$http.post("/rest/coupon", item).then(resp => {
+				$scope.initial();
+				alert(item.code+" - create successfully");
+				$scope.reset();
+			}).catch(error => {
+				alert("Fail");
+				console.log("Error ",error);
+			})
+		}
+		
 	}
 	
 	

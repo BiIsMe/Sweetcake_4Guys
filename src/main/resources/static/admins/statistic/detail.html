@@ -5,10 +5,21 @@
                  <h3 class="card-title" style="color: rgb(241, 234, 226); font-size: 25px; font-weight: bold;">ORDER DETAIL ID : {{order.id}}</h3>
              </div>
          </div>
+         
+         	<div class="row mt-3" ng-hide="order.id == null">
+         	 		<div class="col-sm-7 ml-3"><h6 style="font-size:17px">Khách nhận : <b>{{order.recipientname}}</b> </h6></div>
+         	 		<div class="col-sm-4"><h6 style="font-size:17px">Số ĐT : <b>{{order.phone}}</b> </h6></div>
+         	</div>
+         	<div class="row mb-2 mt-1" ng-hide="order.id == null">
+         	 		<div class="col-sm-11 ml-3">
+         	 			<h6 style="font-size:17px">Số nhà : <b>{{order.address}}, {{order.district.name}}, HCM</b> </h6>
+        	 			</div>
+           	</div>
+
          <table ng-hide="order.id == null" class="table table-hover table-bordered  mb-0">
              <thead>
                  <tr class="text-center" style="font-family:'Fjalla One', sans-serif; font-size: 16px;color:rgb(121, 73, 19)">
-                   <th style="width: 90px;">IMG</th>
+                   <th style="width: 90px;"></th>
                      <th>PRODUCT</th>
                      <th>PRICE</th>
                      <th>QUANTITY</th>
@@ -19,45 +30,115 @@
                  <tr ng-repeat="o in orderdetails" class="text-center">
 	                   <td >
 	                     <div style="width: 100%; overflow: hidden; height: 60px;">
-	                         <img src="/sitetemp/img/product/{{o.product.photo}}" width="100%" alt="">
+	                         <img src="/sitetemp/img/products/{{o.product.photo}}" width="100%" alt="">
 	                     </div>
 	                 </td>
                      <td style="vertical-align: middle;">{{o.product.name}}</td>
                      <td style="vertical-align: middle;">{{o.price|currency:'':0}}</td>
                      <td style="vertical-align: middle;">{{o.quantity}}</td>
                      <td style="vertical-align: middle;">{{o.price*o.quantity|currency:'':0}}</td>							          
-                  </tr> 
+                  </tr>
                   <tr>
-                  	<td colspan="5">
-                  		<div class="row">
-                  			<div class="col-sm-5 ">
-	                  			<div class="row">
-	                  				<div class="col-sm-4 mt-1 ml-2">
-	                  					<label for="" style="font-size:18px">STATUS</label>
-	               					</div>
-	               					<div class="col-sm-6">
-	               						<select ng-model="order.orderstatus" class="form-control" ng-disabled="orderComplete == 'completed'">
-											<option value="accepted">Accepted</option>
-											<option value="delivery">Delivery</option>
-											<option value="completed">Complete</option>
-										</select>
-	               					</div>
-	                  			</div>
+	                  	<td colspan="5">
+	                  	
+	                  		<div class="row" ng-hide="order.coupon==null">
+	                  			<div class="col-sm-9 mt-2 ">
+	                  				<h4 class="card-title" >
+		                 				Coupon : <b> {{order.coupon.code}} - {{order.coupon.value}} %</b> </h4>	                  		
+		                  		</div>
+
+		                  		<div class="col-sm-3 mt-2">
+		                  			<h4 class="card-title" >
+	                 				 	<b> - {{initialPrice * order.coupon.value *0.01|currency:'':0}} </b> </h4>
+		          				</div>
 	                  		</div>
-	                  		<div class="col-sm-4"></div>
-	                  		<div class="col-sm-3 mt-2">
-	                  			<h4 class="card-title" style="color: rgb(37, 33, 28); font-size: 20px;color: rgb(173, 10, 10);">
-	                 				Total : {{order.price|currency:'':0}}</b> </h4>
-	          				</div>
-                  		</div>
-                  		
-                  	</td>
+	                  		
+	                  		<div class="row">
+	                  			<div class="col-sm-5 mt-2 ">	
+	                  				<h4 class="card-title" >
+		                 				Phí Ship: </h4>                  					                  		
+		                  		</div>
+		                  		<div class="col-sm-4"></div>
+		                  		<div class="col-sm-3 mt-2">
+		                  			<h4 class="card-title" >
+	                 				 	<b> {{order.shipfee|currency:'':0}} </b> </h4>
+		          				</div>
+	                  		</div>
+	                  		
+	                  		<div class="row">
+	                  			<div class="col-sm-5 mt-2 ">	
+	                  				<h4 class="card-title" >
+		                 				Tổng : </h4>                  					                  		
+		                  		</div>
+		                  		<div class="col-sm-4"></div>
+		                  		<div class="col-sm-3 mt-2">
+		                  			<h4 class="card-title" >
+	                 				 	<b style="color:rgb(121, 73, 19)"> {{order.price|currency:'':0}} VND</b> </h4>
+		          				</div>
+	                  		</div>
+	                  		
+	                  	</td>
+                  </tr>  
+                  <tr>
+	                  	<td colspan="5">
+	                  		<div class="row">
+	                  			<div class="col-sm-5 mt-2 ">
+	                  				<h4 class="card-title" >
+		                 				<b style="color:rgb(121, 73, 19)"> {{order.orderstatus | uppercase}}</b> </h4>	                  		
+		                  		</div>
+		                  		<div class="col-sm-3"></div>
+		                  		<div class="col-sm-4 mt-2">
+		                  			<h4 class="card-title" >
+
+		          				</div>
+	                  		</div>
+	                  		
+	                  	</td>
                   </tr>              
              </body>
          </table>
          <div class="card-footer" ng-hide="order.id == null">
-             <div class="row justify-content-end">
-             	<button ng-click="updateStatus()" class="btn btn-secondary mr-2" ng-disabled="orderComplete == 'completed' || order.id == null">Update</button>
+             <div class="row justify-content-start">
+             	<h4 ng-show="order.orderstatus == 'canceled'" class="card-title mr-2" style=" font-size: 17px;">
+             			<b style=" font-size: 18px;color: rgb(173, 10, 10);"> {{order.whocancel?'Customer':'Company'}}</b>
+           				Reason Cancelation : <br /> <b style=" font-size: 18px;color: rgb(173, 10, 10);"> {{order.reason}}</b> </h4>
+             	<button data-toggle="modal" data-target="#cancel" class="btn btn-warning mr-4" 
+             		ng-hide="order.orderstatus == 'completed' || order.id == null || order.orderstatus == 'canceled'">Cancel</button>
+             	<button ng-click="updateStatus()" class="btn btn-success mr-2" 
+             		ng-hide="order.orderstatus == 'completed' || order.id == null || order.orderstatus == 'canceled'">Next Stage</button>
              </div> 
          </div>
      </div>
+
+     
+     	
+	<!-- Modal -->
+		<div class="modal fade" id="cancel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog"  >
+		    <div class="modal-content" style="width:670px">
+			      <div class=" alert alert-dark modal-header">
+				        <div class="col-sm-12  text-center">
+			        		<h4 ><b>CANCEL FORM</b></h4>
+				        </div>
+			      </div>
+		      
+			      <div class="modal-body">
+						 <form name="form" class="col-sm-12">
+						 	<label for="">Reason</label>
+						  	<textarea ng-model="reasonFrom" class="form-control" name="reason"  rows="3" required></textarea>
+						  	<span ng-show="form.reason.$touched && form.reason.$invalid" style="color:brown">
+						  		Please input the reason form
+					  		</span>
+						 </form>		   	 		    
+
+			       	 
+			       	 </div>
+		      
+			      <div class="modal-footer">
+				      <button ng-click="cancelOrder()" ng-disabled="form.$invalid" class="btn btn-danger mr-2">Add</button>
+				      <button ng-click="reset()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			      </div>
+		    </div>
+		  </div>
+		</div>
+	<!-- /Modal -->

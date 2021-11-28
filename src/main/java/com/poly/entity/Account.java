@@ -30,7 +30,6 @@ public class Account implements Serializable{
 	private String password;
 	private String fullname;
 	private Boolean gender;
-	private String email;
 	private String phone;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
@@ -44,6 +43,8 @@ public class Account implements Serializable{
 	@OneToMany(mappedBy = "account")
 	private List<Order> orders;
 	
-	
+	@JsonIgnore
+	@OneToMany(mappedBy = "account")
+	private List<Coupon> coupons;
 	
 }

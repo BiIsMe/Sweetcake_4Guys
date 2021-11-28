@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <title>AdminLTE 3 | Starter</title>
+  
+ 	 
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>  
+		<script type="text/javascript" src="https://rawgit.com/nnnick/Chart.js/8b840ce56be51b61dfc2d4e40e56304c880c541b/Chart.js"></script>
+    <script type="text/javascript" src="/js/angular-chart.min.js"></script>
+  
+  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+	
+   <!-- Font Awesome  -->
+  <link rel="stylesheet" href="/admtemp/plugins/fontawesome-free/css/all.min.css"> 
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="/admtemp/https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bbootstrap 4 -->
+  <link rel="stylesheet" href="/admtemp/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="/admtemp/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="/admtemp/plugins/jqvmap/jqvmap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/admtemp/dist/css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="/admtemp/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="/admtemp/plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="/admtemp/plugins/summernote/summernote-bs4.css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Fjalla+One&family=Lobster&family=Original+Surfer&family=Playfair+Display&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+  
+  <!-- moment.js -->
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
+</head>
+<body class="hold-transition sidebar-mini" ng-app="adminApp">
+<div class="wrapper">
+
+	<!-- nav-->
+    <div ng-include="'/admins/menu.html'"></div>
+
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+  
+		<div class="row">
+			<div class="col-sm-12">
+				<canvas id="line" class="chart chart-line" chart-data="data"
+				chart-labels="labels" chart-series="series" chart-options="options"
+				chart-dataset-override="datasetOverride" chart-click="onClick">
+				</canvas>
+
+			</div>
+		</div>
+    
+  </div>
+  <!-- /.content-wrapper -->
+  
+  
+  <script>
+  var data = {
+		    "datasets": [
+		      {
+		        "backgroundColor": "rgb(156, 39, 176)",
+		        "borderColor": "rgb(156, 39, 176)",
+		        "fill": false,
+		        "data": [
+		          10,
+		          120,
+		          80,
+		          134
+		        ],
+		        "id": "amount",
+		        "label": "Purchase amount (USD)",
+						"yAxisID":"left"
+		      },
+		      {
+		        "backgroundColor": "rgb(39, 176, 200)",
+		        "borderColor": "rgb(39, 176, 200)",
+		        "fill": false,
+		        "data": [
+		          300,
+		          -1200,
+		          500,
+		          -340
+		        ],
+		        "id": "amount",
+		        "label": "Purchase amount (USD)",
+						"yAxisID":"right"
+
+		      }
+		    ],
+		    "labels": [
+		      "2017-01-02",
+		      "2017-04-02",
+		      "2017-07-02",
+		      "2018-01-02"
+		    ]
+		  };
+		var options = {
+		    "elements": {
+		      "rectangle": {
+		        "borderWidth": 2
+		      }
+		    },
+		    "layout": {
+		      "padding": 0
+		    },
+		    "legend": {
+		      "display": true,
+		      "labels": {
+		        "boxWidth": 16
+		      }
+		    },
+		    "maintainAspectRatio": false,
+		    "responsive": true,
+		    "scales": {
+		      "xAxes": [
+		        {
+		          "gridLines": {
+		            "display": false
+		          },
+		          "scaleLabel": {
+		            "display": true,
+		            "labelString": "Date"
+		          },
+		          "stacked": false,
+		          "ticks": {
+		            "autoSkip": true,
+		            "beginAtZero": true
+		          },
+		          "time": {
+		            "tooltipFormat": "[Q]Q - YYYY",
+		            "unit": "quarter"
+		          },
+		          "type": "time"
+		        }
+		      ],
+		      "yAxes": [
+		        {
+		          "scaleLabel": {
+		            "display": true,
+		            "labelString": "Purchase amount (USD)"
+		          },
+							"id": "left",
+		          "stacked": false,
+		          "ticks": {
+		            "beginAtZero": true
+		          }
+		        },
+		        {
+		          "scaleLabel": {
+		            "display": true,
+		            "labelString": "Purchase count"
+		          },
+							"id": "right",
+							"position": "right",
+		          "stacked": false,
+		          "ticks": {
+		            "beginAtZero": true
+		          }
+		        }
+		      ]
+		    },
+		    "title": {
+		      "display": false
+		    },
+		    "tooltips": {
+		      "intersect": false,
+		      "mode": "index",
+		      "position": "nearest",
+		      "callbacks": {}
+		    }
+		  }
+		var type = "line";
+
+		var myChart = new Chart(document.getElementById("myChart").getContext('2d'), {options, data, type});
+		var myChart2 = new Chart(document.getElementById("myChart2").getContext('2d'), {
+			options: {
+				...options,
+				scales: {
+					...options.scales,
+					yAxes: [
+							{
+								"scaleLabel": {
+									"display": true,
+									"labelString": "Purchase amount (USD)"
+								},
+								"id": "left",
+								"stacked": false,
+								"ticks": {
+									"beginAtZero": true,
+									suggestedMin: -200,
+									suggestedMax: 200
+								}
+							},
+							{
+								"scaleLabel": {
+									"display": true,
+									"labelString": "Purchase count"
+								},
+								"id": "right",
+								"position": "right",
+								"stacked": false,
+								"ticks": {
+									"beginAtZero": true,
+									suggestedMin: -2000,
+									suggestedMax: 2000
+								}
+							}
+					]
+				}
+			},
+			data,
+			type
+		});
+  </script>
+  
+  
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+    <div class="p-3">
+      <h5>Title</h5>
+      <p>Sidebar content</p>
+    </div>
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <!-- To the right -->
+    <div class="float-right d-none d-sm-inline">
+      Anything you want
+    </div>
+    <!-- Default to the left -->
+    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+  </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script src="/admtemp/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="/admtemp/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="/admtemp/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Sparkline -->
+<script src="/admtemp/plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="/admtemp/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="/admtemp/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="/admtemp/plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="/admtemp/plugins/moment/moment.min.js"></script>
+<script src="/admtemp/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="/admtemp/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="/admtemp/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="/admtemp/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/admtemp/dist/js/adminlte.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="/admtemp/dist/js/pages/dashboard.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="/admtemp/dist/js/demo.js"></script>
+
+<!-- my script -->
+<script src="/js/admin-app.js"></script>
+<script src="/js/product-ctrl.js"></script>
+<script src="/js/order-ctrl.js"></script>
+<script src="/js/areaShip-ctrl.js"></script>
+<script src="/js/staff-ctrl.js"></script>
+<script src="/js/coupon-ctrl.js"></script>
+<script src="/js/customer-ctrl.js"></script>
+<script src="/js/chart-ctrl.js"></script>
+
+
+</body>
+</html>

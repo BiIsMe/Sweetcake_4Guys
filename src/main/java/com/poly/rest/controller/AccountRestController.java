@@ -42,4 +42,9 @@ public class AccountRestController {
 	public Account updateStaff(@PathVariable("id") String id, @RequestBody Account acc) {
 		return dao.save(acc);
 	}
+	
+	@GetMapping("{id}")
+	public Account findByUsername(@PathVariable("id") String id) {
+		return dao.findById(id).get();
+	}
 }

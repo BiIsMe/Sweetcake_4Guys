@@ -7,7 +7,7 @@ import com.poly.entity.Category;
 
 
 
-public interface CategoryDao extends JpaRepository<Category, String> {
+public interface CategoryDao extends JpaRepository<Category, Integer> {
 	
 	
 }

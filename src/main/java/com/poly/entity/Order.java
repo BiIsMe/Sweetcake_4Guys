@@ -35,7 +35,7 @@ public class Order {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date createdate = new Date();
-	
+	private String Recipientname;
 	private String phone;
 	private String address;
 	private String email;
@@ -43,6 +43,8 @@ public class Order {
 	private Double shipfee;
 	private String paymentmethod;
 	private String orderstatus;
+	private Boolean whocancel;
+	private String reason;
 	private String staffid;
 	
 	@ManyToOne

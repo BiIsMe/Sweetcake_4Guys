@@ -104,7 +104,7 @@
     <a href="#!home" class="brand-link">
       <img src="/image/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Admin XEOXO</span>
+      <span class="brand-text font-weight-light">Admin 4Guys</span>
     </a>
 
     <!-- Sidebar -->
@@ -115,7 +115,7 @@
           <img src="/image/user8-128x128.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">XeoXo001</a>
+          <a href="#" class="d-block">{{indexName}}</a>
         </div>
       </div>
 
@@ -141,7 +141,7 @@
                 </a>
               </li>
               
-              <li class="nav-item">
+              <li class="nav-item" ng-show="indexUser.role == 'DIRE'">
                 <a href="#!staff" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Staff Account</p>
@@ -165,7 +165,7 @@
               <li class="nav-item">
                 <a href="#!voucher" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Voucher</p>
+                  <p>Coupon</p>
                 </a>
               </li>
               
@@ -188,6 +188,14 @@
                 </a>
               </li>
             </ul>
+            <ul class="nav nav-treeview" ng-show ="indexUser.role == 'DIRE'">
+              <li class="nav-item">
+                <a href="#!chart" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Revenue</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item has-treeview ">
             <a href="" class="nav-link">
@@ -198,6 +206,12 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+           	  <li class="nav-item">
+                <a href="#!profile" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Profile</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="/security/logoff" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>

@@ -1,6 +1,7 @@
 app.controller("product-ctrl",function($scope,$http){
 	$scope.items=[];
-	$scope.form={};
+	$scope.form={
+		available : false};
 	$scope.category=[];
 	$scope.categoryFilter=[];		//category for dropdown filter in table
 	$scope.nameItem = '';

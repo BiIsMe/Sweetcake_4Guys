@@ -1,0 +1,139 @@
+    <!-- /.col -->
+          <div class="col-sm-12">
+            <!-- Widget: user widget style 1 -->
+            <div class="card card-widget widget-user">
+              <!-- Add the bg color to the header using any of the bg-* classes -->
+              <div class="widget-user-header bg-info">
+                <h3 class="widget-user-username"> {{indexName | uppercase}} </h3>
+                <h5 class="widget-user-desc">{{indexUser.role=='STAFF'?'Staff':'Director'}}</h5>
+              </div>
+              <div class="widget-user-image">
+                <img class="img-circle elevation-2" src="/image/user8-128x128.jpg" alt="User Avatar">
+              </div>
+              <div class="card-body mt-4">
+                	<form name="theform">
+                		<div class="row justify-content-center">
+		                  <div class="col-sm-9">
+		                  	<div class="form-group">
+			                  	<label for="">Full Name</label>
+			                  	<input type="text" class="form-control" ng-model="indexUser.fullname" name="name" required/>
+			                  	<span ng-show="theform.name.$touched && theform.name.$invalid" style="color:brown">
+							  		Please input your Full Name
+						  		</span>
+		                  	</div>
+		                  </div>
+		                  
+		                  <div class="col-sm-9">
+		                  	<div class="form-group">
+			                  	<label for="">Phone Number</label>
+			                  	<input type="text" class="form-control" ng-model="indexUser.phone" name="phone" required  pattern="(\+84|0)\d{9,10}" />
+			                  	<span ng-show="theform.phone.$touched && theform.phone.$invalid" style="color:brown">
+							  		Please input your Phone like Vietnam pattern
+						  		</span>
+		                  	</div>
+		                  </div>
+		                  
+        	             <div class="col-sm-9">
+		                  	<div class="form-group">
+			                  	<label for="">Date of Birth</label>
+			                  	<input type="date" class="form-control" ng-model="indexUser.dob"/>
+		                  	</div>
+		                  </div>
+		                  
+		                  <div class="col-sm-9">
+			                  	<div class="form-group">	
+				                  	<div class="row-form-label">
+									<label class="form-label">Gender</label>
+								</div>
+								<div class="form-control">
+									<div class="form-check form-check-inline">
+										  <input ng-model="indexUser.gender" class="form-check-input"  type="radio" ng-value="true" name="radio1">
+										  <label class="form-check-label" for="inlineRadio1">Male</label>
+									</div>
+									<div class="form-check form-check-inline">
+										  <input ng-model="indexUser.gender" class="form-check-input"  type="radio" ng-value="false" name="radio2">
+										  <label class="form-check-label" for="inlineRadio2">Female</label>
+									</div>
+								</div>
+		                  	</div>
+		                  </div>
+		                  
+	
+		                  
+		                </div>
+                	</form>
+             </div>
+             <div class="card-footer">
+             	<div class="row justify-content-end" style="margin-top:-30px">
+             			<button class="btn btn-success mr-3" ng-click="update()" ng-disabled="theform.$invalid">Update Infor</button>
+             			<button class="btn btn-warning mr-3" data-toggle="modal" data-target="#changePass">Change Pass</button>
+             	</div>
+             </div>
+             
+	<!-- Modal -->
+		<div class="modal fade" id="changePass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog"  >
+		    <div class="modal-content">
+			      <div class=" alert alert-dark modal-header">
+				        <div class="col-sm-12  text-center">
+			        		<h4 ><b>CHANGE PASSWORD</b></h4>
+				        </div>
+			      </div>
+		      
+			      <div class="modal-body">
+			       	 <form name="myform">
+			       	 	<div class="row mt-1 justify-content-center">
+				       	 	 <div class="col-sm-9">		       	 		
+				       	 		<div class="form-group">
+				       	 			<label >Current Password</label>
+				       	 			<input ng-model="currentPass" name="current" type="password" class="form-control" required minlength="8"/>
+				       	 			<span ng-show="myform.current.$touched && myform.current.$error.required" style="color:brown">
+								  		Please input the Code
+							  		</span>
+							  		<span ng-show="myform.current.$touched && myform.current.$error.minlength" style="color:brown">
+								  		The min-length is 8
+							  		</span>
+				       	 		</div>
+				       	 	 </div>		       	 	   	 		    
+			       		 </div>
+			       		 
+			       		 <div class="row mt-1 justify-content-center">
+				       	 	 <div class="col-sm-9">		       	 		
+				       	 		<div class="form-group">
+				       	 			<label >New Password</label>
+				       	 			<input ng-model="newPass" name="new" type="password" class="form-control" required minlength="8"/>
+				       	 			<span ng-show="myform.new.$touched && myform.new.$error.required" style="color:brown">
+								  		Please input the Code
+							  		</span>
+							  		<span ng-show="myform.new.$touched && myform.new.$error.minlength" style="color:brown">
+								  		The min-length is 8
+							  		</span>
+				       	 		</div>
+				       	 	 </div>		       	 	   	 		    
+			       		 </div>
+			       		 
+			       		 <div class="row mt-1 justify-content-center">
+				       	 	 <div class="col-sm-9">		       	 		
+				       	 		<div class="form-group">
+				       	 			<label >Confirm New Password</label>
+				       	 			<input ng-model="confirmPass" name="confirm" type="password" class="form-control" required minlength="8"/>
+							  		<span ng-show="myform.confirm.$touched && newPass != confirmPass" style="color:brown">
+								  		The Confirm Pass must equal with new Pass
+							  		</span>
+				       	 		</div>
+				       	 	 </div>		       	 	   	 		    
+			       		 </div>
+			       	 			       	
+			       	 </form>
+			       	 
+			       	 
+			       	 </div>
+		      
+			      <div class="modal-footer">
+				      <button ng-click="createCoupon()" ng-disabled="myform.$invalid || newPass != confirmPass" class="btn btn-success mr-2">Add</button>
+				       <button ng-click="reset()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			      </div>
+		    </div>
+		  </div>
+		</div>
+	<!-- /Modal -->

@@ -140,7 +140,7 @@
 	 						
 	 						<div ng-show="!item.category" class="col-sm-3 mr-4 ml-4">
 	 							<label for="">For Customer</label>
-								<select ng-model="item.customerid" class="form-control">
+								<select ng-model="item.account.username" class="form-control">
 									<option ng-repeat="c in customers" ng-value="c.username">{{c.username}}</option>
 								</select>
 	 						</div>
@@ -202,11 +202,18 @@
 			      </div>
 		      
 			      <div class="modal-body">
-			       	 <div class="row mb-4 mt-1">
+			       	 <form name="myform">
+			       	 	<div class="row mb-4 mt-1">
 			       	 	 <div class="col-sm-5 ml-4 mr-4">		       	 		
 			       	 		<div class="form-group">
 			       	 			<label >Code</label>
-			       	 			<input ng-model="form.code" type="text" class="form-control" />
+			       	 			<input ng-model="form.code" name="code" type="text" class="form-control" required minlength="5" id="id"/>
+			       	 			<span ng-show="myform.code.$touched && myform.code.$error.required" style="color:brown">
+							  		Please input the Code
+						  		</span>
+						  		<span ng-show="myform.code.$touched && myform.code.$error.minlength" style="color:brown">
+							  		The min-length is 5
+						  		</span>
 			       	 		</div>
 			       	 	 </div>
 			       	 	 <div class="col-sm-5 ml-4">		       	 		
@@ -258,13 +265,14 @@
 			       	 		</div>
 			       	 	 </div>    	 		    
 			       	 </div>
+			       	 </form>
 			       	 
 			       	 <hr />
 			       	 
 			       	 </div>
 		      
 			      <div class="modal-footer">
-				      <button ng-click="createCoupon()" ng-disabled="form.code == null" class="btn btn-success mr-2">Add</button>
+				      <button ng-click="createCoupon()" ng-disabled="myform.$invalid" class="btn btn-success mr-2">Add</button>
 				       <button ng-click="reset()" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			      </div>
 		    </div>

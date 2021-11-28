@@ -1,11 +1,12 @@
 app.controller("areaShip-ctrl",function($scope,$http){
 	$scope.districts = [];
-	
+
 	//initial
 	$scope.initial = function(){
 		//load dist
 		$http.get("/rest/district").then(resp => {
 			$scope.districts = resp.data;
+
 		})		
 	}
 	
@@ -24,6 +25,20 @@ app.controller("areaShip-ctrl",function($scope,$http){
 				console.log("Error :",error);
 			});
 		}
+	}
+	
+	
+	
+	$scope.order = {
+		ship : '',
+	}
+	
+	$scope.change = function(){
+		var id = $scope.order.quan.id;
+		alert(id);
+		$http.get(`/rest/district/${id}`).then(resp => {
+			$scope.order.ship = resp.data.shipfee;
+		})
 	}
 	
 });

@@ -1,0 +1,56 @@
+
+ <!-- LINE CHART -->
+            <div class="row">
+            	<div class="col-sm-12">
+            		<div  class="card card-info ">
+		              	<div class="card-header">
+		                <h3 class="card-title">Statistic <chart></chart></h3>
+		
+		                <div class="card-tools">
+		                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+		                  </button>
+		                  <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+		                </div>
+		              </div>
+		              <div class="card-body">
+		                	<div class="row justify-content-center">
+		                		<div class="col-sm-11">
+		                			<canvas  id="line" class="chart chart-line" data="data"
+									      labels="labels" legend="true" series="series"
+									      click="onClick"  option="options" dataset-override="datasetOverride">
+						   			 </canvas>
+						   			 
+						   			
+		                		</div>
+		                	</div>
+		              </div>
+		              <!-- /.card-body -->
+		              <div class="card-footer" ng-show="sumOrders > 0">
+		              		<div class="row justify-content-center text-center mt-3">
+		              			<div class="col-sm-5">
+		              				<h4>
+		              					<span>Revenue Total : </span>
+		              					<label style="color: rgb(37, 33, 28); font-size: 23px;color: rgb(173, 10, 10);">
+		              						{{sumRevenue*1000 | currency :'':0}} VND
+		              					</label>
+		              				</h4>
+		              			</div>
+		              			
+		              			<div class="col-sm-5">
+		              				<h4>
+		              					<span>Completed Orders : </span>
+		              					<label style="color: rgb(37, 33, 28); font-size: 23px;color: rgb(173, 10, 10);">
+		              						{{sumOrders | currency :'':0}}
+		              					</label>
+		              				</h4>
+		              			</div>
+		              			
+		              		</div>
+		              </div>
+		            </div>
+            	</div>
+            </div>
+            <!-- /.card -->
+            
+            
+           

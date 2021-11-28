@@ -21,7 +21,7 @@ public class UploadServiceImp implements UploadService {
 
 	@Override
 	public File save(MultipartFile file, String folder) {
-		File dir = new File(app.getRealPath("/image/"+folder));
+		File dir = new File(app.getRealPath("/sitetemp/img/"+folder));
 		if(!dir.exists())
 			dir.mkdirs();
 		

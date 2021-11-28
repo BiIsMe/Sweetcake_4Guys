@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -34,14 +36,14 @@ public class Coupon implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date createdate;
 	private Boolean category;
-	private String customerid;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "coupon")
 	private List<Order> orders;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "coupon")
-	private List<CouponUsed> couponUsed;
+	@ManyToOne
+	@JoinColumn(name = "customerid")
+	private Account account;
+	
 	
 }

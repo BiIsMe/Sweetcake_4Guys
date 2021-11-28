@@ -29,6 +29,11 @@ public class DistrictRestController {
 		return dao.findAll();
 	}
 	
+	@GetMapping("{id}")
+	public District getDistrict(@PathVariable("id") Integer id){
+		return dao.findById(id).get();
+	}
+	
 	@PutMapping("{id}")
 	public District updateDistrict(@PathVariable("id") Integer id,@RequestBody District dist) {
 		return dao.save(dist);

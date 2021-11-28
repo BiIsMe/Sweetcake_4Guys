@@ -40,6 +40,18 @@ app.controller("staff-ctrl",function($scope,$http){
 		$scope.form.dob = new Date();
 		$scope.form.role = 'Staff';
 		var item = angular.copy(this.form);
+		var flag = true;
+		$scope.staffs.forEach(s => {
+			if(s.username == item.username){				
+				flag = !flag;
+				return;			
+			}
+		})
+		if(!flag){
+			alert("The username is already exists");
+			document.getElementById("id").focus();
+			return;
+		}
 		$http.post("/rest/account/staff", item).then(resp => {
 			alert("success");
 			$scope.initial();

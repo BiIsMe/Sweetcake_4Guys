@@ -176,17 +176,24 @@
 			      </div>
 		      
 			      <div class="modal-body">
-			       	 <div class="row mb-4 mt-1">
+			       	 <form name="myform">
+			       	 	<div class="row mb-4 mt-1">
 			       	 	 <div class="col-sm-5 ml-4 mr-4">		       	 		
 			       	 		<div class="form-group">
 			       	 			<label >Username</label>
-			       	 			<input ng-model="form.username" type="text" class="form-control" />
+			       	 			<input ng-model="form.username" name="username" type="email" class="form-control" required id="id"/>
+			       	 			<span ng-show="myform.username.$touched && myform.username.$invalid" style="color:brown">
+							  		Please input by email type
+						  		</span>
 			       	 		</div>
 			       	 	 </div>
 			       	 	 <div class="col-sm-5 ml-4">		       	 		
 			       	 		<div class="form-group">
 			       	 			<label >Full Name</label>
-			       	 			<input ng-model="form.fullname" type="text" class="form-control" />
+			       	 			<input ng-model="form.fullname" name="name" type="text" class="form-control" required/>
+			       	 			<span ng-show="myform.name.$touched && myform.name.$invalid" style="color:brown">
+							  		Please input the Full Name
+						  		</span>
 			       	 		</div>
 			       	 	 </div>    	 		    
 			       	 </div>
@@ -195,7 +202,13 @@
 			       	 	 <div class="col-sm-5 ml-4 mr-4">		       	 		
 			       	 		<div class="form-group">
 			       	 			<label>Password</label>
-			       	 			<input ng-model="form.password" type="password" class="form-control" />
+			       	 			<input ng-model="form.password" name="password" type="password" class="form-control" required minlength="8"/>
+			       	 			<span ng-show="myform.password.$touched && myform.password.$error.required" style="color:brown">
+							  		Please input the Password
+						  		</span>
+						  		<span ng-show="myform.password.$touched && myform.password.$error.minlength" style="color:brown">
+							  		The min-length is 8
+						  		</span>
 			       	 		</div>
 			       	 	 </div>
 			       	 	 <div class="col-sm-5 ml-4">		       	 		
@@ -216,13 +229,14 @@
 			       	 		</div>
 			       	 	 </div>    	 		    
 			       	 </div>
+			       	 </form>
 			       	 
 			       	 <hr />
 			       	 
 			       	 </div>
 		      
 			      <div class="modal-footer">
-				      <button ng-click="createStaff()" ng-disabled="form.username == null" class="btn btn-success mr-2">Add</button>
+				      <button ng-click="createStaff()" ng-disabled="myform.$invalid" class="btn btn-success mr-2">Add</button>
 				       <button ng-click="reset()" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			      </div>
 		    </div>

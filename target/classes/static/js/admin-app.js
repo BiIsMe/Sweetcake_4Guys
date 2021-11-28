@@ -1,4 +1,27 @@
- app = angular.module("adminApp", ["ngRoute"]);
+ app = angular.module("adminApp", ["ngRoute","chart.js"]);
+
+app.controller("myctrl",function($scope,$http){
+	$scope.indexUser = {};
+	$scope.username = '';
+	$scope.indexName = '';
+	$scope.initial = function(){
+		localStorage.setItem("username","thanhdc138@gmail.com");
+		username = localStorage.getItem("username");
+		
+		$http.get(`/rest/account/${username}`).then(resp =>{
+			$scope.indexUser = resp.data;
+			$scope.indexUser.dob = new Date($scope.indexUser.dob);
+			$scope.indexName = resp.data.fullname;
+		})
+	}
+	
+	$scope.initial();
+	
+	$scope.aleart = function(){
+		alert(username);
+	}
+	
+});
 
  app.config(function ($routeProvider) {
       $routeProvider
@@ -30,10 +53,17 @@
           templateUrl: "/admins/customer/index.html",
           	controller : "customer-ctrl"
       })
-		.when("/unauthorize", {
-          templateUrl: "bst/lucyen.html"
+		.when("/chart", {
+          templateUrl: "/admins/chart/index.html",
+          	controller : "chart-ctrl"
+      })
+		.when("/profile", {
+          templateUrl: "/admins/profile/index.html",
+          	controller : "profile-ctrl"
       })
 		.when("/home", {
           templateUrl: "/admins/home.html"
       });
   });
+
+

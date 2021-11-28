@@ -53,8 +53,11 @@
                   </tr>
               </thead>
               <body>
+              		<tr ng-if="orders.length == 0">
+              			<td colspan="6" class="text-center"><b>No Data</b></td>
+					</tr>
               		<tr ng-repeat="item in orders | filter:{id:id, accountName:customer} | orderBy:property:reverse | limitTo :limit :begin " 
-              			class="text-center">
+              			class="text-center {{item.orderstatus=='canceled'? 'bg-secondary':''}}">
                       <td style="vertical-align: middle;">{{item.id}}</td>
                       <td style="vertical-align: middle;">{{item.account.username}}</td>
                       <td style="vertical-align: middle;">{{item.price|currency:'':0}}</td>
@@ -71,7 +74,8 @@
 	                      		<span class="badge badge-success">{{item.orderstatus}}  </span> 
 	                      	</div>   
 	                      	<div ng-switch-when="canceled">
-	                      		<span class="badge badge-dark">{{item.orderstatus}}  </span> 
+	                      		<span ng-if="item.whocancel" class="badge badge-light">{{item.orderstatus}}  </span> 
+	                      		<span ng-if="!item.whocancel" class="badge badge-dark">{{item.orderstatus}}  </span> 
 	                      	</div> 
                       	 </h5>     
                       </td>						          

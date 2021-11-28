@@ -23,7 +23,7 @@ public class District implements Serializable {
 	@Id
 	private Integer id;
 	private String name;
-	private Double shipfee = 0.0;
+	private Double shipfee;
 	private Boolean available;
 	
 	@JsonIgnore
