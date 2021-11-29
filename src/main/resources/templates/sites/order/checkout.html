@@ -25,7 +25,7 @@
 		<div class="container">
 			<div class="return_option">
 				<h4>
-					
+				 	
 				</h4>
 			</div>
 			<div class="row">
@@ -34,52 +34,60 @@
 					<div class="billing_form_area">
 						<form class="billing_form row"
 							action="http://galaxyanalytics.net/demos/cake/theme/cake-html/contact_process.php"
-							method="post" id="contactForm" novalidate="novalidate">
-							<div class="form-group col-md-6">
+							method="post" id="contactForm" novalidate="novalidate" name="myForm">
+							<div class="form-group col-md-6" ng-hide=(true)>
 								<label for="first">ID *</label>
 								<div class="form-control" id ="customerid">[[${#request.remoteUser}]]</div>
 							</div>
 							<div class="form-group col-md-6">
-								<label for="last">Email *</label> <input id="email" ng-model="order.email" type="email"
-									class="form-control"  name="email" placeholder="Email">
-									
-									
+								<label for="last">Tên người nhận *</label> <input id="name" ng-model="order.recipientname" type="text"
+									class="form-control"  name="user" placeholder="Tên Người Nhận" required>
+									<span class="error" ng-show="myForm.user.$dirty && myForm.user.$invalid">
+									<span ng-show="myForm.user.$error.required" style="font-style: italic; font-size: smaller;">Không được để trống tên người nhận.</span>
+									</span>	
 							</div>
 							
+							<div class="form-group col-md-6">
+								<label for="phone">Số điện thoại *</label> <input type="text" name ="phone" ng-pattern="phoneNumbr"
+									class="form-control" ng-model="order.phone" required ng-maxlength="10"
+									placeholder="Phone">
+									<span class="error" style="font-style: italic; font-size: smaller;" ng-show="myForm.phone.$error.required">Không được để trống SĐT!</span>
+								      <span class="error" style="font-style: italic; font-size: smaller;" ng-show="myForm.phone.$error.minlength">SDT không dưới 10 kí tự.</span>
+								      <span class="error" style="font-style: italic; font-size: smaller;" ng-show="myForm.phone.$error.maxlength">SDT không quá 11 kí tự.</span>
+								      <br><span class="error" style="font-style: italic; font-size: smaller;" ng-show="myForm.phone.$error.pattern">Vui lòng phù hợp với mẫu [+84-036-78658 || 85-036-78658]</span>
+									
+							</div>
+							<!--  -->
 							<div class="form-group col-md-12">
 								<label for="address">Địa chỉ *</label>
 								<div class="input-group col-mb-3">
 								  <div class="input-group-prepend">
-								    <label class="input-group-text" for="inputGroupSelect01">Quận</label>
+								    <label class="input-group-text" for="inputGroupSelect01">Quận*</label>
 								  </div>
-								  <select class="custom-select" ng-model=form.district.id>
-								    <option ng-repeat="c in district" ng-value="c.id">{{c.name}}</option>
+								  <select class="custom-select" name="statusDist" ng-model="order.district.id" ng-change="change();" required>
+								    <option ng-repeat=" d in district" ng-value="d.id" >{{d.name}}</option>
 								  </select>
+								 
 								</div>
 								<textarea ng-model="order.address" class="form-control" id="myTextarea" placeholder="Số nhà, tên đường..."></textarea>
 							</div>
 							
-							<div class="form-group col-md-6">
-								<label for="phone">Số điện thoại *</label> <input id="phone" type="number"
-									class="form-control" ng-model="order.phone"
-									placeholder="Phone">
-							</div>
 
 						</form>
 					</div>
 						
 						
 				</div>
-				<div class="col-lg-5">
-					<div class="order_box_price">
+				<div class="col-lg-5" style="background-color: #EEEEEE">
+					<div class="order_box_price" >
 						
 						<div class="payment_list">
 							<div class="price_single_cost">
-								<h4>Sản Phẩm</h4>
+								</i><h4 style="font-weight: bold; ">Sản Phẩm</h4>
 	
-						<table class="table table-hover table-bordered  mb-0">
+						<table class="table table-hover table-bordered  mb-0" >
 							<thead>
-								<tr class="text-center">
+								<tr class="text-center" style="background-color: 	#FFCCCC">
 									<th style="width: 100px;">Minh Họa</th>
 									<th>Sản Phẩm</th>
 									<th>Số Lượng</th>
@@ -96,20 +104,20 @@
 								</td>
 								<td class="text-center" style="vertical-align: middle;">{{item.name}}</td>
 								<td class="text-center" style="vertical-align: middle;">{{item.qty}}</td>
-								<td class="text-center" style="vertical-align: middle;">${{item.qty*item.price|number:2}}</td>
+								<td class="text-center" style="vertical-align: middle;">{{item.qty*item.price|currency:'':0}}VND</td>
 							</tr></body>
 		          </table><br><hr><br>
 								<h5>
-									Tổng tiền hàng: <span>${{cart.amount|number:2}}</span>
+									Tổng tiền hàng: <span><a id ="total">{{cart.amount|currency:'':0}} VND</a></span>
 								</h5>
 								<h4>
-									Giảm giá: <span>-$0.00</span>
+									Giảm giá: <span>-0.00 VND</span>
 								</h4>
 								<h5>
-									Phí Ship:<span class="text_f">Free Shipping</span>
+									Phí Ship:<span class="text_f" ><a >{{order.shipfee|currency:'':0}} VND</a></span> 
 								</h5>
 								<h3>
-									Thành tiền: <span>${{cart.amount|number:2}}</span>
+									Thành tiền: <span id="allTotal">{{cart.amount + order.shipfee|currency:'':0}} VND</span>
 								</h3>
 							</div>
 							<div id="accordion" class="accordion_area">

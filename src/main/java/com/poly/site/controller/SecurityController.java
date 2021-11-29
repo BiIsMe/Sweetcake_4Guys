@@ -6,13 +6,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.poly.dao.AccountDao;
+import com.poly.entity.Account;
 import com.poly.service.UserService;
+
+import net.bytebuddy.utility.RandomString;
 
 @Controller
 public class SecurityController {
 	
 	@Autowired
 	UserService User;
+	
+	@Autowired
+	AccountDao dao;
 	
 	@RequestMapping("/security/login/form")
 	public String loginForm(Model model) {
@@ -47,6 +54,20 @@ public class SecurityController {
 	@RequestMapping("/oauth2/login/success")
 	public String success(OAuth2AuthenticationToken oauth2) {
 		User.loginFromOAuth2(oauth2);
-		return "redirect:/product/list";
-	}
+		if(oauth2.isAuthenticated()) {
+			String email = oauth2.getPrincipal().getAttribute("email");
+			Account account = dao.findByUsername(email);
+			if(account==null) {
+				account = new Account();
+				account.setUsername(email);
+				account.setFullname(oauth2.getPrincipal().getAttribute("name"));
+				account.setActive(true);
+				account.setRole("CUST");
+				account.setPassword(RandomString.make(6));
+				dao.save(account);
+			}			
+		}
+		
+		return "redirect:/layout/show";
+		}
 }

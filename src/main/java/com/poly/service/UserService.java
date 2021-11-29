@@ -33,9 +33,8 @@ public class UserService implements UserDetailsService {
 			
 			//create user detail
 			String password = acc.getPassword();
-			String[] roles = acc.getAuthorities().stream()
-					.map(au -> au.getRole().getId())
-					.collect(Collectors.toList()).toArray(new String[0]);
+			String roles = acc.getRole();
+					
 			
 			return User.withUsername(username)
 					.password(pe.encode(password))

@@ -16,6 +16,8 @@ public interface ProductDao extends JpaRepository<Product, Integer> {
 	@Query("SELECT o FROM Product o WHERE o.name LIKE ?1")
 	Page<Product> findByKeywords(String keywords, Pageable pageable);
 
-	
+	@Query("SELECT o FROM Product o WHERE o.price BETWEEN ?1 AND ?2")
+	Page<Product> findByPrice(double minPrice, double maxPrice, Pageable pageable);
+
 	
 }

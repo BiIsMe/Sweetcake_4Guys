@@ -33,12 +33,12 @@
         				<div class="row product_item_inner">
         					<div th:each="p:${page.content}" class="col-lg-4 col-sm-4 col-6">
         						<div class="cake_feature_item">
-        						<a th:href="@{|/product/detail/${p.id}|}">
+        						<a th:href="@{|/sweetcake.com/product/detail/${p.id}|}">
 									<div class="cake_img">
 											<img th:src="@{|/sitetemp/img/products/${p.photo}|}"/ width="255px" height="250px">
 									</div></a><br>
 									<div class="cake_text">
-										<h4>[[${p.price}]]đ</h4>
+										<h4>[[${#numbers.formatDecimal(p.price,0,'COMMA',0,'POINT')}]]VNĐ</h4>
 										<h3 th:utext="${p.name}"></h3>
 										<button th:attr="ng-click=@{|cart.add(${p.id})|}"
 										th:disabled="!${p.available}" class="btn btn-light "
@@ -50,32 +50,42 @@
 								</div>
         					</div>		
         				</div>
-        				<div class="product_pagination">
-        					<div class="left_btn">
-        						<a href="/sites/product/list?p=0"><i class="lnr lnr-arrow-left"></i> Trang đầu</a>
-        					</div>
-        					<div class="middle_list">
-								<nav aria-label="Page navigation example">
-									<ul class="pagination">
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item active"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">...</a></li>
-									<li class="page-item"><a class="page-link" href="#">12</a></li>
-									</ul>
-								</nav>
-        					</div>
-        					<div class="right_btn"><a href="/sites/product/list?p=${page.totalPages-1}">Trang cuối <i class="lnr lnr-arrow-right"></i></a></div>
-        				</div>
+        				<div class="row justify-content-center">
+						<div class="col-sm-3 mr-2 text-center mt-4">
+							<ul class="pagination mb-1 "
+								style="font-size: 29px; font-weight: bolder;">
+								<li class="page-item mr-2 "><a th:href="@{|/sweetcake.com/product/list?p=0|}"
+									class="page-link btn btn-light"><span
+										class="fa fa-angle-double-left	"
+										style="color: #FF99FF; font-size: 20px;"></span></a></li>
+								<li class="page-item mr-2 "><a  th:href="@{|/sweetcake.com/product/list?p=${page.number-1 }|}"
+									class="page-link btn btn-light"><span
+										class="fa fa-angle-left"
+										style="color:#FF99FF; font-size: 20px;"></span></a></li>
+								<li class="page-item">
+									<div class="mr-2 mt-2"  style="color: #1f312e; font-size: 15px;">
+										[[${page.number +1}]]/[[${page.totalPages }]]
+									</div></li>
+								<li class="page-item mr-2 "><a   th:href="@{|/sweetcake.com/product/list?p=${page.number+1}|}"
+									class="btn page-link btn-light"><span
+										class="fa fa-angle-right"
+										style="color: #FF99FF; font-size: 20px;"></span></a></li>
+								<li class="page-item mr-2 "><a  th:href="@{|/sweetcake.com/product/list?p=${page.totalPages-1}|}"
+									class="btn page-link btn-light"><span
+										class="fa fa-angle-double-right"
+										style="color: #FF99FF; font-size: 20px;"></span></a></li>
+							</ul>
+						</div>
+					</div>
         			</div>
         			<div class="col-lg-3">
         				<div class="product_left_sidebar">
         					<aside class="left_sidebar search_widget">
-        						<div class="input-group" action="/product/list" method="post">
-									<input type="text" class="form-control" name="keywords" th:value="${keywords}" placeholder="Nhập tên sản phẩm">
-									<div class="input-group-append">
-										<button class="btn" type="button"><i class="icon icon-Search"></i></button>
-									</div>
+        						<div class="input-group"  method="post">
+        							<form action="/sweetcake.com/search">
+        								<input class="form-control" name="keywords" th:value="${keywords}" placeholder="Enter Search Keywords">
+        							</form>
+									
 								</div>
         					</aside>
         					<aside class="left_sidebar p_catgories_widget">
@@ -83,19 +93,27 @@
         							<h3>Danh Mục Sản Phẩm</h3>
         						</div>
         						<ul class="list_style">
-        							<li><a th:each="c:${cates}" th:href="@{|/product/list?cid=${c.id}|}" >[[${c.name}]]</a></li>
+        							<li th:each="c:${cates}"><a  th:href="@{|/sweetcake.com/product/list?cid=${c.id}|}" >[[${c.name}]]</a></li>
         						</ul>
         					</aside>
         					<aside class="left_sidebar p_price_widget">
         						<div class="p_w_title">
         							<h3>Xắp Xếp Theo Giá</h3>
         						</div>
-        						<div class="filter_price">
-									<div id="slider-range"></div>
-       								<label for="amount">Price range:</label>
-									<input type="text" id="amount" readonly />
-       								<a href="#">Filter</a>
-        						</div>
+        						<form action="/sweetcake.com/price" method="post">
+									<div class="filter-range-wrap">
+										<div class="range-slider">
+											<div class="form-group">
+												<label>Min price: <input type="text" id="minamount"
+													name="min" class="form-control">
+												</label> <label>Max price: <input type="text" id="maxamount"
+													name="max" class="form-control">
+												</label>
+											</div>
+										</div>
+									</div>
+									<button class="btn btn-info" style="border: none">Filter</button>
+								</form>
         					</aside>
         					<aside class="left_sidebar p_sale_widget">
         						<div class="p_w_title">

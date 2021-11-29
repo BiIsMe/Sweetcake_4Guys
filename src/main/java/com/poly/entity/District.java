@@ -16,15 +16,15 @@ import lombok.NoArgsConstructor;
 
 @SuppressWarnings("serial")
 @Data
-@AllArgsConstructor 
-@NoArgsConstructor
+@AllArgsConstructor @NoArgsConstructor
 @Entity @Table(name="Districts")
 public class District implements Serializable {
 
 	@Id
-	private Integer id;
+	private int id;
 	private String name;
 	private Double shipfee;
+	private Boolean available;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "district")

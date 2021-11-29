@@ -26,42 +26,30 @@
 	<section class="cart_table_area p_100">
 		<div class="container">
 			<div class="table-responsive">
-				<table class="table">
+				<table class="table ">
 					<thead>
-						<tr>
-							<th scope="col">Minh Họa</th>
-							<th scope="col">Sản Phẩm</th>
-							<th scope="col">Giá</th>
-							<th scope="col">Số Lượng</th>
-							<th scope="col">Thành Tiền</th>
-							<th scope="col"></th>
+						<tr style="background-color: #FFCCCC">
+							<th class="text-center" scope="col">Minh Họa</th>
+							<th class="text-center" scope="col">Sản Phẩm</th>
+							<th class="text-center" scope="col">Giá</th>
+							<th class="text-center" scope="col">Số Lượng</th>
+							<th class="text-center" scope="col">Thành Tiền</th>
+							<th class="text-center" scope="col"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="item in cart.items">
 							<td><img style="width: 80%"
 								src="/sitetemp/img/products/{{item.photo}}" alt=""></td>
-							<td>{{item.name}}</td>
-							<td>${{item.price|number:2}}</td>
-
-							<!--
-								<td>
-									<select class="product_select">
-										<option data-display="1">1</option>
-										<option value="1">2</option>
-										<option value="2">3</option> 
-										<option value="4">4</option>
-										<option value="5">5</option>
-									</select>
-								</td>
-								-->
-							<td style="text-align: center"><input ng-model="item.qty"
+							<td class="text-center">{{item.name}}</td>
+							<td class="text-center">{{item.price|currency:'':0}} VND</td>
+							<td class="text-center"><input ng-change="cart.saveToLocalStorage()" ng-model="item.qty"
 								type="number" min="1" style="width: 50px; border: none"></td>
-							<td>${{item.qty*item.price|number:2}}</td>
-							<td><a ng-click="cart.remove(item.id)">x</a></td>
+							<td class="text-center">{{item.qty*item.price|currency:'':0}} VND</td>
+							<td class="text-center"><a ng-click="cart.remove(item.id)">x</a></td>
 						</tr>
-						<tr>
-							<td>
+						<tr style="background-color: #EEEEEE">
+							<td >
 								<form class="form-inline">
 									<div class="form-group">
 										<input type="text" class="form-control"
@@ -74,7 +62,7 @@
 							<td></td>
 							<td></td>
 							<td></td>
-							<td><button ng-click="cart.clear()" ng-disabled="cart.count==0"  class="btn pest-btn" >Clear All</button></td>
+							<td><button ng-click="cart.clear()" ng-disabled="cart.count==0"  class="btn btn-danger ">Clear All</button></td>
 						</tr>
 					</tbody>
 				</table>
@@ -83,20 +71,20 @@
 				<div class="col-lg-7"></div>
 				<div class="col-lg-5">
 					<div class="cart_total_text">
-						<div class="cart_head">Cart Total</div>
+						<div class="cart_head" style="background-color: #CCCCCC">Cart Total</div>
 						<div class="sub_total">
-							<h5>
-								Tổng tiền hàng:<span>{{cart.amount|number:2}}</span>
+							<h5 style="font-weight: bold; color: #333333">
+								Tổng tiền hàng:<span>{{cart.amount|currency:'':0}} VND</span>
 							</h5>
 						</div>
 						<div class="sub_total">
-							<h5>
-								Giảm giá: <span>-25$</span>
+							<h5 style="font-weight: bold; color: #333333">
+								Giảm giá: <span>0 VND</span>
 							</h5>
 						</div>
 						<div class="total">
-							<h4>
-								Thành tiền: <span>{{cart.amount|number:2}}</span>
+							<h4 style="font-weight: bold; font-size: x-large;">
+								Thành tiền: <span>{{cart.amount|currency:'':0}} VND</span>
 							</h4>
 						</div>
 						<div class="cart_footer">

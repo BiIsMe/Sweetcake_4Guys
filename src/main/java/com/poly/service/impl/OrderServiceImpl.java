@@ -51,4 +51,10 @@ public class OrderServiceImpl implements OrderService{
 		return dao.findByUsername(username);
 	}
 
+	@Override
+	public void save(Order order) {
+		dao.save(order);
+		
+	}
+
 }

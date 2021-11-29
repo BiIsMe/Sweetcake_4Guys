@@ -1,10 +1,21 @@
 const app = angular.module("shopping-cart-app", []);
 app.controller("shopping-cart-ctrl", function($scope, $http){
-    //QUẢN LÝ GIỎ HÀNG
+    // QUẢN LÝ GIỎ HÀNG
+	// Quận
 	
+	  $scope.district=[];
+		$scope.initialize=function(){
+			$http.get("/rest/district").then(resp=>{
+				$scope.district = resp.data;
+			});
+		}
+		$scope.initialize();
+		
+		
     $scope.cart = {
         items:[],
-        //Thêm sản phẩm vào giỏ hàng
+        
+        // Thêm sản phẩm vào giỏ hàng
         add(id){
             var item = this.items.find(item => item.id == id);
             if(item){
@@ -21,19 +32,19 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
                 })
             }
         },
-        //Xóa sản phẩm khỏi giỏ hàng
+        // Xóa sản phẩm khỏi giỏ hàng
         remove(id){
         	var index = this.items.findIndex(item => item.id == id);
 			var item = this.items.find(item => item.id == id);
-			var ok = confirm("Do you want to delete : "+item.name);
+			var ok = confirm("Bạn muốn xóa : "+item.name+"???");
 			if(ok){
 				this.items.splice(index,1);
 				this.saveToLocalStorage();
 			}		
         },
-        //Xóa sạch các mặt hàng trong giỏ
+        // Xóa sạch các mặt hàng trong giỏ
         clear(){
-        	var ok = confirm("Do you want to clear all ?")
+        	var ok = confirm("Bạn muốn xóa toàn bộ sản phẩm trong giỏ ?")
 			if(ok){
 				this.items=[];
 				this.saveToLocalStorage();
@@ -43,26 +54,31 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 			this.items=[];
 			this.saveToLocalStorage();
 		},
-        //Tính thành tiền của 1 sản phẩm
+        // Tính thành tiền của 1 sản phẩm
         amt_of(item){},
-        //Tính tổng số lượng các mặt hàng trong giỏ
+        // Tính tổng số lượng các mặt hàng trong giỏ
         get count(){
             return this.items
                 .map(item => item.qty)
                 .reduce((total, qty) => total += qty, 0);
         },
-        //Tổng thành tiền các mặt hàng trong giỏ
+        // Tổng thành tiền các mặt hàng trong giỏ
         get amount(){
             return this.items
                 .map(item => item.qty * item.price)
                 .reduce((total, qty) => total += qty, 0);
         },
-        //Lưu giỏ hàng vào local storage
+        get amountTotal(){
+            return this.items
+                .map(item => item.qty * item.price)
+                .reduce((total, qty) => total += qty, 0);
+        },
+        // Lưu giỏ hàng vào local storage
         saveToLocalStorage(){
             var json = JSON.stringify(angular.copy(this.items));
             localStorage.setItem("cart", json);
         },
-        //Đọc giỏ hàng từ local storage
+        // Đọc giỏ hàng từ local storage
         loadFromLocalStorage(){
             var json = localStorage.getItem("cart");
             this.items = json ? JSON.parse(json):[];
@@ -72,9 +88,12 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 
     $scope.order = {
         createdate: new Date(),
-        address: "",
-        email: "",
+        address: "",	
         phone: "",
+        district: {id:""},
+        paymentmethod:"COD",
+        shipfee:"",
+        price: $scope.cart.amount,
         orderstatus:"accepted",
         account: {username: $("#customerid").text()},
         get orderDetails(){
@@ -87,20 +106,15 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
             });
         },
         purchase(){
-        	var validPhone = document.getElementById("phone").value;
-        	var validEmail = document.getElementById("email").value;
+        	
             var valid = document.getElementById("myTextarea").value;
-            if(validEmail.length == 0){
-				alert("Plese input Email");
-				document.getElementById("email").focus();
-			}
+            if ($scope.order.district.id != "" && $scope.order.district.id != undefined)
+            	$scope.msg = 'Quận: '+$scope.order.district.id;
+            	else
+            	$scope.msg = 'Hãy chọn một quận!';
             if(valid.length == 0){
-				alert("Plese input address");
+				alert("Không được để trống địa chỉ!");
 				document.getElementById("myTextarea").focus();
-			}
-            if(validPhone.length == 0){
-				alert("Plese input phone");
-				document.getElementById("phone").focus();
 			}
             else{
 				var order = angular.copy(this);
@@ -113,18 +127,19 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 	                console.log(error)
 	            })
 			}
-            //Thực hiện đặt hàng
+            // Thực hiện đặt hàng
             
         }
     }
-//    
-//	$scope.form={};
-//	$scope.district=[];
-//	$scope.initialize=function(){
-//		$http.get("/rest/district").then(rest=>{
-//			$scope.district = resp.data;
-//			console.log(district)
-//		})
-//	}
-//	$scope.initialize();
+    
+   $scope.change = function(){
+    	var id = $scope.order.district.id;
+    	$http.get(`/rest/district/${id}`).then(resp=>{
+    		var newdist = resp.data;
+    		$scope.order.shipfee = newdist.shipfee;
+    	})
+    }	
+    
+    $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
+    
 })

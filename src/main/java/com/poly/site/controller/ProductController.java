@@ -20,32 +20,5 @@ import com.poly.service.SessionService;
 
 @Controller
 public class ProductController {
-	@Autowired
-	ProductDao dao;
-	@Autowired
-	SessionService session;
 
-	@RequestMapping("product/list")
-	public String plist(Model model, @RequestParam("cid") Optional<String> cid, @RequestParam("p") Optional<Integer> pg,
-			@RequestParam("keyword") Optional<String> kw) {
-		String kwords = kw.orElse(session.get("keywords", ""));
-		session.set("keywords", kwords);
-		Pageable pageable = (Pageable) PageRequest.of(pg.orElse(0), 9);
-		Page<Product> page = dao.findByKeywords("%" + kwords + "%", pageable);
-		if (cid.isPresent()) {
-			Page<Product> list = dao.findAllByCate(cid.get(), pageable);
-			model.addAttribute("page", list);
-		} else {
-			Page<Product> list = dao.findAll(pageable);
-			model.addAttribute("page", list);
-		}
-		return "sites/product/list.html";
-	}
-
-	@RequestMapping("product/detail/{id}")
-	public String pdetail(Model model, @PathVariable("id") Integer id) {
-		Product prod = dao.findById(id).get();
-		model.addAttribute("item", prod);
-		return "sites/product/detail.html";
-	}
 }

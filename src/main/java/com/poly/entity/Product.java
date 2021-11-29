@@ -36,7 +36,10 @@ public class Product {
 	private Integer quantity = 01;
 	private Boolean available = false;
 	private String detail;
-	private String photo;
+	private String photo;	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
+	private Date createdate = new Date();
 	
 	@ManyToOne
 	@JoinColumn(name="categoryid")

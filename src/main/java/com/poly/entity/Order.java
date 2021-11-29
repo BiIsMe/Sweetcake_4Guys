@@ -35,14 +35,16 @@ public class Order {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date createdate = new Date();
-	
+	private String Recipientname;
 	private String phone;
 	private String address;
 	private String email;
 	private Double price;
 	private Double shipfee;
-	private String Paymentmethod;
-	private String Orderstatus;
+	private String paymentmethod;
+	private String orderstatus;
+	private Boolean whocancel;
+	private String reason;
 	private String staffid;
 	
 	@ManyToOne
