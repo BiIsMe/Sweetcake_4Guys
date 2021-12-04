@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{sites/layout/index.html::dynamic(~{::body})}">
+<head>
+<meta charset="UTF-8">
+</head>
+<body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
+	<section class="banner_area">
+		<div class="container">
+			<div class="banner_text">
+				<h3>Chi Tiết Đơn Hàng</h3>
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="checkout.html">Chekout</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+	<!--================End Main Header Area =================-->
+
+	<!--================Billing Details Area =================-->
+	<section class="billing_details_area p_100" th:object="${order}">
+		<div class="container">
+			<div class="return_option">
+				<div class="row">
+					<div class="col-sm-3">
+						<h4>Trạng thái đơn hàng:</h4>
+					</div>
+					<div class="col-sm-9">
+						<h4 th:switch="${order.orderstatus}" style="text-decoration: underline;">
+								 <p th:case="'accepted'" style="color: blue">
+        							[[${order.orderstatus}]]
+    							</p>
+    							 <p th:case="'canceled'" style="color: red">
+        							[[${order.orderstatus}]]
+    							</p>
+    							<p th:case="'delivery'" style="color: orange">
+        							[[${order.orderstatus}]]
+    							</p>
+    							<p th:case="'completed'" style="color: green">
+        							[[${order.orderstatus}]]
+    							</p>
+							</h4>
+					</div>
+				</div>
+				
+			</div>
+			<div class="row">
+				<div class="col-lg-7">
+
+					<div class="billing_form_area">
+						<form class="billing_form row"
+							action="http://galaxyanalytics.net/demos/cake/theme/cake-html/contact_process.php"
+							method="post" id="contactForm" novalidate="novalidate">
+							<div class="form-group col-md-6">
+								<label for="first">Mã Đơn Hàng:</label> <input th:field="*{id}" style="color: #333333;background-color: #FFFFFF"
+									class="form-control" readonly>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="last">Tên Người Nhận:</label> <input
+									th:field="*{Recipientname}" class="form-control" readonly style="color: #333333; background-color: #FFFFFF">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="first">Ngày Đặt:</label> <input
+									th:field="*{createdate}" class="form-control" readonly style="color: #333333;background-color: #FFFFFF">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="phone">Số điện thoại *</label> <input
+									th:field="*{phone}" class="form-control" readonly style="color: #333333;background-color: #FFFFFF">
+							</div>
+							<div class="form-group col-md-12">
+								<label for="address">Địa Chỉ Nhận Hàng:</label>
+								<textarea th:field="*{address}" class="form-control" readonly style="color: #333333;background-color: #FFFFFF"></textarea>
+							</div>
+
+							
+						</form>
+					</div>
+					<hr>
+
+					
+</div>
+
+<div class="col-lg-5">
+	<div class="order_box_price">
+
+		<div class="payment_list">
+			<div class="price_single_cost">
+				<h4 style="font-weight: bold">Sản Phẩm</h4>
+
+					<table class="table table-hover table-bordered  mb-0">
+						<thead>
+							<tr class="text-center" style="background-color: #FFCCCC">
+								
+								<th>Sản Phẩm</th>
+								<th>Đơn Giá</th>
+								<th>Số Lượng</th>
+								<th>Thành Tiền</th>
+							</tr>
+						</thead>
+						<body>
+						<tr th:each="detail:*{orderdetails}" th:object=${detail}>
+							<td class="text-center" style="vertical-align: middle;">[[*{product.name}]]</td>
+							<td class="text-center" style="vertical-align: middle;">[[*{#numbers.formatDecimal(price,0,'COMMA',0,'POINT')}]] VND</td>
+							<td class="text-center" style="vertical-align: middle;">[[*{quantity}]]</td>
+							<td class="text-center" style="vertical-align: middle;">[[*{#numbers.formatDecimal(price*quantity,0,'COMMA',0,'POINT')}]]VND</td>
+						</tr>
+						</body>
+					</table> <hr>
+					<button id="[[${order.id}]]" ng-click="cancerOrder(this.id)" class="btn btn-danger" style="font-size: 14px; margin-left: 320px"  data-toggle="modal" data-target="#cancerModal">Hủy đơn</button>
+			
+			</div>
+			<!-- Hủy đơn hàng -->
+			<div class="modal fade" id="cancerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header" style="background-color:#CC0000">
+					        <h5 class="modal-title" id="exampleModalLabel" style="color: white;">Hủy Đơn Hàng</h5>
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button>
+					      </div>
+					      <form th:action="@{/order/updateStatus}" method="POST">
+					      	<div class="modal-body">
+					      	<div>
+					      		<input type="hidden" th:field="*{orderstatus}">
+					      	</div>
+					      	<div>
+					      		<input type="hidden" th:field="*{id}">
+					      
+					      	<div>
+					      		<label>Lý do hủy đơn*</label>
+					        	<textarea th:field="*{reason}" class="form-control" id="myTextarea" placeholder="Bắt buộc nhập...	"></textarea>
+					        	<span th:if="${#fields.hasErrors('reason')}" th:errors="*{reason}"></span>
+					        </div>
+					      	
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+					        <button type="button" class="btn btn-danger" value="Save">Gửi lí do hủy</button>
+					      </div>
+					      </form>
+					      
+					      
+					    </div>
+					  </div>
+					</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</section>
+<!--================End Billing Details Area =================-->
+
+<!--================Newsletter Area =================-->
+<section class="newsletter_area">
+	<div class="container">
+		<div class="row newsletter_inner">
+			<div class="col-lg-6">
+				<div class="news_left_text">
+					<h4>Join our Newsletter list to get all the latest offers,
+						discounts and other benefits</h4>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="newsletter_form">
+					<div class="input-group">
+						<input type="text" class="form-control"
+							placeholder="Enter your email address">
+						<div class="input-group-append">
+							<button class="btn btn-outline-secondary" type="button">Subscribe
+								Now</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--================End Newsletter Area =================-->
+</body>
+</html>

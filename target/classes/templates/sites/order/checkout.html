@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{sites/layout/index.html::dynamic(~{::body})}">
+	
+<head>
+<meta charset="UTF-8">
+</head>
+<body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
+
+
+	<!--================End Main Header Area =================-->
+	<section class="banner_area">
+		<div class="container">
+			<div class="banner_text">
+				<h3>Thanh Toán</h3>
+				<ul>
+					<li><a href="index.html">Trang chủ</a></li>
+					<li><a href="checkout.html">Chi Tiết Đơn Hàng</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+	<!--================End Main Header Area =================-->
+
+	<!--================Billing Details Area =================-->
+	<section class="billing_details_area p_100">
+		<div class="container">
+			<div class="return_option">
+				<h4></h4>
+			</div>
+			<div class="row">
+				<div class="col-lg-7">
+
+					<div class="billing_form_area">
+						<form class="billing_form row"
+							action="http://galaxyanalytics.net/demos/cake/theme/cake-html/contact_process.php"
+							method="post" id="contactForm" novalidate="novalidate"
+							name="myform">
+							<div class="form-group col-md-6" ng-hide=(true)>
+								<label for="first">ID *</label>
+								<div class="form-control" id="customerid">[[${#request.remoteUser}]]</div>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="last">Tên người nhận *</label> <input id="name"
+									ng-model="order.recipientname" type="text"
+									style="color: #555555" class="form-control" name="user"
+									placeholder="Tên Người Nhận" required /> <span
+									ng-show="myform.user.$touched && myform.user.$invalid"
+									style="color: brown; font-size: 13px"> <i>Xin nhập
+										Tên người nhận</i>
+								</span>
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="phone">Số điện thoại *</label> <input type="text"
+									name="phone" style="color: #555555" class="form-control"
+									ng-model="order.phone" required pattern="(\+84|0)\d{9,10}"
+									placeholder="Phone" /> <span
+									ng-show="myform.phone.$touched && myform.phone.$invalid"
+									style="color: brown; font-size: 13px"> <i>Xin nhập
+										số điện thoại chuẩn Việt Nam</i>
+								</span>
+
+							</div>
+							<!--  -->
+							<div class="form-group col-md-12">
+								<label for="address">Địa chỉ *</label>
+								<div class="input-group col-mb-3">
+									<div class="input-group-prepend">
+										<label class="input-group-text" for="inputGroupSelect01">Quận*</label>
+									</div>
+									<select class="custom-select" name="statusDist"
+										ng-model="order.district.id" ng-change="change();" required>
+										<option ng-repeat=" d in district" ng-value="d.id">{{d.name}}</option>
+									</select>
+								</div>
+								<span
+									ng-show="myform.statusDist.$touched && myform.statusDist.$invalid"
+									style="color: brown; font-size: 13px"> <i>Xin chọn
+										Quận, Huyện</i>
+								</span>
+
+								<textarea ng-model="order.address" class="form-control"
+									name="address" id="myTextarea"
+									placeholder="Số nhà, tên đường..." required
+									style="color: #555555"></textarea>
+								<span
+									ng-show="myform.address.$touched && myform.address.$invalid"
+									style="color: brown; font-size: 13px"> <i>Xin nhập
+										số nhà, tên đường</i>
+								</span>
+							</div>
+							<div class="form-group col-md-12">
+								<hr>
+								<p
+									style="color: RGB(125, 125, 125); font-size: small; margin-top: 10px; font-style: italic;">
+									*Lưu ý: Để phục vụ khách hàng được tốt nhất, cửa hàng chỉ giao
+									nhận nội thành khu vực Thành Phố Hồ Chí Minh.<br> Mọi thắc
+									mắc và phản hồi xin liên hệ tới SDT: 19001000
+								</p>
+							</div>
+
+						</form>
+					</div>
+
+
+				</div>
+				<div class="col-lg-5" style="background-color: #EEEEEE">
+					<div class="order_box_price">
+
+						<div class="payment_list">
+							<div class="price_single_cost">
+								</i>
+								<h4 style="font-weight: bold;">Sản Phẩm</h4>
+
+								<table class="table table-hover table-bordered  mb-0">
+									<thead>
+										<tr class="text-center" style="background-color: #FFCCCC">
+											<th style="width: 100px;">Minh Họa</th>
+											<th>Sản Phẩm</th>
+											<th>Số Lượng</th>
+											<th>Thành Tiền</th>
+										</tr>
+									</thead>
+									<body>
+									<tr ng-repeat="item in cart.items">
+										<td>
+											<div style="width: 100%; overflow: hidden; height: 60px;">
+												<img src="/sitetemp/img/products/{{item.photo}}"
+													width="100%" alt="">
+											</div>
+										</td>
+										<td class="text-center" style="vertical-align: middle;">{{item.name}}</td>
+										<td class="text-center" style="vertical-align: middle;">{{item.qty}}</td>
+										<td class="text-center" style="vertical-align: middle;">{{item.qty*item.price|currency:'':0}}VND</td>
+									</tr>
+</body>
+</table>
+<br>
+<hr>
+
+<!------------------------------- Voucher------------------------------- -->
+
+<div class="row">
+	<div class="col-sm-7" style="margin-top: 8px">
+		<span><img src="/sitetemp/img/ticket.png"></span> <a style="font-weight: bolder;">Thêm mã giảm giá:</a>
+	</div>
+	<div class="col-sm-5">
+		<form class="form-inline">
+			<button type="submit" class="btn"
+				style="margin-left: 15px; font-weight: bold; text-decoration: none; background-color: #990000; color: #ffffff; display: inline-block; position: relative; border: 3px solid #ffffff; border-radius: 15px;"
+				data-toggle="modal" data-target="#exampleModal">Chọn
+				Voucher</button>
+		</form>
+	</div>
+</div>
+<!-- Modal voucher -->
+<div class="modal fade" id="exampleModal" tabindex="-1"
+	aria-labelledby="exampleModalLabel" aria-hidden="true" style="text-align: center">
+	<div class="modal-dialog modal-lg ">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color: 	#FFCC99 ">
+				<p class="modal-title" id="exampleModalLabel"
+					style="color: RGB(163, 85, 89); font-family: 'Fuzzy Bubbles', cursive; font-weight: bold;"><img src="/sitetemp/img/ticket.png"> Voucher Của Bạn</p>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<form>
+								<div class="form-row">
+									<div class="col-md-4 mb-4"
+										style="border-right: dashed 1px grey; border-radius: 4px; box-shadow: 0px 1px 1px 1px rgba(68, 68, 68, 0.6);">
+										<p
+											style="color: RGB(96, 154, 208); text-transform: uppercase; padding-top: px; font-weight: bold; font-size: xx-small; margin-top: 10px;">Khách
+											hàng mới</p>
+										<h5
+											style="color: RGB(163, 85, 89); font-family: 'Fuzzy Bubbles', cursive; font-weight: bold; font-size: x-large;">40%
+											off</h5>
+										<a
+											style="color: RGB(125, 125, 125); font-size: xx-small; margin-top: 10px; font-style: italic;">Chỉ
+											sử dụng một lần</a>
+									</div>
+									<div class="col-md-8 mb-4"
+										style="border-radius: 4px; box-shadow: 1px 1px 1px 1px rgba(68, 68, 68, 0.6);">
+										<p
+											style="color: RGB(125, 125, 125); font-size: x-small; margin-top: 10px; font-weight: bold;">Click
+											"Submit now" để sử dụng voucher</p>
+										<input value="SUBMIT NOW" type="submit"
+											style="font-size: x-small;" /> <br> <a
+											style="color: RGB(125, 125, 125); font-size: xx-small; margin-top: 10px; font-style: italic;">*lưu
+											ý: Khách hàng lưu ý HSD để tránh bỏ lỡ ưu đãi</a>
+										<p style="color: RGB(220, 91, 96); font-size: xx-small;">HSD:
+											31/12/2022</p>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="col-md-6">
+							<form>
+								<div class="form-row">
+									<div class="col-md-4 mb-4"
+										style="border-right: dashed 1px grey; border-radius: 4px; box-shadow: 0px 1px 1px 1px rgba(68, 68, 68, 0.6);">
+										<p
+											style="color: RGB(96, 154, 208); text-transform: uppercase; padding-top: px; font-weight: bold; font-size: xx-small; margin-top: 10px;">Khách
+											hàng mới</p>
+										<h5
+											style="color: RGB(163, 85, 89); font-family: 'Fuzzy Bubbles', cursive; font-weight: bold; font-size: x-large;">40%
+											off</h5>
+										
+									</div>
+									<div class="col-md-8 mb-4"
+										style="border-radius: 4px; box-shadow: 1px 1px 1px 1px rgba(68, 68, 68, 0.6);">
+										<p
+											style="color: RGB(125, 125, 125); font-size: x-small; margin-top: 10px; font-weight: bold;">Click
+											"Submit now" để sử dụng voucher</p>
+										<input value="SUBMIT NOW" type="submit"
+											style="font-size: x-small;" /> <br> 
+										<p style="color: RGB(220, 91, 96); font-size: xx-small;">Số lượng:
+											20</p>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<!-------------------------------end Voucher------------------------------- -->
+<hr>
+<br>
+<h5>
+	Tổng tiền hàng: <span><a id="total">{{cart.amount|currency:'':0}}
+			VND</a></span>
+</h5>
+<h4>
+	Giảm giá: <span style="color: RGB(220, 91, 96)">-0.00 VND</span>
+</h4>
+<h5>
+	Phí Ship:<span class="text_f"><a>{{order.shipfee|currency:'':0}}
+			VND</a></span>
+</h5>
+<h3>
+	Thành tiền: <span id="allTotal" style="color: RGB(163, 85, 89)">{{cart.amount
+		+ order.shipfee|currency:'':0}} VND</span>
+</h3>
+</div>
+<div id="accordion" class="accordion_area">
+	<div class="card">
+		<div class="card-header" id="headingOne">
+			<h5 class="mb-0">
+				<button class="btn btn-link" data-toggle="collapse"
+					data-target="#collapseOne" aria-expanded="true"
+					aria-controls="collapseOne">Thanh toán sau khi nhận hàng</button>
+			</h5>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-header" id="headingTwo">
+			<h5 class="mb-0">
+				<button class="btn btn-link collapsed" data-toggle="collapse"
+					data-target="#collapseTwo" aria-expanded="false"
+					aria-controls="collapseTwo">Chuyển khoản qua ngân hàng</button>
+			</h5>
+		</div>
+		<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+			data-parent="#accordion">
+			<div class="card-body">Make your payment directly into our bank
+				account. Please use your Order ID as the payment reference. Your
+				order won’t be shipped until the funds have cleared in our account.</div>
+		</div>
+	</div>
+
+</div>
+<button ng-click="order.purchase()" type="submit" value="submit"
+	class="btn pest_btn" ng-disabled="cart.count==0 || myform.$invalid ">Thanh
+	Toán</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!--================End Billing Details Area =================-->
+
+
+</body>
+
+</html>

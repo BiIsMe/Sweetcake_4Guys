@@ -1,6 +1,7 @@
 package com.poly.rest.controller;
 
 
+
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.poly.dao.OrderDao;
 import com.poly.entity.Order;
+
 import com.poly.entity.Product;
+
 import com.poly.service.OrderService;
 import com.poly.service.ProductService;
 
@@ -42,20 +46,19 @@ public class OrderRestController {
 	}
 	
 	@PostMapping()
-	public Order create(@RequestBody JsonNode order) {
-		return osv.create(order);
-	}
-	
+	public Order create(@RequestBody JsonNode orderData) {
+		return osv.create(orderData);
+	}	
 	@GetMapping("{id}")
 	public Order findbyId(@PathVariable("id") long id) {
 		return dao.findById(id).get();
 	}
 	
+
 	@PutMapping("{id}")
 	public Order update(@PathVariable("id") long id, @RequestBody Order order) {
 		return dao.save(order);
 	}
-	
 	//find by date form and date to
 	@GetMapping("{from}/{to}/{status}")
 	public List<Order> findByDate(@PathVariable("from") String from,@PathVariable("to") String to,
@@ -70,4 +73,5 @@ public class OrderRestController {
 	public List<Order> findOrderByUser(@PathVariable("username") String username ){
 		return dao.findByUser(username);
 	}
+
 }

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{sites/layout/index.html::dynamic(~{::body})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
+	<section class="banner_area">
+		<div class="container">
+			<div class="banner_text">
+				<h3>Đơn Hàng Đã Mua</h3>
+				<ul>
+					<li><a href="index.html">Trang Chủ</a></li>
+					<li><a href="checkout.html">Đơn Đã Mua</a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+	<!--================End Main Header Area =================-->
+
+	<!--================Billing Details Area =================-->
+	<section class="billing_details_area p_100" th:object="${order}">
+		<div class="container">
+			<div class="return_option">
+				<h4>
+					Đơn Hàng Đã Mua
+				</h4>
+			</div>
+			<div class="row">
+				<div class="col">						
+
+					<table class="table table-hover table-bordered  mb-2">
+						<thead>
+							<tr class="text-center" style="background-color: #FFCCCC">
+								<th>ID</th>
+								<th>Ngày Mua</th>
+								<th>Địa chỉ nhận</th>
+								<th>Tiền phải trả</th>
+								<th>Trạng Thái</th>
+                   				<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<body>
+						<tr th:each="order :${orders}">
+							<td class="text-center" style="vertical-align: middle;color: #111111">[[${order.id}]]</td>
+							<td class="text-center" style="vertical-align: middle;">[[${order.createdate}]]</td>
+							<td class="text-center" style="vertical-align: middle;">[[${order.address}]]</td>
+							<td class="text-center" style="vertical-align: middle;">[[${#numbers.formatDecimal(order.price,0,'COMMA',0,'POINT')}]]VNĐ</td>
+							<td class="text-center" style="vertical-align: middle;font-weight: bold;" th:switch="${order.orderstatus}">
+								 <div th:case="'accepted'" style="color: blue">
+        							[[${order.orderstatus}]]
+    							</div>
+    							 <div th:case="'canceled'" style="color: red">
+        							[[${order.orderstatus}]]
+    							</div>
+    							<div th:case="'delivery'" style="color: orange">
+        							[[${order.orderstatus}]]
+    							</div>
+    							<div th:case="'completed'" style="color: green">
+        							[[${order.orderstatus}]]
+    							</div>
+							</td>
+							<td class="text-center" style="vertical-align: middle; width: 10%;"><a th:href="@{|/order/detail/${order.id}|}" style="color: red">
+							 <span class="fa fa-edit" style="color: brown;font-size: 19px;"></span>Xem đơn</a></td>
+							</td>
+						</tr></body>
+	          	</table><br>
+	          
+		          <div class="row justify-content-center">
+						<div class="col-sm-3 mr-2 text-center mt-4">
+							<ul class="pagination mb-1 "
+								style="font-size: 29px; font-weight: bolder;">
+								<li class="page-item mr-2 "><a th:href="@{|/order/list?p=0|}"
+									class="page-link btn btn-light"><span
+										class="fa fa-angle-double-left	"
+										style="color: #FF99FF; font-size: 20px;"></span></a></li>
+								<li class="page-item mr-2 "><a  th:href="@{|/order/list?p=${page.number-1 }|}"
+									class="page-link btn btn-light"><span
+										class="fa fa-angle-left"
+										style="color:#FF99FF; font-size: 20px;"></span></a></li>
+								<li class="page-item">
+									<div class="mr-2 mt-2"  style="color: #1f312e; font-size: 15px;">
+										[[${page.number +1}]]/[[${page.totalPages }]]
+									</div></li>
+								<li class="page-item mr-2 "><a   th:href="@{|/order/list?p=${page.number+1}|}"
+									class="btn page-link btn-light"><span
+										class="fa fa-angle-right"
+										style="color: #FF99FF; font-size: 20px;"></span></a></li>
+								<li class="page-item mr-2 "><a  th:href="@{|/order/list?p=${page.totalPages-1}|}"
+									class="btn page-link btn-light"><span
+										class="fa fa-angle-double-right"
+										style="color: #FF99FF; font-size: 20px;"></span></a></li>
+							</ul>
+						</div>
+					</div>
+				
+				</div>
+				
+			</div>
+			
+			
+		</div>
+	</section>
+	<!--================End Billing Details Area =================-->
+
+	<!--================Newsletter Area =================-->
+	<section class="newsletter_area">
+		<div class="container">
+			<div class="row newsletter_inner">
+				<div class="col-lg-6">
+					<div class="news_left_text">
+						<h4>Join our Newsletter list to get all the latest offers,
+							discounts and other benefits</h4>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="newsletter_form">
+						<div class="input-group">
+							<input type="text" class="form-control"
+								placeholder="Enter your email address">
+							<div class="input-group-append">
+								<button class="btn btn-outline-secondary" type="button">Subscribe
+									Now</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Newsletter Area =================-->
+</body>
+</html>

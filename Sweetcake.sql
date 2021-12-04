@@ -4,7 +4,7 @@ USE SWEETCAKE_4GUYS
 GO
 
 CREATE TABLE Categories (
-	Id int identity(1,1) primary key,
+	Id varchar(3) primary key,
 	Name nvarchar(40) not null )
 GO
 
@@ -16,7 +16,7 @@ CREATE TABLE Products (
 	Available bit ,
 	Detail nvarchar(100),
 	Photo varchar(30),
-	Categoryid int not null,
+	Categoryid varchar(3) not null,
 	Createdate date,
 	Foreign key(Categoryid) References Categories(Id) )
 GO
@@ -40,8 +40,7 @@ CREATE TABLE Coupons (
 	Active bit,
 	Createdate date, 
 	Category bit not null,					/*2 loại : group (true-1) , private (false-0) */
-	Customerid varchar(30),			/* dành cho private, xác định khách hàng cụ thể cho coupon đó */
-	Foreign key (Customerid) references Accounts(Username) )
+	Customerid varchar(30))		/* dành cho private, xác định khách hàng cụ thể cho coupon đó */ 
 GO
 
 CREATE TABLE Districts (
@@ -84,60 +83,59 @@ CREATE TABLE OrderDetails (
 	Foreign key(Productid) References Products(Id) )
 GO
 
-SET IDENTITY_INSERT [dbo].[Categories] ON
-INSERT [dbo].[Categories] ([Id], [Name]) VALUES (1, N'Cupcake')
-INSERT [dbo].[Categories] ([Id], [Name]) VALUES (2, N'Chocolate')
-INSERT [dbo].[Categories] ([Id], [Name]) VALUES (3, N'Birthday Cake')
-INSERT [dbo].[Categories] ([Id], [Name]) VALUES (4, N'Bread')
-INSERT [dbo].[Categories] ([Id], [Name]) VALUES (5, N'Cookies')
-INSERT [dbo].[Categories] ([Id], [Name]) VALUES (6, N'Rau câu 3D')
-SET IDENTITY_INSERT [dbo].[Categories] OFF
+
+INSERT [dbo].[Categories] ([Id], [Name]) VALUES ('c01', N'Cupcake')
+INSERT [dbo].[Categories] ([Id], [Name]) VALUES ('c02', N'Chocolate')
+INSERT [dbo].[Categories] ([Id], [Name]) VALUES ('c03', N'Birthday Cake')
+INSERT [dbo].[Categories] ([Id], [Name]) VALUES ('c04', N'Bread')
+INSERT [dbo].[Categories] ([Id], [Name]) VALUES ('c05', N'Cookies')
+INSERT [dbo].[Categories] ([Id], [Name]) VALUES ('c06', N'Rau câu 3D')
 GO
 
 SET IDENTITY_INSERT [dbo].[Products] ON 
 
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (1, N'Bánh kem sắc màu', 499000, 10, 1, N'Bánh kem 1', N'birthday1.jpg', 3, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (2, N'Bánh kem dâu', 399000, 10, 1, N'Bánh kem 2', N'birthday2.jpg', 3, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (3, N'Bánh kem ngọt ngào', 449000, 10, 1, N'Bánh kem 3', N'birthday3.jpg', 3, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (4, N'Bánh kem chocolate', 299000, 10, 1, N'Bánh kem 4', N'birthday4.jpg', 3, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (5, N'Bánh kem thường', 249000, 10, 1, N'Bánh kem 5', N'birthday5.jpg', 3, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (6, N'Bánh kem tình yêu', 499000, 10, 1, N'Bánh kem 6', N'birthday6.jpg', 3, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (7, N'Bánh kem hạnh nhân', 399000, 10, 1, N'Bánh kem 7 ', N'birthday7.jpg', 3, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (8, N'Bread khoai', 149000, 10, 1, N'Bread 1', N'bread1.jpg', 4, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (9, N'Bread tươi 1', 99000, 10, 1, N'Bread 2', N'bread2.jpg', 4, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (10, N'Bread tươi 2', 99000, 10, 1, N'Bread 3', N'bread3.jpg', 4, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (11, N'Bread tươi 4', 79000, 10, 1, N'Bread 4', N'bread4.jpg', 4, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (12, N'Bread tươi 5', 99000, 10, 1, N'Bread 5', N'bread5.jpg', 4, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (13, N'Bread tươi 6', 79000, 10, 1, N'Bread 6', N'bread6.jpg', 4, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (14, N'Bread tươi 7', 59000, 10, 1, N'Bread 7 ', N'bread7.jpg', 4, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (15, N'Bread tươi 8', 39000, 10, 1, N'Bread 8 ', N'bread8.jpg', 4, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (16, N'Chocolate 1', 89000, 10, 1, N'Chocolate 1', N'chocolate1.jpg', 2, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (17, N'Chocolate 2 ', 199000, 10, 1, N'Chocolate 2', N'chocolate2.jpg', 2, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (18, N'Chocolate 3', 249000, 10, 1, N'Chocolate 3', N'chocolate3.jpg', 2, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (19, N'Chocolate 4', 249000, 10, 1, N'Chocolate 4', N'chocolate4.jpg', 2, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (20, N'Chocolate 5', 129000, 10, 1, N'Chocolate 5', N'chocolate5.jpg', 2, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (21, N'Chocolate 6', 79000, 10, 1, N'Chocolate 6', N'chocolate6.jpg', 2, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (22, N'Cookies 1', 29000, 10, 1, N'Cookies 1', N'cookies1.jpg', 5, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (23, N'Cookies 2 ', 39000, 10, 1, N'Cookies 2', N'cookies2.jpg', 5, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (24, N'Cookies 3', 39000, 10, 1, N'Cookies 3', N'cookies3.jpg', 5, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (25, N'Cookies 4 ', 19000, 10, 1, N'Cookies 4', N'cookies4.jpg', 5, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (26, N'Cookies 5', 19000, 10, 1, N'Cookies 5', N'cookies5.jpg', 5, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (27, N'Cupcake 1', 49000, 10, 1, N'Cupcake 1', N'cupcake1.jpg', 1, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (28, N'Cupcake 2', 49000, 10, 1, N'Cupcake 2', N'cupcake2.jpg', 1, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (29, N'Cupcake 3', 49000, 10, 1, N'Cupcake 3', N'cupcake3.jpg', 1, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (30, N'Cupcake 4', 69000, 10, 1, N'Cupcake 4', N'cupcake4.jpg', 1, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (31, N'Cupcake 5', 49000, 10, 1, N'Cupcake 5', N'cupcake5.jpg', 1, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (32, N'Cupcake 6 ', 69000, 10, 1, N'Cupcake 6', N'cupcake6.jpg', 1, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (33, N'Cupcake 7', 59000, 10, 1, N'Cupcake 7', N'cupcake7.jpg', 1, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (34, N'Cupcake 8', 89000, 10, 1, N'Cupcake 8', N'cupcake8.jpg ', 1, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (35, N'Cupcake 9 ', 79000, 10, 1, N'Cupcake 9', N'cupcake9.jpg', 1, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (36, N'Cupcake 10', 79000, 10, 1, N'Cupcake 10', N'cupcake10.jpg', 1, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (37, N'Rau câu 3D 1', 299000, 10, 1, N'Rau câu 1', N'raucau1.jpg', 6, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (38, N'Rau câu 3D 2', 399000, 10, 1, N'Rau câu 2 ', N'raucau2.jpg', 6, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (39, N'Rau câu 3D 3', 399000, 10, 1, N'Rau câu 3', N'raucau3.jpg', 6, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (40, N'Rau câu 3D 4 ', 79000, 10, 1, N'Rau câu 4', N'raucau4.jpg', 6, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (41, N'Rau câu 3D 5', 79000, 10, 1, N'Rau câu 5', N'raucau5.jpg', 6, CAST(N'2021-11-11' AS Date))
-INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (42, N'Rau câu 3D 6 ', 199000, 10, 1, N'Rau câu 6 ', N'raucau6.jpg', 6, CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (1, N'Bánh kem sắc màu', 499000, 10, 1, N'Bánh kem 1', N'birthday1.jpg', 'c03', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (2, N'Bánh kem dâu', 399000, 10, 1, N'Bánh kem 2', N'birthday2.jpg', 'c03', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (3, N'Bánh kem ngọt ngào', 449000, 10, 1, N'Bánh kem 3', N'birthday3.jpg', 'c03', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (4, N'Bánh kem chocolate', 299000, 10, 1, N'Bánh kem 4', N'birthday4.jpg', 'c03', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (5, N'Bánh kem thường', 249000, 10, 1, N'Bánh kem 5', N'birthday5.jpg', 'c03', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (6, N'Bánh kem tình yêu', 499000, 10, 1, N'Bánh kem 6', N'birthday6.jpg', 'c03', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (7, N'Bánh kem hạnh nhân', 399000, 10, 1, N'Bánh kem 7 ', N'birthday7.jpg', 'c03', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (8, N'Bread khoai', 149000, 10, 1, N'Bread 1', N'bread1.jpg', 'c04', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (9, N'Bread tươi 1', 99000, 10, 1, N'Bread 2', N'bread2.jpg', 'c04', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (10, N'Bread tươi 2', 99000, 10, 1, N'Bread 3', N'bread3.jpg', 'c04', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (11, N'Bread tươi 4', 79000, 10, 1, N'Bread 4', N'bread4.jpg', 'c04', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (12, N'Bread tươi 5', 99000, 10, 1, N'Bread 5', N'bread5.jpg', 'c04', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (13, N'Bread tươi 6', 79000, 10, 1, N'Bread 6', N'bread6.jpg', 'c04', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (14, N'Bread tươi 7', 59000, 10, 1, N'Bread 7 ', N'bread7.jpg', 'c04', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (15, N'Bread tươi 8', 39000, 10, 1, N'Bread 8 ', N'bread8.jpg', 'c04', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (16, N'Chocolate 1', 89000, 10, 1, N'Chocolate 1', N'chocolate1.jpg', 'c02', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (17, N'Chocolate 2 ', 199000, 10, 1, N'Chocolate 2', N'chocolate2.jpg', 'c02', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (18, N'Chocolate 3', 249000, 10, 1, N'Chocolate 3', N'chocolate3.jpg', 'c02', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (19, N'Chocolate 4', 249000, 10, 1, N'Chocolate 4', N'chocolate4.jpg', 'c02', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (20, N'Chocolate 5', 129000, 10, 1, N'Chocolate 5', N'chocolate5.jpg', 'c02', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (21, N'Chocolate 6', 79000, 10, 1, N'Chocolate 6', N'chocolate6.jpg', 'c02', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (22, N'Cookies 1', 29000, 10, 1, N'Cookies 1', N'cookies1.jpg', 'c05', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (23, N'Cookies 2 ', 39000, 10, 1, N'Cookies 2', N'cookies2.jpg', 'c05', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (24, N'Cookies 3', 39000, 10, 1, N'Cookies 3', N'cookies3.jpg', 'c05', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (25, N'Cookies 4 ', 19000, 10, 1, N'Cookies 4', N'cookies4.jpg', 'c05', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (26, N'Cookies 5', 19000, 10, 1, N'Cookies 5', N'cookies5.jpg', 'c05', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (27, N'Cupcake 1', 49000, 10, 1, N'Cupcake 1', N'cupcake1.jpg', 'c01', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (28, N'Cupcake 2', 49000, 10, 1, N'Cupcake 2', N'cupcake2.jpg', 'c01', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (29, N'Cupcake 3', 49000, 10, 1, N'Cupcake 3', N'cupcake3.jpg', 'c01', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (30, N'Cupcake 4', 69000, 10, 1, N'Cupcake 4', N'cupcake4.jpg', 'c01', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (31, N'Cupcake 5', 49000, 10, 1, N'Cupcake 5', N'cupcake5.jpg', 'c01', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (32, N'Cupcake 6 ', 69000, 10, 1, N'Cupcake 6', N'cupcake6.jpg', 'c01', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (33, N'Cupcake 7', 59000, 10, 1, N'Cupcake 7', N'cupcake7.jpg', 'c01', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (34, N'Cupcake 8', 89000, 10, 1, N'Cupcake 8', N'cupcake8.jpg ', 'c01', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (35, N'Cupcake 9 ', 79000, 10, 1, N'Cupcake 9', N'cupcake9.jpg', 'c01', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (36, N'Cupcake 10', 79000, 10, 1, N'Cupcake 10', N'cupcake10.jpg', 'c01', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (37, N'Rau câu 3D 1', 299000, 10, 1, N'Rau câu 1', N'raucau1.jpg', 'c06', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (38, N'Rau câu 3D 2', 399000, 10, 1, N'Rau câu 2 ', N'raucau2.jpg', 'c06', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (39, N'Rau câu 3D 3', 399000, 10, 1, N'Rau câu 3', N'raucau3.jpg', 'c06', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (40, N'Rau câu 3D 4 ', 79000, 10, 1, N'Rau câu 4', N'raucau4.jpg', 'c06', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (41, N'Rau câu 3D 5', 79000, 10, 1, N'Rau câu 5', N'raucau5.jpg', 'c06', CAST(N'2021-11-11' AS Date))
+INSERT [dbo].[Products] ([Id], [Name], [Price], [Quantity], [Available], [Detail], [Photo], [Categoryid], [Createdate]) VALUES (42, N'Rau câu 3D 6 ', 199000, 10, 1, N'Rau câu 6 ', N'raucau6.jpg', 'c06', CAST(N'2021-11-11' AS Date))
 SET IDENTITY_INSERT [dbo].[Products] OFF
 GO
 
@@ -168,8 +166,8 @@ INSERT [dbo].[Districts] ([Id], [Name], [Shipfee], [Available]) VALUES (22, N'Th
 SET IDENTITY_INSERT [dbo].[Districts] OFF
 GO
 
-INSERT [dbo].[Accounts] ([Username], [Password], [Fullname], [Gender], [Phone], [Dob], [Active], [Role]) VALUES (N'direc01', N'12345', NULL, 1, NULL, CAST(N'1998-07-01' AS Date), 1, N'DIRE')
-INSERT [dbo].[Accounts] ([Username], [Password], [Fullname], [Gender], [Phone], [Dob], [Active], [Role]) VALUES (N'direc02', N'12345', NULL, 0, NULL, CAST(N'2001-10-18' AS Date), 1, N'DIRE')
+INSERT [dbo].[Accounts] ([Username], [Password], [Fullname], [Gender], [Phone], [Dob], [Active], [Role]) VALUES (N'thanhdc138@gmail.com', N'12345678', 'Four Guys', 1, '0908705709', CAST(N'1998-07-01' AS Date), 1, N'DIRE')
+INSERT [dbo].[Accounts] ([Username], [Password], [Fullname], [Gender], [Phone], [Dob], [Active], [Role]) VALUES (N'direc02', N'12345678', NULL, 0, NULL, CAST(N'2001-10-18' AS Date), 1, N'DIRE')
 INSERT [dbo].[Accounts] ([Username], [Password], [Fullname], [Gender], [Phone], [Dob], [Active], [Role]) VALUES (N'staff01', N'12345678', N'Mã Văn', 1, NULL, CAST(N'2021-11-26' AS Date), 1, N'Staff')
 INSERT [dbo].[Accounts] ([Username], [Password], [Fullname], [Gender], [Phone], [Dob], [Active], [Role]) VALUES (N'staff02', N'12345', N'Nguyễn Văn Tèo', 0, NULL, CAST(N'2000-04-12' AS Date), 0, N'STAFF')
 INSERT [dbo].[Accounts] ([Username], [Password], [Fullname], [Gender], [Phone], [Dob], [Active], [Role]) VALUES (N'staff03', N'12345', N'Tấn C', 0, N'0907337764', CAST(N'1998-07-01' AS Date), 1, N'STAFF')

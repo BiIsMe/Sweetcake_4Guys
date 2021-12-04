@@ -43,8 +43,6 @@ public class Account implements Serializable{
 	@OneToMany(mappedBy = "account")
 	private List<Order> orders;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "account")
-	private List<Coupon> coupons;
+
 	
 }

@@ -4,8 +4,8 @@ app.controller("myctrl",function($scope,$http){
 	$scope.indexUser = {};
 	$scope.username = '';
 	$scope.indexName = '';
+	
 	$scope.initial = function(){
-		localStorage.setItem("username","thanhdc138@gmail.com");
 		username = localStorage.getItem("username");
 		
 		$http.get(`/rest/account/${username}`).then(resp =>{
@@ -17,9 +17,11 @@ app.controller("myctrl",function($scope,$http){
 	
 	$scope.initial();
 	
-	$scope.aleart = function(){
-		alert(username);
+	$scope.logout = function(){
+		localStorage.removeItem("username");
 	}
+	
+	
 	
 });
 

@@ -4,10 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/sweetcake.com")
+@RequestMapping("/admin/home")
 public class AdminIndexController {
 
-	@RequestMapping("/admin")
+	@RequestMapping()
 	public String adminIndex() {
 		return "redirect:/admins/index.html#!/home";
 	}

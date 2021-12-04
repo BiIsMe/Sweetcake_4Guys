@@ -53,23 +53,34 @@
 		      </div>
 		      
 		      <div class="modal-body">
-		       	 <div class="row  form-inline mb-4 mt-1">
-		       	 	<div class="col-sm-5">		       	 		
-		       	 		<div class="form-group">
-		       	 			<label class="col-sm-2">ID</label>
-		       	 			<input ng-model="formCate.id" type="text" class="form-control col-sm-8" />
-		       	 		</div>
-		       	 	</div>
-		       	 	<div class="col-sm-5">		       	 		
-		       	 		<div class="form-group">
-		       	 			<label class="col-sm-2">Name</label>
-		       	 			<input ng-model="formCate.name" type="text" class="form-control col-sm-8 ml-2" />
-		       	 		</div>
-		       	 	</div>
-		       	 	<div class="col-sm-2">
-		       	 		<button ng-click="createCate()" ng-disabled="formCate.id == null" class="btn btn-success ml-1">Add</button>
-		       	 	</div>	       	 		    
-		       	 </div>
+		       	 <form name="myform">
+		       	 	<div class="row  form-inline mb-4 mt-1">
+			       	 	<div class="col-sm-5">		       	 		
+			       	 		<div class="form-group">
+			       	 			<label class="col-sm-2">ID</label>
+			       	 			<input ng-model="formCate.id" type="text" name="idC" required maxlength="3" class="form-control col-sm-8" />
+			       	 			<span ng-show="myform.idC.$touched && myform.idC.$error.required" style="color:brown;margin-left:39px">
+							  		<i>Please input Id</i>
+						  		</span>
+						  		<span ng-show="myform.idC.$touched && myform.idC.$error.maxlength" style="color:brown;margin-left:39px">
+							  		<i>The max-length is 3</i>
+						  		</span>
+			       	 		</div>
+			       	 	</div>
+			       	 	<div class="col-sm-5">		       	 		
+			       	 		<div class="form-group">
+			       	 			<label class="col-sm-2">Name</label>
+			       	 			<input ng-model="formCate.name" type="text" class="form-control col-sm-8 ml-2" name="nameC" required/>
+			       	 			<span ng-show="myform.nameC.$touched && myform.nameC.$invalid" style="color:brown;margin-left:45px">
+							  		<i>Please input Name</i>
+						  		</span>
+			       	 		</div>
+			       	 	</div>
+			       	 	<div class="col-sm-2">
+			       	 		<button ng-click="createCate()" ng-disabled="myform.$invalid" class="btn btn-success ml-1">Add</button>
+			       	 	</div>	       	 		    
+			       	 </div>
+		       	 </form>
 		       	 
 		       	 <hr />
 		       	 
@@ -111,6 +122,8 @@
 		  </div>
 		</div>
 		<!-- /Modal -->
+		
+		
 	
 		<div class="table-responsive p-0"  style="height: 410px;">
 			<table id="example2" class="table table-hover table-bordered  mb-0 table-head-fixed text-nowrap">
@@ -152,31 +165,6 @@
                  		{{(items | filter : {name : nameItem, cate : nameCate}).length}} Products
                  	</div>
                  
-                 	<!-- 
-                     <ul class="pagination mb-1"
-                             style="font-size: 29px; font-weight: bolder;">
-                             <li class="page-item mr-2 ${page.number == 0?'disabled':'' }"><button ng-click="pager.first()" 
-                                 class="page-link btn btn-light"><span
-                                     class="fa fa-angle-double-left	"
-                                     style="color: rgb(52,58,64); font-size: 20px;"></span></button></li>
-                             <li class="page-item mr-2   ${page.number == 0?'disabled':'' }"><button ng-click="pager.prev()"
-                                 class="page-link btn btn-light"><span
-                                     class="fa fa-angle-left"
-                                     style="color: rgb(52,58,64); font-size: 20px;"></span></button></li>
-                             <li class="page-item">
-                                 <div  style="color: rgb(121, 73, 19); font-size: 15px; margin-left:3px;margin-right:9px;margin-top:10px">
-                                     {{pager.page+1}}/{{pager.count}}
-                                 </div></li>
-                             <li class="page-item mr-2 ${page.number == (page.totalPages-1)?'disabled':'' }"><button ng-click="pager.next()" 
-                                 class="btn page-link btn-light"><span
-                                     class="fa fa-angle-right"
-                                     style="color: rgb(52,58,64); font-size: 20px;"></span></button></li>
-                             <li class="page-item mr-2 ${page.number == (page.totalPages-1)?'disabled':'' }"><button ng-click="pager.last()" 
-                                 class="btn page-link btn-light"><span
-                                     class="fa fa-angle-double-right"
-                                     style="color: rgb(52,58,64); font-size: 20px;"></span></button></li>
-                     </ul>
-                      -->
                  </div>
             </div>
 		</div>

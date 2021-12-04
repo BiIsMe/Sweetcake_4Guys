@@ -22,10 +22,6 @@ public class ProductServiceImp implements ProductService {
 		return pdao.findAll();
 	}
 
-	@Override
-	public Product findById(Integer id) {
-		return pdao.findById(id).get();
-	}
 
 	@Override
 	public List<Product> findAllByCate(String cid) {

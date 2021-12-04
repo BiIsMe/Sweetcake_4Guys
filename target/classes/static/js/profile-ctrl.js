@@ -1,44 +1,65 @@
 app.controller("profile-ctrl",function($scope,$http){
-	$scope.districts = [];
-
-	//initial
-	$scope.initial = function(){
-		//load dist
-		$http.get("/rest/district").then(resp => {
-			$scope.districts = resp.data;
-
-		})		
-	}
 	
-	$scope.initial();
+	$scope.currentPass = '';
+	$scope.newPass = '';
+	$scope.confirmPass = '';
 	
-	//update dist
-	$scope.updateDist = function(item){
-		var ok = confirm("Do you want to change value of "+item.name);
+	$scope.updateInfor = function(){
+		var user = angular.copy(this.indexUser);
+		var id = user.username;
+		//var year = this.indexUser.dob.getFullYear();
+		var ageDifMs = Date.now() - this.indexUser.dob.getTime();
+    	var ageDate = new Date(ageDifMs); // miliseconds from epoch
+   		var result = Math.abs(ageDate.getUTCFullYear() - 1970);
+		if(result < 18){
+			alert("The user must be >= 18 ys");
+			document.getElementById("dob").focus();
+			return;
+		}
+
+		var ok = confirm("Do you want to update your information ?")
 		if(ok){
-			$http.put(`/rest/district/${item.id}`,item).then(resp => {
-				var index = $scope.districts.findIndex(dist => dist.id = item.id);
-				$scope.districts[index] = item;
-				alert("success");
+			$http.put(`/rest/account/staff/${id}`,user).then(resp => {
+				alert("update infor successfully");
+				this.indexUser = resp.data;
+				$scope.indexName = resp.data.fullname;
+				location.reload();
 			}).catch(error => {
 				alert("fail");
-				console.log("Error :",error);
+				console.log("Error : "+error);
 			});
 		}
 	}
 	
-	
-	
-	$scope.order = {
-		ship : '',
+	$scope.changePass = function(){
+		var oldP = this.currentPass;
+		var newP = this.newPass;
+		if(oldP != this.indexUser.password){
+			alert("The Current Password is not correct !");
+			document.getElementById("current").focus();
+		}
+		else{
+			$scope.indexUser.password = newP;
+			var ok = confirm("Do you want to change your password ?")
+			if(ok){
+				$http.put(`/rest/account/staff/${this.indexUser.username}`, this.indexUser).then(resp =>{
+					alert("change pass successfully");
+					location.reload();
+				}).catch(error => {
+				alert("fail");
+				console.log("Error : "+error);
+			});
+			}
+		}
 	}
 	
-	$scope.change = function(){
-		var id = $scope.order.quan.id;
-		alert(id);
-		$http.get(`/rest/district/${id}`).then(resp => {
-			$scope.order.ship = resp.data.shipfee;
-		})
+	
+	$scope.reset = function(){
+		this.currentPass = '';
+		this.newPass = '';
+		this.confirmPass = '';
 	}
+	
+	
 	
 });

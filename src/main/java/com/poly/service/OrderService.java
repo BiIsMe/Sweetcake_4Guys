@@ -13,6 +13,9 @@ public interface OrderService {
 
 	List<Order> findByUser(String username);
 
+	public void save(Order order);
+
+
 
 
 }

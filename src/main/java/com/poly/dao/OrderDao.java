@@ -9,6 +9,8 @@ import com.poly.entity.Chart;
 import com.poly.entity.Order;
 
 public interface OrderDao extends JpaRepository<Order, Long> {
+	@Query("select o from Order o where o.account.username=?1 order by o.id desc")
+	List<Order> findByUsername(String username);
 
 	@Query("select o from Order o where o.account.username=?1 order by o.id desc")
 	List<Order> findByUser(String username);

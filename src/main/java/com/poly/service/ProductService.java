@@ -11,8 +11,6 @@ public interface ProductService {
 
 	List<Product> findAll();
 
-	Product findById(Integer id);
-
 	List<Product> findAllByCate(String cid);
 
 	Page<Product> findAllByCate(String string, Pageable pageable);

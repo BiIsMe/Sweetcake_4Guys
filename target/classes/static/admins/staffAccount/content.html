@@ -183,7 +183,7 @@
 			       	 			<label >Username</label>
 			       	 			<input ng-model="form.username" name="username" type="email" class="form-control" required id="id"/>
 			       	 			<span ng-show="myform.username.$touched && myform.username.$invalid" style="color:brown">
-							  		Please input by email type
+							  		<i>Please input by email type</i>
 						  		</span>
 			       	 		</div>
 			       	 	 </div>
@@ -192,7 +192,7 @@
 			       	 			<label >Full Name</label>
 			       	 			<input ng-model="form.fullname" name="name" type="text" class="form-control" required/>
 			       	 			<span ng-show="myform.name.$touched && myform.name.$invalid" style="color:brown">
-							  		Please input the Full Name
+							  		<i>Please input the Full Name</i>
 						  		</span>
 			       	 		</div>
 			       	 	 </div>    	 		    
@@ -204,10 +204,10 @@
 			       	 			<label>Password</label>
 			       	 			<input ng-model="form.password" name="password" type="password" class="form-control" required minlength="8"/>
 			       	 			<span ng-show="myform.password.$touched && myform.password.$error.required" style="color:brown">
-							  		Please input the Password
+							  		<i>Please input the Password</i>
 						  		</span>
 						  		<span ng-show="myform.password.$touched && myform.password.$error.minlength" style="color:brown">
-							  		The min-length is 8
+							  		<i>The min-length is 8</i>
 						  		</span>
 			       	 		</div>
 			       	 	 </div>

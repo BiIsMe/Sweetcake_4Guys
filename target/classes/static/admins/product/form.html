@@ -20,7 +20,7 @@
 							<label for="">Name</label>
 							<input ng-model="form.name" name="name" type="text" class="form-control" required/>
 							<span ng-show="myform.name.$touched && myform.name.$invalid" style="color:brown">
-							  		Please input the Name
+							  	<i>Please input the Name</i>	
 					  		</span>
 						</div>
 						
@@ -28,10 +28,10 @@
 							<label for="">Price</label>
 							<input ng-model="form.price" type="number" name="price" class="form-control" min="10000" step="1000" required/>
 							<span ng-show="myform.price.$touched && myform.price.$error.required" style="color:brown">
-							  		Please input the Price
+							  		<i>Please input the Price</i>
 					  		</span>
 					  		<span ng-show="myform.price.$touched && myform.price.$error.min" style="color:brown">
-						  		Min price is 10,000
+						  		<i>Min price is 10,000</i>
 					  		</span>
 						</div>
 					</div>
@@ -48,7 +48,7 @@
 								<option ng-repeat="c in category" ng-value="c.id">{{c.name}}</option>
 							</select>
 							<span ng-show="myform.category.$touched && myform.category.$invalid" style="color:brown">
-							  		Please select the Category
+							  		<i>Please select the Category</i>
 					  		</span>
 						</div>
 					</div>
@@ -58,10 +58,10 @@
 							<label for="">Quantity</label>
 							<input ng-model="form.quantity" type="number" min=0 name="quantity" class="form-control" required/>
 							<span ng-show="myform.quantity.$touched && myform.quantity.$error.required" style="color:brown">
-							  		Please input the Quantity
+							  		<i>Please input the Quantity</i>
 					  		</span>
 					  		<span ng-show="myform.quantity.$touched && myform.quantity.$error.min" style="color:brown">
-						  		Min Quantity is 0
+						  		<i>Min Quantity is 0</i>
 					  		</span>
 						</div>
 						

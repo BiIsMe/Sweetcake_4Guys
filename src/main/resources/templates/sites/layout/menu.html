@@ -1,0 +1,87 @@
+<div xmlns:th="http://www.thymeleaf.org">
+	<header class="main_header_area five_header">
+		<div class="top_header_area row m0">
+			<div class="container">
+				<div class="float-left">
+					<a href="tell:+18004567890"><i class="fa fa-phone"
+						aria-hidden="true"></i> 0988 789 789</a> <a
+						href="mainto:info@cakebakery.com"><i class="fa fa-envelope-o"
+						aria-hidden="true"></i> 4Guys@sweetcake.com</a>
+				</div>
+				<div class="float-right">
+					<ul class="h_social list_style">
+						<li
+							style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;"> [[${#request.remoteUser}]]</li>
+					</ul>
+					<ul class="h_search list_style">
+						<li><a class="nav-link mt-1" th:href="@{/cart/view}"> <span
+								class="lnr lnr-cart" style="font-size: 22px;"> <sup><span
+										class="badge badge-pill badge-secondary"
+										style="margin-left: -12px;">{{cart.count}}</span></sup>
+							</span>
+						</a></li>
+						<li><a class="popup-with-zoom-anim" href="#test-search"><i
+								class="fa fa-search"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="main_menu_two">
+			<div class="container">
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+					<a class="navbar-brand" th:href="@{/layout/show}"><img
+						src="/sitetemp/img/logo-2.png" alt=""></a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse"
+						data-target="#navbarSupportedContent"
+						aria-controls="navbarSupportedContent" aria-expanded="false"
+						aria-label="Toggle navigation">
+						<span class="my_toggle_menu"> <span></span> <span></span> <span></span>
+						</span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav justify-content-end">
+							<li class="submenu active"><a th:href="@{/sweetcake.com/product/list}"
+								role="button" aria-haspopup="true" aria-expanded="false" style="font-size: large;font-weight: bold;">Menu</a>
+							</li>
+							<li><a th:href="@{/sweetcake.com/sub/aboutUs}">Giới Thiệu</a></li>
+							<li class="dropdown submenu"><a class="dropdown-toggle"
+								data-toggle="dropdown" href="#" role="button"
+								aria-haspopup="true" aria-expanded="false">Sản phẩm</a>
+								<ul class="dropdown-menu">
+									<li th:each="c:${cates}"><a 
+										th:href="@{|/sweetcake.com/product/list?cid=${c.id}|}">[[${c.name}]]</a></li>
+								</ul></li>
+							<li class="dropdown submenu"><a class="dropdown-toggle"
+								data-toggle="dropdown" href="#" role="button"
+								aria-haspopup="true" aria-expanded="false">Blog</a>
+								<ul class="dropdown-menu">
+									<li><a href="blog.html">Bánh ngọt xưa và nay</a></li>
+									<li><a href="blog-2column.html">Hướng dẫn làm bánh</a></li>
+									<li><a href="single-blog.html">Tin tức</a></li>
+								</ul></li>
+
+							<li><a th:href="@{/sweetcake.com/sub/contact}">Liên hệ</a></li>
+							<li class="dropdown submenu"><a class="dropdown-toggle"
+								data-toggle="dropdown" href="#" role="button"
+								aria-haspopup="true" aria-expanded="false"><i
+									class="far fa-user-circle"></i> Tài Khoản </a>
+								<ul class="dropdown-menu">
+									<li th:if="${#request.isUserInRole('CUST')}"> 
+									<a th:href="@{/sweetcake.com/account/profile}">Thông tin</a></li>
+									<li th:if="${#request.isUserInRole('DIRE') or #request.isUserInRole('STAFF')}"> 
+									<a th:href="@{/admin/home}">Administration</a></li>
+									<li th:unless="${#request.remoteUser}"><a th:href="@{/security/login/form}">Đăng nhập</a></li>
+									<li><a th:href="@{/cart/view}">Giỏ hàng</a></li>
+									<li th:if="${#request.remoteUser}"><a th:href="@{/order/list}">Đơn hàng đã mua</a></li>
+									<li th:if="${#request.remoteUser}"><a th:href="@{/security/logoff}">Đăng xuất</a></li>
+
+								</ul></li>
+
+
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</div>
+	</header>
+</div>

@@ -11,4 +11,8 @@ public interface AccountDao extends JpaRepository<Account, String> {
 
 	@Query("select a from Account a where a.role = ?1")
 	List<Account> findByRole(String role);
+
+	Account findByUsername(String username);
+
+
 }

@@ -49,6 +49,12 @@ public class OrderServiceImp implements OrderService {
 	public List<Order> findByUser(String username) {
 		return dao.findByUser(username);
 	}
+
+	@Override
+	public void save(Order order) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

@@ -36,14 +36,12 @@ public class Coupon implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date createdate;
 	private Boolean category;
+	private String customerid;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "coupon")
 	private List<Order> orders;
 	
-	@ManyToOne
-	@JoinColumn(name = "customerid")
-	private Account account;
 	
 	
 }

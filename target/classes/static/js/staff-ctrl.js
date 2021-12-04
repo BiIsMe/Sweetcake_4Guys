@@ -38,7 +38,7 @@ app.controller("staff-ctrl",function($scope,$http){
 	$scope.createStaff = function(){
 		$scope.form.active = true;
 		$scope.form.dob = new Date();
-		$scope.form.role = 'Staff';
+		$scope.form.role = 'STAFF';
 		var item = angular.copy(this.form);
 		var flag = true;
 		$scope.staffs.forEach(s => {

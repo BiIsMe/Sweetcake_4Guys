@@ -140,7 +140,7 @@
 	 						
 	 						<div ng-show="!item.category" class="col-sm-3 mr-4 ml-4">
 	 							<label for="">For Customer</label>
-								<select ng-model="item.account.username" class="form-control">
+								<select ng-model="item.customerid" class="form-control">
 									<option ng-repeat="c in customers" ng-value="c.username">{{c.username}}</option>
 								</select>
 	 						</div>
@@ -209,10 +209,10 @@
 			       	 			<label >Code</label>
 			       	 			<input ng-model="form.code" name="code" type="text" class="form-control" required minlength="5" id="id"/>
 			       	 			<span ng-show="myform.code.$touched && myform.code.$error.required" style="color:brown">
-							  		Please input the Code
+							  		<i>Please input the Code</i>
 						  		</span>
 						  		<span ng-show="myform.code.$touched && myform.code.$error.minlength" style="color:brown">
-							  		The min-length is 5
+							  		<i>The min-length is 5</i>
 						  		</span>
 			       	 		</div>
 			       	 	 </div>

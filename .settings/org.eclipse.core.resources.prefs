@@ -1,6 +1,12 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
+
 encoding//src/main/resources/static/admins/statistic/detail.html=UTF-8
+
+encoding//src/main/resources/templates/sites/layout/index.html=UTF-8
+encoding//src/main/resources/templates/sites/layout/menu.html=UTF-8
+encoding//src/main/resources/templates/sites/layout/show.html=UTF-8
+>>>>>>> e0d3e4a3a4da9e542aa9f0d10fe96b442d3061f6
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8
